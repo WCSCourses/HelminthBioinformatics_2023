@@ -27,7 +27,7 @@ http://swcarpentry.github.io/shell-novice/
 [Course website](https://coursesandconferences.wellcomeconnectingscience.org/event/helminth-bioinformatics-asia-20230521/)
 
 ### Introductory materials
-You may find a short online course on **Introduction to Genomics** beneficial for a quick recap and preparation. The course was designed specifically for the participants of Helminth Bioinformatics course, but is open for all. The course is on [KKUMedX online-learning platform](https://kkumedx.md.kku.ac.th/index/home2.php?p=courses&course_id=117). The instruction on how to register is available [here](https://kkumedx.md.kku.ac.th/one_page.php?p=register).  
+You may find a short online course on **Introduction to Genomics** beneficial for a quick recap and preparation. The course was designed specifically for the participants of Helminth Bioinformatics course, but is open for all. The course is on [KKUMedX online-learning platform](https://kkumedx.md.kku.ac.th/index/home2.php?p=courses&course_id=117). The instruction on how to register is available [here](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/Introductory%20materials/How%20to%20register%20for%20Intro%20to%20Genomics%20course%20on%20KKUMedX.pdf).  
 
 - https://swcarpentry.github.io/shell-novice/
 - https://www.shellcheck.net/
