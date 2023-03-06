@@ -1,7 +1,8 @@
  ![](https://coursesandconferences.wellcomeconnectingscience.org/wp-content/themes/wcc_courses_and_conferences/dist/assets/svg/logo.svg)
 
 
-# Helminth Bioinformatics (21 - 26 May 2023, Khon Kaen University, Thailand)
+# Helminth Bioinformatics 
+21 - 26 May 2023, Khon Kaen University, Thailand. 
 Practical hands-on training in helminth genome analysis.
 
 ## Course overview
