@@ -2,7 +2,7 @@
 
 
 # Helminth Bioinformatics 
-# 21 - 26 May 2023, Khon Kaen University, Thailand.    
+## 21 - 26 May 2023, Khon Kaen University, Thailand.    
 Practical hands-on training in helminth genome analysis.
 
 ## Course overview
