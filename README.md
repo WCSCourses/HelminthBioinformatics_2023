@@ -1,7 +1,7 @@
  ![](https://coursesandconferences.wellcomeconnectingscience.org/wp-content/themes/wcc_courses_and_conferences/dist/assets/svg/logo.svg)
 
 
-# Helminth Bioinformatics (Asia) (Virtual)
+# Helminth Bioinformatics (21 - 26 May 2023, Khon Kaen University, Thailand)
 Practical hands-on training in helminth genome analysis.
 
 ## Course overview
@@ -14,7 +14,7 @@ The Helminth Bioinformatics course aims to equip participants with the skills ne
 ### Target audience
 The programme is aimed at researchers at various levels including Senior Research Assistants, PhD Students, Postdoctoral Researchers, Laboratory Scientists and Clinical Scientists.
 
-This week-long course is free to attend and open to applicants based in Asia involved in helminth-related research. The course will be taught in English.
+This week-long course is free to attend and open to applicants that are based in Asia involved in helminth-related research. The course will be taught in English.
 
 ### Prerequisites
 The practical computational sessions will be taught exclusively through Unix/Linux. Participants should have some familiarity with the Linux operating system. This will allow participants to fully benefit from the course. There are numerous online introductory tutorials to the UNIX/Linux operating system and command line, including:
@@ -23,37 +23,42 @@ https://www.futurelearn.com/courses/linux-for-bioinformatics
 http://www.ee.surrey.ac.uk/Teaching/Unix
 http://swcarpentry.github.io/shell-novice/
 
-[Course website](https://coursesandconferences.wellcomeconnectingscience.org/event/helminth-bioinformatics-asia-virtual-20210628/)
+[Course website](https://coursesandconferences.wellcomeconnectingscience.org/event/helminth-bioinformatics-asia-20230521/)
 
 ### Introductory meterials
 You may find a short online course on **Introduction to Genomics** beneficial for a quick recap and preparation. The course was designed specifically for the participants of Helminth Bioinformatics course, but is open for all. The course is on [KKUMedX online-learning platform](https://kkumedx.md.kku.ac.th/). The instruction on how to register is available [here](https://github.com/WGCAdvancedCourses/Helminths_2021/blob/main/Introductory%20materials/How%20to%20register%20for%20Intro%20to%20Genomics%20course%20on%20KKUMedX.pdf).  
 
 ## Instructors
-- [Anna Protasio](https://www.path.cam.ac.uk/directory/anna-protasio), University of Cambridge, UK
 - [Arporn (Koi) Wangwiwatsin](https://www.researchgate.net/profile/Arporn-koi-Wangwiwatsin), Khon Kaen University, Thailand
-- [Faye Rodgers](https://www.researchgate.net/scientific-contributions/Faye-H-Rodgers-2142579817), Wellcome Sanger Institute, UK
-- [Heerman Kumar](https://www.researchgate.net/profile/Heerman-Kumar-Sandra-Kumar-2), Monash University, Malaysia
-- [Isheng Jason Tsai](https://www.biodiv.tw/pi.php?submitStr=20210203203919&lang=en), Academia Sinica, Taiwan
-- [Kevin Howe](https://www.ebi.ac.uk/about/people/kevin-howe), EBI, UK
-- [Martin Aslett](https://coursesandconferences.wellcomeconnectingscience.org/about-us/the-team/), WGC Advanced Courses, UK
-- [Matt Berriman](https://www.sanger.ac.uk/person/berriman-matt/), Wellcome Sanger Institute, UK
-- [Sarah Geiger](https://www.linkedin.com/in/sarah-geiger-8b8681105/), National University of Singapore (NUS) & Genome Institute of Singapore (GIS)
 - [Steve Doyle](https://www.sanger.ac.uk/person/doyle-stephen/), Wellcome Sanger Institute, UK
-- [Jutarop Phetcharaburanin](http://www.jutarop.com/), Khon Kaen University, Thailand
-- Sirinya Sitthirak, Khon Kaen University, Thailand
 
+- [Matt Berriman](https://www.gla.ac.uk/research/az/wcip/research/researchleaders/berrimangroup/), University of Glasgow, UK
+- [Dionysis Grigoriadis](https://www.ebi.ac.uk/people/person/dionysios-grigoriadis/), 
+- [Siriyakorn Kulwong](https://www.linkedin.com/in/siriyakorn-kulwong-4958a3264/), Khon Kaen University, Thailand
+- [Marina Papaiakovou](https://www.vet.cam.ac.uk/staff/marina-papaiakovou), University of Cambridge, UK
+- [Sirinya Sittirak](), Khon Kaen University, Thailand
+- [Isheng Jason Tsai](https://www.biodiv.tw/pi.php?submitStr=20210203203919&lang=en), Academia Sinica, Taiwan
+
+
+
+TBC
+- [Heerman Kumar](https://www.researchgate.net/profile/Heerman-Kumar-Sandra-Kumar-2), Monash University, Malaysia
+- [Sarah Geiger](https://www.linkedin.com/in/sarah-geiger-8b8681105/), National University of Singapore (NUS) & Genome Institute of Singapore (GIS)
+- [Martin Aslett](https://coursesandconferences.wellcomeconnectingscience.org/about-us/the-team/), WGC Advanced Courses, UK
 
 
 ## Timetable
 ### Overview
+- Sunday
+     - Welcome session
+     - Public Engagement Part 1
 - Monday
      - WormBase Parasite 1
      - Unix Scripting
 - Tuesday
      - WormBase Parasite 2
-     - Project Introduction and Planning
-- Wednesday
      - R and RStudio
+- Wednesday
      - Genome Variation
 - Thursday
      - Transcriptomics
@@ -61,7 +66,7 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
      - Project & presentations
 
 ### Detailed timetable
-[Download here](Helminth_Bioinformatics_timetable_2021.pdf)
+-TODO [Download here]()
 
 
 ## Course manual
