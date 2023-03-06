@@ -30,11 +30,11 @@ http://swcarpentry.github.io/shell-novice/
 You may find a short online course on **Introduction to Genomics** beneficial for a quick recap and preparation. The course was designed specifically for the participants of Helminth Bioinformatics course, but is open for all. The course is on [KKUMedX online-learning platform](https://kkumedx.md.kku.ac.th/). The instruction on how to register is available [here](https://github.com/WGCAdvancedCourses/Helminths_2021/blob/main/Introductory%20materials/How%20to%20register%20for%20Intro%20to%20Genomics%20course%20on%20KKUMedX.pdf).  
 
 ## Instructors
-- [Arporn (Koi) Wangwiwatsin](https://www.researchgate.net/profile/Arporn-koi-Wangwiwatsin), Khon Kaen University, Thailand
-- [Steve Doyle](https://www.sanger.ac.uk/person/doyle-stephen/), Wellcome Sanger Institute, UK
+- [Arporn (Koi) Wangwiwatsin](https://www.researchgate.net/profile/Arporn-koi-Wangwiwatsin)(co-lead), Khon Kaen University, Thailand
+- [Steve Doyle](https://www.sanger.ac.uk/person/doyle-stephen/)(co-lead), Wellcome Sanger Institute, UK
 
 - [Matt Berriman](https://www.gla.ac.uk/research/az/wcip/research/researchleaders/berrimangroup/), University of Glasgow, UK
-- [Dionysis Grigoriadis](https://www.ebi.ac.uk/people/person/dionysios-grigoriadis/), 
+- [Dionysis Grigoriadis](https://www.ebi.ac.uk/people/person/dionysios-grigoriadis/), EMBL-EBI, UK
 - [Siriyakorn Kulwong](https://www.linkedin.com/in/siriyakorn-kulwong-4958a3264/), Khon Kaen University, Thailand
 - [Marina Papaiakovou](https://www.vet.cam.ac.uk/staff/marina-papaiakovou), University of Cambridge, UK
 - [Sirinya Sittirak](), Khon Kaen University, Thailand
