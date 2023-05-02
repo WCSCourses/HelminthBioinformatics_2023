@@ -294,6 +294,8 @@ There are two other _Brugia sp._ genome assemblies in WormBase ParaSite, which a
 
 ## BioMart <a name="biomart"></a>
 
+### $\textcolor{red}{\textsf{DG: Gprofiler from a gene-set obtained from BioMart?}}$
+
 BioMart is an extremely powerful tool that allows you to query WormBase ParaSite data in bulk, with no programming knowledge. Consider the information that we gathered on our _O. viverrini_ gene of interest, by clicking around the gene page. Now imagine that rather than having one gene of interest, we actually have a list of 100 genes. That would be a lot of clicking around on gene pages! BioMart allows you to output all of this data for multiple genes in a few clicks.
 
 Retrieving data for a list of known genes isn’t the only thing that BioMart can do. In this section, we’ll go through a series of examples and exercises that aim to illustrate the power of this tool. 
