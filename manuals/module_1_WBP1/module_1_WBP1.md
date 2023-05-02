@@ -63,6 +63,8 @@ An AGP file is often also provided, describing how the contigs fit together as s
 
 [↥ **Back to top**](#top)
 
+#### $\textcolor{red}{\textsf{DG: For me it would make sense to re-order and start from Genomes and then go to genes.}}$
+
 ## Looking at genes in WormBase ParaSite <a name="wbps_genes"></a>
 WormBase ParaSite takes sequence data from INSDC (a genome assembly and a set of gene predictions) and adds additional analyses that assist scientists in interpreting and querying this data. In this part of the module we will explore the basic functionality of the website for looking at helminth genes and genomes. 
 
