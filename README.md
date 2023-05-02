@@ -34,8 +34,8 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
 
 
 ## Instructors
-- [Arporn (Koi) Wangwiwatsin](https://www.researchgate.net/profile/Arporn-koi-Wangwiwatsin)(co-lead), Khon Kaen University, Thailand
-- [Steve Doyle](https://www.sanger.ac.uk/person/doyle-stephen/)(co-lead), Wellcome Sanger Institute, UK
+- [Arporn (Koi) Wangwiwatsin](https://www.researchgate.net/profile/Arporn-koi-Wangwiwatsin) (co-lead), Khon Kaen University, Thailand
+- [Steve Doyle](https://www.sanger.ac.uk/person/doyle-stephen/) (co-lead), Wellcome Sanger Institute, UK
 
 - [Matt Berriman](https://www.gla.ac.uk/research/az/wcip/research/researchleaders/berrimangroup/), University of Glasgow, UK
 - [Dionysis Grigoriadis](https://www.ebi.ac.uk/people/person/dionysios-grigoriadis/), EMBL-EBI, UK
