@@ -40,16 +40,12 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
 - [Matt Berriman](https://www.gla.ac.uk/research/az/wcip/research/researchleaders/berrimangroup/), University of Glasgow, UK
 - [Dionysis Grigoriadis](https://www.ebi.ac.uk/people/person/dionysios-grigoriadis/), EMBL-EBI, UK
 - [Siriyakorn Kulwong](https://www.linkedin.com/in/siriyakorn-kulwong-4958a3264/), Khon Kaen University, Thailand
+- [Heerman Kumar](https://www.researchgate.net/profile/Heerman-Kumar-Sandra-Kumar-2), Monash University, Malaysia
+- [Yi-Chien Lee](), Academia Sinica, Taiwan
 - [Marina Papaiakovou](https://www.vet.cam.ac.uk/staff/marina-papaiakovou), University of Cambridge, UK
 - [Sirinya Sittirak](), Khon Kaen University, Thailand
 - [Isheng Jason Tsai](https://www.biodiv.tw/pi.php?submitStr=20210203203919&lang=en), Academia Sinica, Taiwan
 
-
-
-TBC
-- [Heerman Kumar](https://www.researchgate.net/profile/Heerman-Kumar-Sandra-Kumar-2), Monash University, Malaysia
-- [Sarah Geiger](https://www.linkedin.com/in/sarah-geiger-8b8681105/), National University of Singapore (NUS) & Genome Institute of Singapore (GIS)
-- [Martin Aslett](https://coursesandconferences.wellcomeconnectingscience.org/about-us/the-team/), WGC Advanced Courses, UK
 
 
 ## Timetable
