@@ -16,6 +16,9 @@
 4. [The WormBase ParaSite Expression browser](#expression_data)
       * [EXERCISE](#expression_exercise)
 
+### $\textcolor{red}{\textsf{DG: We could add the gProfiler Gene-set enrichment analysis tool underneath the expression browser as it got lots of questions from the audience in Brazil}}$
+### $\textcolor{red}{\textsf{DG: Update screenshots}}$
+
 ## Overview and Aims <a name="aims"></a>
 
 In this module, we return to WormBase ParaSite. We will start by looking at three commonly-used tools in WBPS: BLAST, JBrowse (a genome browser), and the Variant Effect Predictor (VEP). We will then go on to apply some of the command line skills that you were introduced to in module 2 to explore WormBase ParaSite data programmatically. Finally, the module ends with a Bonus section introducing our Expression browser.
@@ -292,6 +295,8 @@ KI657455        WormBase_imported       CDS     25      277     .       -       
 Finally, we provide a TSV (tab-separated variable) file for each genome containing calculated ortholog and paralog relationships for all genes in the genome.
 
 #### Walk through examples
+
+### $\textcolor{red}{\textsf{DG: Make sure the commands work}}$
 
 ```wget``` is a handy utility for retrieving files from an FTP site. The following will pull down the _Necator americanus_ GFF3 file into your working directory:
 
