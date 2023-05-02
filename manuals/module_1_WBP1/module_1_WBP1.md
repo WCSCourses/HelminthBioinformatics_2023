@@ -16,6 +16,8 @@
 5. [BioMart](#biomart)
     * [EXERCISE](#biomart_exercise)
 
+### $\textcolor{red}{\textsf{DG: Update screenshots}}$
+
 ## Overview and Aims <a name="intro"></a>
 In this first module we'll start by reviewing the basics on genes and genomes: what they are, how we represent and talk about them, and how we go from a DNA sequence- a string of letters- to making predictions about gene function. We'll look at this in the context of WormBase ParaSite (which you might also see referred to as WBPS) and other online database resources. 
 
@@ -142,6 +144,8 @@ How we do go from a string of amino acids to predicting what this protein might 
 
 For the vast majority of predicted protein sequences, nobody will have done experiments to test what its function is. However, we can use the principle of **homology** to take proteins that are well-studied in one experimental system and infer that proteins of similar sequence in other organisms are likely to have similar structure, and therefore similar function. In reality, protein sequences are analysed in terms of domains: these are subsequences of a protein that have a defined tertiary structure or sequence motif, conferring a defined function. A protein can consist of several domains. When comparing proteins between organisms, often the region encoding a protein domain is highly conserved whilst the bit that connects different domains together is more divergent.
 
+### $\textcolor{red}{\textsf{DG: Update: PFAM is retired now, also do we really need this next section? We could replace with an AlphaFold section}}$
+
 A well known example of a protein domain database is [Pfam](http://pfam.xfam.org/). Pfam uses multiple sequence alignments of the known proteins with a certain domain to capture a representative model (a profile Hidden Markov Model) of that domain. Other protein domain databases, that might use slightly different methods to define domains, are:  CATH, CDD, HAMAP, MobiDB Lite, Panther, PIRSF, PRINTS, Prosite, SFLD, SMART, SUPERFAMILY and TIGRfams. Luckily for us, all of these databases are united under the [InterPro](https://www.ebi.ac.uk/interpro/) consortium .
 
 InterPro provide a tool, InterProScan, that we can use to search protein sequences against all of the member databases to identify any protein domains that the protein might have:
@@ -231,6 +235,8 @@ WormBase ParaSite uses a computational pipeline developed by the [Ensembl](https
 5. For each family, a phylogenetic tree is built (using TreeBeST5). Tree building is guided by a species phylogenetic tree.
 6. Orthologues and paralogues are called on the basis of the resulting tree: any two genes separated by speciation events are orthologs, and any two genes in the same species separated by a duplication event are paralogues.
 
+### $\textcolor{red}{\textsf{DG: Multiple genome alignments?}}$
+
 [↥ **Back to top**](#top)
 
 #### Gene page exercise <a name="gene_page_exercise"></a>
@@ -274,8 +280,10 @@ The information in this box tells us about two metrics related to the quality of
 
 In the “Assembly statistics” widget, the circumference of the circle represents the whole genome assembly, with scaffolds ordered from longest to shortest. The diameter of the grey colour represents the length of the scaffold represented at each point of the circle. The light grey shading represents the N90 scaffold, whilst the dark grey shading represents the N50 scaffold. The light blue outer ring shows the GC/AT/N percentage of the scaffold.
 
+### $\textcolor{red}{\textsf{DG: Check numbers}}$
 Mouse over the widget to explore the number of scaffolds contributing to the genome. You should see that the N50 length (14.2 Mb) is the third longest scaffold, and the N90 length (13.5 Mb) is the fifth longest scaffold.
 
+### $\textcolor{red}{\textsf{DG: CEGMA is retired. Update BUSCO text}}$
 CEGMA and BUSCO are two (similar) methods of assessing genome completeness. They are based on the principle that some genes are so highly conserved across eukaryotic species that they should be present in any genome assembly, in single copy. Generally speaking, a higher percentage of complete CEGMA genes, or single BUSCO genes, indicates a higher quality assembly. A word of warning though: CEGMA and BUSCO scores can be misleading for certain taxonomic groups. Although the genes are selected because they are supposed to be universally conserved, this is not always the case. Platyhelminth genomes tend to have lower CEGMA and BUSCO scores; this is not necessarily because the genomes are lower quality, but because some highly conserved eukaryotic genes are truly absent from this group of organisms.
 
 #### Genome assembly metrics exercise <a name="genomes_exercise"></a>
@@ -345,6 +353,8 @@ BioMart lets us generate two types of output: data tables, and sequence (FASTA) 
 [↥ **Back to top**](#top)
 
 #### BioMart exercise <a name="biomart_exercise"></a>
+
+### $\textcolor{red}{\textsf{DG: Add an AlphaFold-related question}}$
 
 Using the following _S. ratti_  gene **names** (note: names, not stable IDs) to answer questions 1-5:
 
