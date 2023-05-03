@@ -69,7 +69,7 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
      - Public Engagement Event
 
 ### Detailed timetable
--TODO [Download here]()
+-TODO [Download here](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/Helminth%20Bioinformatics%20Timetable%20and%20Planning%20Mastersheet%20-%20Helminth%20Bio%202023%20Timetable.pdf)
 
 
 ## Course manual
