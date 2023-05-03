@@ -72,7 +72,9 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
 -TODO [Download here](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/Helminth%20Bioinformatics%20Timetable%20and%20Planning%20Mastersheet%20-%20Helminth%20Bio%202023%20Timetable.pdf)
 
 
-## Course manual
+## [Course manual](https://wcscourses.github.io/HelminthBioinformatics_2023/)
+- https://wcscourses.github.io/HelminthBioinformatics_2023/
+
 **Module 1 - WormBase Parasite 1**  
      - [Introductory presentation](presentations/)  
      - [Online manual](manuals/module_1_WBP1/module_1_WBP1.md)  
