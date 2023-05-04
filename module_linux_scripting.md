@@ -22,6 +22,7 @@ output:
 9. [UNIX quick reference guide](#quick_ref)
 
 ---
+
 <br>
 <br>
 
@@ -143,6 +144,7 @@ cd /home/manager/Module2_Linux_Scripting
      - Many of them are two- or three-letter abbreviations. The earliest Linux systems (circa 1970) only had slow Teletype terminals, so it was faster to type 'rm' to remove a file than 'delete' or 'erase'. This terseness is a feature of Linux which still survives.   
 
 ---
+
 <br>
 <br>
 
@@ -189,6 +191,7 @@ $ ls –ltr
 ![](figures/04_ls_long.png)
 
 ---
+
 <br>
 <br>
 
@@ -207,6 +210,7 @@ $ ls –ltr
 
 ---
 [↥ **Back to top**](#top)
+
 <br>
 <br>
 
@@ -222,6 +226,7 @@ $ ls –ltr
 - Therefore, if there is a file called *genome.seq* in the dna directory its location or full pathname can be expressed as */nfs/dna/genome.seq*.
 
 ---
+
 <br>
 <br>
 
@@ -246,6 +251,7 @@ $ pwd
      - More on that shortly ...
 
 ---
+
 <br>
 <br>
 
@@ -290,6 +296,7 @@ $ ls ~
 
 ```
 ---
+
 <br>
 <br>
 
@@ -303,6 +310,7 @@ $ ls ~
      - This saves a lot of typing and typos.
 
 ---
+
 <br>
 <br>
 
@@ -320,6 +328,7 @@ $ ls -lrt
 ```
 
 ---
+
 <br>
 <br>
 
@@ -347,6 +356,7 @@ $ ls -lrt
 
 ```
 ---
+
 <br>
 <br>
 
@@ -367,6 +377,7 @@ $ ls -lrt
 - Unfortunately there is no "recycle bin" on the command line to recover the file from, so you have to be careful.
 
 ---
+
 <br>
 <br>
 
@@ -387,6 +398,7 @@ $ ls -lrt
 
 ---
 [↥ **Back to top**](#top)
+
 <br>
 <br>
 
@@ -415,6 +427,7 @@ $ less genome_1.gff
      - What is the start and end position of this gene?
 
 ---
+
 <br>
 <br>
 
@@ -447,6 +460,7 @@ $ tail –n 25 genome_1.gff
      - -n is such a common argument for tail and head that it even has a shorthand: -n 25 and -25 mean the same thing.
 
 ---
+
 <br>
 <br>
 
@@ -461,6 +475,7 @@ $ tail –n 25 genome_1.gff
 - Although tab completion works on commands and file names, unfortunately it rarely works on options or other arguments.
 
 ---
+
 <br>
 <br>
 
@@ -483,6 +498,7 @@ $ tail --help
 - There are several other useful commands that can be used to manipulate and summarise information inside files and we will introduce some of these next, *cat, sort, wc* and *uniq*.
 
 ---
+
 <br>
 <br>
 
@@ -500,6 +516,7 @@ $ head -1 genome_1.gff > first_genome_1_line.txt
 - Note that tab completion works for *genome_1.gff* because it exists but doesn't work for *first_genome_1_line.txt* because it doesn't exist yet.
 
 ---
+
 <br>
 <br>
 
@@ -529,6 +546,7 @@ $ ls -lrt
 ```
 
 ---
+
 <br>
 <br>
 
@@ -561,6 +579,7 @@ $ ls | grep ".gff" | wc -l
 ```
 
 ---
+
 <br>
 <br>
 
@@ -585,6 +604,7 @@ $ sort -k 2 -n genome_2.bed
      - Remember that you can type / followed by a search phrase, n to find the next search hit, N to find the previous search hit and q to exit.
 
 ---
+
 <br>
 <br>
 
@@ -612,6 +632,7 @@ $ awk '{ print $1 }' genome_2.bed | sort | uniq | less
 
 ```
 ---
+
 <br>
 <br>
 
@@ -626,6 +647,7 @@ $ awk '{ print $1 }' genome_2.bed | sort | uniq | less
 
 ---
 [↥ **Back to top**](#top)
+
 <br>
 <br>
 
@@ -699,6 +721,7 @@ $ grep chr1 gene_expression_sneaky.bed | grep “-”
 - We need a way to refine our searches further.
 
 ---
+
 <br>
 <br>
 
@@ -733,6 +756,7 @@ $ grep $‘^chr1\t’ gene_expression_sneaky.bed | grep ‘\-$’
 - Further, more complex examples of regular expressions and their use may be found in the reference guide at the end of this chapter.
 
 ---
+
 <br>
 <br>
 
@@ -771,6 +795,7 @@ $ grep -v $‘^chr1\t’ gene_expression_sneaky.bed
 ```
 
 ---
+
 <br>
 <br>
 
@@ -793,6 +818,7 @@ $ sed ‘s/^chr/chromosome/’ gene_expression.bed > gene_expression_new.bed
 
 ---
 [↥ **Back to top**](#top)
+
 <br>
 <br>
 
@@ -844,6 +870,7 @@ $ awk -F”\t” ‘{print $1}’ genes.gff
 - Try to modify the command to list each chromosome once only. (Hint: you’ll need to pipe your output into a Unix command we saw earlier.)
 
 ---
+
 <br>
 <br>
 
@@ -901,6 +928,7 @@ $ awk ‘!/repeat/’ genes.gff
 ```
 
 ---
+
 <br>
 <br>
 
@@ -930,6 +958,7 @@ $ awk -F"\t" 'NF<8 || NF>9' genes.gff
 ```
 
 ---
+
 <br>
 <br>
 
@@ -953,6 +982,7 @@ $ awk -F"\t" ''BEGIN{OFS="\t"} {$2="new_source"; print $0}' genes.gff
 ```
 
 ---
+
 <br>
 <br>
 
@@ -972,6 +1002,7 @@ $ awk -F"\t" ''BEGIN{OFS="\t"} {$2="new_source"; print $0}' genes.gff
 
 ---
 [↥ **Back to top**](#top)
+
 <br>
 <br>
 
@@ -1010,6 +1041,7 @@ $ while read -r chr start end name strand; do \
 
 ---
 [↥ **Back to top**](#top)
+
 <br>
 <br>
 
@@ -1047,6 +1079,7 @@ $ bash hello.sh
 ```
 
 ---
+
 <br>
 <br>
 
@@ -1104,6 +1137,7 @@ $ chmod +x myscript.sh
 - myscript.sh can now be edited using a text editor.
 
 ---
+
 <br>
 <br>
 
@@ -1138,6 +1172,7 @@ $ cat options_example2.sh
 - This may seem unimportant with a simple script but, as you write more complex scripts or adapt them to particular datasets, you will realise that setting meaningful variable names saves a lot of time.
 
 ---
+
 <br>
 <br>
 
@@ -1151,6 +1186,7 @@ $ cat options_example2.sh
 
 ---
 [↥ **Back to top**](#top)
+
 <br>
 <br>
 
@@ -1175,6 +1211,7 @@ $ cat options_example2.sh
 | find foo/ -name "*.gff" | find all the files with a gff extension in the directory foo/ |
 
 ---
+
 <br>
 <br>
 
@@ -1192,6 +1229,7 @@ $ cat options_example2.sh
 | awk '{print $1}' bar.bed \| sort \| uniq | show the unique entries in the first column |
 
 ---
+
 <br>
 <br>
 
@@ -1208,6 +1246,7 @@ $ cat options_example2.sh
 | grep -v foo bar.bed | don't show me any files with foo in them |
 
 ---
+
 <br>
 <br>
 
@@ -1224,6 +1263,7 @@ $ cat options_example2.sh
 | awk '/^foo/ {sum+=$2; count+=1} END {print sum/count}' bar.bed | print the average of the second value of lines starting with foo |
 
 ---
+
 <br>
 <br>
 
@@ -1266,6 +1306,7 @@ awk '(l<300 && $2>200000 && $3<250000) {l=($3-$2+1); print $0}' exercises.bed
 ```
 
 ---
+
 <br>
 <br>
 
@@ -1317,6 +1358,7 @@ fi
 ```
 
 ---
+
 <br>
 <br>
 
@@ -1332,6 +1374,7 @@ fi
 - **Google is an excellent resource.** Particularly prioritise results from stackoverflow.com, seqanswers.com and biostars.org.
 
 ---
+
 <br>
 <br>
 
@@ -1367,6 +1410,7 @@ awk '($1 == "contig-1" && $4 ~ /gene-/) {sum+=$5}; END {print sum}' bar.bed
 ```
 
 ---
+
 <br>
 <br>
 
@@ -1392,6 +1436,7 @@ awk '($1 == "contig-1" && $4 ~ /gene-/) {sum+=$5}; END {print sum}' bar.bed
 
 ---
 [↥ **Back to top**](#top)
+
 <br>
 <br>
 
