@@ -3,6 +3,9 @@
 
 ## Table of Contents
 1. [Overview and Aims](#intro)
+2. [Quality control of raw sequencing data](#dataQC)
+
+
 2. [Short read mapping](#mapping)
 3. [Calling SNPs in our mapped sample](#snps)
 4. [Visualising mapped reads and variants using Artemis](#artemis)
@@ -96,6 +99,107 @@ called "R_analysis" where we will performed our population genetic analyses, and
 our raw reads to, and the other contains metadata about our samples that we will be using later. It is a good idea to collect all metadata to 
 do with a study early, as it can help you explore your data in the analysis, and help interpret the genetic signals that you hopefully will 
 discover.
+
+
+
+## Quality control of raw sequencing data <a name="dataQC"></a>
+
+The first exercise of any genomics project is to turn your sample of interest into sequencing data. There are many steps involved, including sample collection (and storage), DNA extraction (and storage), sequencing library preparation, and then finally submitting and having your DNA library sequenced on one or more of a number of different sequencing platforms. Not surprisingly then is that the success of each step will influence how well your sample will be sequenced and will impact on the quality of the data generated.  Exploring and understanding the characteristics of the raw data before any assembly is performed should give you some confidence in whether your data is sufficient to undertake a genomic analysis, and may provide some insight into how an analysis will proceed.
+
+We will start by using a tool called **FastQC** (https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) to examine some characteristics of your raw data. FastQC takes raw fastq reads and provides simple graphs and tables to quickly assess the quality of the data. It also highlights where they may be problems in different aspects of your data.
+
+
+![fastqc](figures/module4_image2.png)
+
+Example FastQC output. 	https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+
+
+The main panel of this figure shows an example of the comparison of the distribution of per base quality (Phred score, on the y-axis) per base position in the read (x-axis). Phred scores above 30 are typically considered to be good quality for an Illumina read. In this case, it shows higher quality bases toward the start of the read (in the green section), followed by a decrease in quality along the read, in which the quality drops into the yellow (Phred < 30) and then into the red (Phred < 20). Some examples of “good” and “bad” quality data is found in the “Example Reports” section of the FastQC website.
+
+Lets run FastQC and explore our data.
+
+```bash
+# go to the working directory
+
+cd raw_data
+
+# lets run fastqc on a single file so you can see how it works
+
+fastqc AUS_WAL_OA_001_1.fastq.gz
+
+# it should have run pretty quickly - the dataset is quite small - and should have shown some progress report on the screen.
+
+# we have lots of samples - it might take a while to run them all, so lets run a small number of samples and take a look at the results.
+
+for i in AUS*.fastq.gz; do fastqc ${i}; done
+
+
+# This "for loop" is going to run fastqc on all of the files starting with "AUS", ie, the Australian samples. Once FastQC has finished running, run MultiQC and visualise output in web browser
+
+multiqc --interactive .
+
+firefox multiqc_report.html
+
+
+```
+
+FastQC generates output files than can be visualised independently. However, when you have multiple samples, it is slow and difficult to compare. MultiQC is a great too for visualising multiple samples at the same time, which simplifies comparing different samples and can help you to see trends in your data.
+
+Looking at the webpage, there are a number of windows to look at, including:
+- General statistics
+	- summarises various statistics per sample
+- FastQC 
+	- Sequence counts:
+		- shows relative proportion of unique and duplicated reads. Some duplicated reads are expected, however, it is a technical artefact and too many may be a problem.
+	- Sequence Quality Histograms:
+		- Good overall indicator of data quality. Should remain mostly in the green, however, will drop in quality over the length of the read. Longer reads will show great drop, and R2 will show greater drop compared to R1.
+	- Per Sequence Quality Scores:
+		- similar data to the "Sequence Quality Histograms"
+	- Per Base Sequence Content:
+		- The proportion of each base position for which each of the four normal DNA bases has been called.
+	- Per Sequence GC Content:
+		-  The average GC content of reads. 
+		- Abnormal GC distribution is a good indicator of contamination. Does the GC profile fit the expected GC content for your species of interest? Is it a smooth distribution, or are their spikes? 
+	- Per Base N Content:
+		- The percentage of base calls at each position for which an N was called.
+		- Is there an excess of positions in the reads for which a “N” base was called? Excess Ns can often indicate an issue with the sequencing.
+	- Sequence Length Distribution:
+		- The distribution of fragment sizes (read lengths) found. Sequencing lengths "should" be the same if they were sequenced together. 
+		- Might be more relevant if you have trimmed your data, and want to see the effect of processing.
+	- Sequence Duplication Levels:
+		- The relative level of duplication found for every sequence.
+		- Is there excessive duplication? Duplication may suggests artefacts generated during library preparation / PCR amplification
+	- Overrepresented sequences:
+		- The total amount of overrepresented sequences found in each library.
+		- could reflect biases based on certain sequences being present more than expected.
+	- Adapter Content:
+		- The cumulative percentage count of the proportion of your library which has seen each of the adapter sequences at each position.
+		- What is the proportion of known Illumina adapters that are present in the data?
+	- Status Checks:
+		- Status for each FastQC section showing whether results seem entirely normal (green), slightly abnormal (orange) or very unusual (red).
+		- NOTE: it is parameterised on human data, i.e., GC content, and so may report as “failing” based on assessing your data [if not human] because it does not look like human 
+		- some "fails" are not a problem  
+
+- Hopefully, you should see that all of the Australian samples are fairly similar to each other, and look like pretty good data. This is an ideal scenario. However, it is not always like this. To save time, we have generated a multiQC report for all of the samples, which can be accessed by clicking on the link below.
+
+![MultiQC report for all samples](figures/multiqc_all_samples.html)  
+
+### Questions
+- how does the "all sample" report compared to the "Australian-only sample" report?
+- 
+
+
+---
+[↥ **Back to top**](#top)
+
+
+
+
+
+
+
+
+
 
 ## Mapping reads from a single sample
 To start with, we are going to work on a single sample to familiarize you with the necessary steps required to:
