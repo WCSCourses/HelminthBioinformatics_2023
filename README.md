@@ -60,7 +60,7 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
      - Public Engagement Part 1
 - Monday
      - WormBase Parasite 1
-     - Unix Scripting
+     - Introduction to Linux
 - Tuesday
      - WormBase Parasite 2
      - R and RStudio
@@ -85,7 +85,7 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
      - [Online manual](manuals/module_1_WBP1/module_1_WBP1.md)  
      - [Manual PDF version](manuals/)  
 
-**Module 2 - Unix Scripting**  
+**Module 2 - Introduction to Linux**  
      - [Introductory presentation](presentations/)  
      - [Online manual](manuals/module_2_linux_scripting/module_linux_scripting.md)  
      - [Manual PDF version](manuals/)  
@@ -100,7 +100,7 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
      - [Online manual](manuals/module_4_project_intro/module_4_project_introduction.md)  
      - [Manual PDF version](manuals/)  
 
-**Module 5 - R and RStudio**  
+**Module 5 - Introduction to R and RStudio**  
      - [Introductory presentation](presentations/)  
      - [Online manual](manuals/module_5_R/module_5_R_and_Rstudio.v2.html)  
      - [Manual PDF version](manuals/)  
