@@ -1,7 +1,7 @@
 ---
 title: 'R with R studio: An introduction '
 author: "Jason Tsai and Steve Doyle"
-date: "18th June 2021"
+date: "23rd May 2023"
 output:
  prettydoc::html_pretty:
   theme: leonids
@@ -108,15 +108,15 @@ To code in R, you can start by clicking on the Console panel. It is typically th
 
 ```{r eval=FALSE}
 
-# Some housekeeping - if you see text after the hash '#' symbol throguhout the code, it is a comment 
-# or instruction and not actual code (just like this!). It means that you do not have to type it in 
-# to the command line. Making comments in your code is actually really important - it allows you to 
-# remember what you have done, describe a result or process, and makes it much easier for someone 
-# else to read, understand, and reuse your code. It is a great habit to get in to!
+# Some housekeeping - if you see text after the hash '#' symbol throguhout the code, it is a comment or 
+# instruction and not actual code (just like this!). It means that you do not have to type it in to the 
+# command line. Making comments in your code is actually really important - it allows you to remember what 
+# you have done, describe a result or process, and makes it much easier for someone else to read, understand, 
+# and reuse your code. It is a great habit to have!
 
 
-# R in its basic form is a fancy calculator. Lets try this out. Once you have typed the equation, 
-# press enter to complete the expression
+# R in its basic form is a fancy calculator. Lets try this out. Once you have typed the equation, press enter 
+# to complete the expression
 
 # First, a simple one. We are going to do 2 plus 3.
 2 + 3
@@ -153,19 +153,19 @@ The calculations alone will be meaningless if we don't store them for later use.
 # "<-" is the assignment operator. Let's assign the number 5 to the variable "x".
 x <- 5
 
-# Next, assign 10 to y.
+# Next, assign 10 to y
 y <- 10
 
-# To check if the assignments are successful, you can always simply type x or y and press return.
+# To check if the assignments are successful, you can always simply type x or y and press return
 x
 y
 
-# We can perform calculations on data stored in a variable.
+# We can perform calculations on data stored in a variable
 x + y
 x * y
 
-# Like all programming languages, R is case sensitive. For example, the lower-case variable "x" 
-# is not the same as the upper-case variable "X".
+# Like all programming languages, R is case sensitive. For example, the lower-case variable "x" is not the 
+# same as the upper-case variable "X"
 X <- 20
 
 # Test this by comparing the two variables
@@ -176,14 +176,14 @@ X
 x <- 10
 x
 
-# In the same way that we can perform calculations using data stored in variables, we can also 
-# assign the output of that calculation to a new variable.
+# In the same way that we can perform caluclations using data stored in variables, we can also assign the 
+# output of that calculation to a new variable.
 z <- x + y + X
 z
 
 # Try a few things for yourself:
-# 1. Calculate the number of minutes in a single day by first assigning and then multiplying an 
-#   "hour" variable and a "minutes" variable
+# 1. Calculate the number of minutes in a single day by first assigning and then multiplying a "hour" 
+#   variable and a "minutes" variable
 # 2. Congratulations, you have won £100, but have to split it with your classmates. How much money 
 #   will you each get?  
 
@@ -567,19 +567,15 @@ mutate() always adds new columns at the end of your dataset, so we’ll start by
 ascaris_data_check <- mutate(ascaris_data, Prevalence_2 = Number_Positives /  Individuals_surveyed)
 ascaris_data_check
 
-# Tip: While you could overwrite the original dataset with the new table, it is good practice 
-#   to keep raw imported data (table) and save the processed data into new variable / tibbles.
-
-# There are a lot of columns so it's difficult to visualise them
-# Let's select only the two columns Prevalence and Prevalence_2 to check if the calculations 
-# are consistent.
+# There's a lot of columns so it's difficult to visualise them
+# Let's select only the two columns Prevalence and Prevalence_2 to check if the calculations are consistent.
 select(ascaris_data_check, Prevalence, Prevalence_2)
 
 # Try this for yourself
-# 1. Can you make a new column called "study_time", and in it, determine the number of years 
-#   that sampling took place? Hint: you could could calculate the difference between Year_end 
-#   and Year_start.
- 
+# 1. Can you make a new column called "study_time", and in it, determine the number of years that 
+# sampling took place? Hint: you could could calculate the difference between Year_end and Year_start.
+# Try to name save the result in the new table as it is often good practice to keep raw data (table) 
+# and save the processed data into new variable / tibbles. 
 
 ```
 
@@ -993,8 +989,7 @@ ggplot() +
 
 # Similarly, we can perform our "data wrangling" and directly pipe that to ggplot, thus producing 
 # a cleaner code bock.
-# From the 'by_country_summary_sortHighest' tibble, we know there are ten countries with just 
-# more than one site, 
+# From the 'by_country_summary_sortHighest' tibble, we know there are ten countries with just more than one site, 
 by_country_More_than_one_site <- by_country_summary_sortHighest %>%
   filter(Num.sites > 1) %>%
   select(Country)
