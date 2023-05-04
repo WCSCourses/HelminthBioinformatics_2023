@@ -22,7 +22,8 @@ output:
 9. [UNIX quick reference guide](#quick_ref)
 
 ---
-
+<br>
+<br>
 
 ## Introduction and Aims <a name="intro"></a>
 
@@ -109,7 +110,8 @@ and provide examples of how they can be used in bioinformatics analyses.
 ---
 [↥ **Back to top**](#top)
 
-
+<br>
+<br>
 
 ## Getting started on the command line - Basic unix <a name="getting_started"></a>
 
@@ -141,7 +143,8 @@ cd /home/manager/Module2_Linux_Scripting
      - Many of them are two- or three-letter abbreviations. The earliest Linux systems (circa 1970) only had slow Teletype terminals, so it was faster to type 'rm' to remove a file than 'delete' or 'erase'. This terseness is a feature of Linux which still survives.   
 
 ---
-
+<br>
+<br>
 
 ### Command line arguments
 - You may subtly alter these commands by specifying certain options when typing in the command line.
@@ -186,7 +189,8 @@ $ ls –ltr
 ![](figures/04_ls_long.png)
 
 ---
-
+<br>
+<br>
 
 ### Permissions
 - Every file has permissions which restrict what can be done with a file or directory.  
@@ -203,7 +207,8 @@ $ ls –ltr
 
 ---
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 ## Files and Directories <a name="file_directories"></a>
@@ -217,7 +222,8 @@ $ ls –ltr
 - Therefore, if there is a file called *genome.seq* in the dna directory its location or full pathname can be expressed as */nfs/dna/genome.seq*.
 
 ---
-
+<br>
+<br>
 
 
 ### pwd - find where you are
@@ -240,7 +246,8 @@ $ pwd
      - More on that shortly ...
 
 ---
-
+<br>
+<br>
 
 ### cd - change current working directory
 - The command *cd* stands for change directory.
@@ -283,7 +290,8 @@ $ ls ~
 
 ```
 ---
-
+<br>
+<br>
 
 ### Tab completion - *"make tab-it and hab-it"*
 - Typing out file names is really boring and you're likely to make typos which will at best make your command fail with a strange error and at worst overwrite some of your carefully crafted analysis.
@@ -295,7 +303,8 @@ $ ls ~
      - This saves a lot of typing and typos.
 
 ---
-
+<br>
+<br>
 
 
 ### cp - copy a file
@@ -311,7 +320,8 @@ $ ls -lrt
 ```
 
 ---
-
+<br>
+<br>
 
 
 ### mv - move a file
@@ -334,9 +344,11 @@ $ ls –lrt ../
 # you could also change directory to check the file moved
 $ cd ../
 $ ls -lrt
+
 ```
 ---
-
+<br>
+<br>
 
 
 ### rm - delete a file
@@ -355,7 +367,8 @@ $ ls -lrt
 - Unfortunately there is no "recycle bin" on the command line to recover the file from, so you have to be careful.
 
 ---
-
+<br>
+<br>
 
 
 ### Exercises
@@ -374,7 +387,8 @@ $ ls -lrt
 
 ---
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 
@@ -401,6 +415,8 @@ $ less genome_1.gff
      - What is the start and end position of this gene?
 
 ---
+<br>
+<br>
 
 ### head and tail
 - Sometimes you may just want to view the text at the beginning or the end of a file, without having to display all of the file.
@@ -431,7 +447,8 @@ $ tail –n 25 genome_1.gff
      - -n is such a common argument for tail and head that it even has a shorthand: -n 25 and -25 mean the same thing.
 
 ---
-
+<br>
+<br>
 
 
 ### Saving time
@@ -444,7 +461,8 @@ $ tail –n 25 genome_1.gff
 - Although tab completion works on commands and file names, unfortunately it rarely works on options or other arguments.
 
 ---
-
+<br>
+<br>
 
 
 ### Getting help: man , -h , --help
@@ -465,7 +483,8 @@ $ tail --help
 - There are several other useful commands that can be used to manipulate and summarise information inside files and we will introduce some of these next, *cat, sort, wc* and *uniq*.
 
 ---
-
+<br>
+<br>
 
 
 ### Writing to files
@@ -481,7 +500,8 @@ $ head -1 genome_1.gff > first_genome_1_line.txt
 - Note that tab completion works for *genome_1.gff* because it exists but doesn't work for *first_genome_1_line.txt* because it doesn't exist yet.
 
 ---
-
+<br>
+<br>
 
 
 ### cat
@@ -509,7 +529,8 @@ $ ls -lrt
 ```
 
 ---
-
+<br>
+<br>
 
 
 ### wc - counting
@@ -540,7 +561,8 @@ $ ls | grep ".gff" | wc -l
 ```
 
 ---
-
+<br>
+<br>
 
 
 
@@ -563,7 +585,8 @@ $ sort -k 2 -n genome_2.bed
      - Remember that you can type / followed by a search phrase, n to find the next search hit, N to find the previous search hit and q to exit.
 
 ---
-
+<br>
+<br>
 
 
 ### uniq - finding unique values
@@ -586,9 +609,11 @@ $ awk '{ print $1 }' genome_2.bed | sort | uniq
 $ awk '{ print $1 }' genome_2.bed | less
 $ awk '{ print $1 }' genome_2.bed | sort | less
 $ awk '{ print $1 }' genome_2.bed | sort | uniq | less
+
 ```
 ---
-
+<br>
+<br>
 
 
 ### Exercises
@@ -601,7 +626,8 @@ $ awk '{ print $1 }' genome_2.bed | sort | uniq | less
 
 ---
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 
@@ -673,7 +699,8 @@ $ grep chr1 gene_expression_sneaky.bed | grep “-”
 - We need a way to refine our searches further.
 
 ---
-
+<br>
+<br>
 
 
 ### Regular expressions
@@ -706,7 +733,8 @@ $ grep $‘^chr1\t’ gene_expression_sneaky.bed | grep ‘\-$’
 - Further, more complex examples of regular expressions and their use may be found in the reference guide at the end of this chapter.
 
 ---
-
+<br>
+<br>
 
 
 ### Useful grep command line options
@@ -743,7 +771,8 @@ $ grep -v $‘^chr1\t’ gene_expression_sneaky.bed
 ```
 
 ---
-
+<br>
+<br>
 
 
 ### Replacing matches to regular expressions
@@ -764,7 +793,8 @@ $ sed ‘s/^chr/chromosome/’ gene_expression.bed > gene_expression_new.bed
 
 ---
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 
@@ -814,7 +844,8 @@ $ awk -F”\t” ‘{print $1}’ genes.gff
 - Try to modify the command to list each chromosome once only. (Hint: you’ll need to pipe your output into a Unix command we saw earlier.)
 
 ---
-
+<br>
+<br>
 
 ### Filtering input files
 - Like *grep*, *awk* can be used to filter lines from a file.
@@ -870,7 +901,8 @@ $ awk ‘!/repeat/’ genes.gff
 ```
 
 ---
-
+<br>
+<br>
 
 
 ### Sanity checking files
@@ -898,7 +930,8 @@ $ awk -F"\t" 'NF<8 || NF>9' genes.gff
 ```
 
 ---
-
+<br>
+<br>
 
 
 ### Changing the output
@@ -920,7 +953,8 @@ $ awk -F"\t" ''BEGIN{OFS="\t"} {$2="new_source"; print $0}' genes.gff
 ```
 
 ---
-
+<br>
+<br>
 
 ### Exercises
 1. Looking at the file grep/exercises.fasta, write a grep command to only output the sequence names.
@@ -938,7 +972,8 @@ $ awk -F"\t" ''BEGIN{OFS="\t"} {$2="new_source"; print $0}' genes.gff
 
 ---
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 
@@ -975,7 +1010,8 @@ $ while read -r chr start end name strand; do \
 
 ---
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 
@@ -1011,7 +1047,8 @@ $ bash hello.sh
 ```
 
 ---
-
+<br>
+<br>
 
 ### Setting up a generic directory for scripts
 - It would be useful to be able to run scripts we’ve written from anywhere on the filesystem without telling Unix where the script is or that it is a BASH script.
@@ -1067,7 +1104,8 @@ $ chmod +x myscript.sh
 - myscript.sh can now be edited using a text editor.
 
 ---
-
+<br>
+<br>
 
 
 ### Getting command line options and adding output text
@@ -1100,7 +1138,8 @@ $ cat options_example2.sh
 - This may seem unimportant with a simple script but, as you write more complex scripts or adapt them to particular datasets, you will realise that setting meaningful variable names saves a lot of time.
 
 ---
-
+<br>
+<br>
 
 ### Exercises
 1. Write a script which takes a file name from the user, if the file exists, print a human readable message telling the user how many lines the file has.
@@ -1112,7 +1151,8 @@ $ cat options_example2.sh
 
 ---
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 
@@ -1135,6 +1175,8 @@ $ cat options_example2.sh
 | find foo/ -name "*.gff" | find all the files with a gff extension in the directory foo/ |
 
 ---
+<br>
+<br>
 
 **2. Looking in files**
 
@@ -1150,6 +1192,8 @@ $ cat options_example2.sh
 | awk '{print $1}' bar.bed \| sort \| uniq | show the unique entries in the first column |
 
 ---
+<br>
+<br>
 
 **3. Grep**
 
@@ -1164,6 +1208,8 @@ $ cat options_example2.sh
 | grep -v foo bar.bed | don't show me any files with foo in them |
 
 ---
+<br>
+<br>
 
 **4. awk**
 
@@ -1178,6 +1224,8 @@ $ cat options_example2.sh
 | awk '/^foo/ {sum+=$2; count+=1} END {print sum/count}' bar.bed | print the average of the second value of lines starting with foo |
 
 ---
+<br>
+<br>
 
 **5. Piping, redirection and more advanced queries**
 ```bash
@@ -1218,6 +1266,8 @@ awk '(l<300 && $2>200000 && $3<250000) {l=($3-$2+1); print $0}' exercises.bed
 ```
 
 ---
+<br>
+<br>
 
 **6. A script**
 ```bash
@@ -1267,6 +1317,8 @@ fi
 ```
 
 ---
+<br>
+<br>
 
 
 
@@ -1280,6 +1332,8 @@ fi
 - **Google is an excellent resource.** Particularly prioritise results from stackoverflow.com, seqanswers.com and biostars.org.
 
 ---
+<br>
+<br>
 
 
 **8. Build your commands slowly**   
@@ -1313,6 +1367,8 @@ awk '($1 == "contig-1" && $4 ~ /gene-/) {sum+=$5}; END {print sum}' bar.bed
 ```
 
 ---
+<br>
+<br>
 
 
 **9. Which tool should I use?**
@@ -1336,6 +1392,8 @@ awk '($1 == "contig-1" && $4 ~ /gene-/) {sum+=$5}; END {print sum}' bar.bed
 
 ---
 [↥ **Back to top**](#top)
+<br>
+<br>
 
 
 ******
