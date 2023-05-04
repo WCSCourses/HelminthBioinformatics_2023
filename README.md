@@ -1,5 +1,6 @@
  ![](https://coursesandconferences.wellcomeconnectingscience.org/wp-content/themes/wcc_courses_and_conferences/dist/assets/svg/logo.svg)
 
+<br>
 
 # Helminth Bioinformatics 
 ## 21 - 26 May 2023, Khon Kaen University, Thailand    
@@ -33,7 +34,7 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
 - https://www.shellcheck.net/
 
 <br>
-<br>
+
 
 ## Instructors
 - [Arporn (Koi) Wangwiwatsin](https://www.researchgate.net/profile/Arporn-koi-Wangwiwatsin) (co-lead), Khon Kaen University, Thailand
@@ -49,7 +50,7 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
 - [Isheng Jason Tsai](https://www.biodiv.tw/pi.php?submitStr=20210203203919&lang=en), Academia Sinica, Taiwan
 
 <br>
-<br>
+
 
 
 ## Timetable
@@ -63,7 +64,7 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
 - [Detailed timetable](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/Helminth%20Bioinformatics%20Timetable%20and%20Planning%20Mastersheet%20-%20Helminth%20Bio%202023%20Timetable.pdf)
 
 <br>
-<br>
+
 
 ## Course manual
 - https://wcscourses.github.io/HelminthBioinformatics_2023/
@@ -116,7 +117,7 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
 Any reuse of the course materials, data or code is encouraged with due acknowledgement.
 
 <br>
-<br>
+
 
 ******
 ## License
