@@ -4,6 +4,7 @@
 ## Table of Contents
 1. [Overview and Aims](#intro)
 2. [Quality control of raw sequencing data](#dataQC)
+3. [Preparing your reference sequence prior to mapping](#ref)
 2. [Short read mapping](#mapping)
 3. [Calling SNPs in our mapped sample](#snps)
 4. [Visualising mapped reads and variants using Artemis](#artemis)
@@ -52,26 +53,10 @@ Overall, the aims of this module are to familiarize you with tools and concepts 
 - visualize sequencing reads and genetic variants in your samples;
 - analyse patterns of genetic diversity in your data, and link these patterns to metadata to uncover biological insights in your species.
 
+
 ---
+
 [↥ **Back to top**](#top)
-
-
-## Short read mapping <a name="mapping"></a>
-There are multiple short-read alignment programs each with its own strengths, weaknesses, and caveats. Wikipedia has a good list and description of 
-each. Search for “Short-Read Sequence Alignment” if you are interested. We are going to use the Burrows-Wheeler Aligner or BWA. 
-
-From the manual available here http://bio-bwa.sourceforge.net/ : “BWA is a software package for mapping low-divergent sequences against a large 
-reference genome, such as the human genome. It consists of three algorithms: BWA-backtrack, BWA-SW and BWA-MEM. The first algorithm is designed 
-for Illumina sequence reads up to 100bp, while the rest two for longer sequences ranged from 70bp to 1Mbp. BWA-MEM and BWA-SW share similar features 
-such as long-read support and split alignment, but BWA-MEM, which is the latest, is generally recommended for high-quality queries as it is faster 
-and more accurate. BWA-MEM also has better performance than BWA-backtrack for 70-100bp Illumina reads.”
-
-Although BWA does not call Single Nucleotide Polymorphisms (SNPs) like some short-read alignment programs, e.g. MAQ, it is thought to be more 
-accurate in what it does do and it outputs alignments in the SAM format which is supported by several generic SNP callers such as SAMtools and GATK.
-BWA has a manual that has much more details on the commands we will use. This can be found here: http://bio-bwa.sourceforge.net/bwa.shtml or from 
-the original reference here:
-
-Li H. and Durbin R. (2009) Fast and accurate short read alignment with Burrows-Wheeler Transform. Bioinformatics, 25:1754-60. [PMID: 19451168]
 
 
 Lets get started!
@@ -85,14 +70,21 @@ ls -lrt
 
 ```
 
-![](figures/figure_6.1.PNG)  
-**Figure 1.**  
+![](figures/figure_6.1.PNG)   
 
 You should be able to see one directory called “raw_reads” containing all of the sequencing data we will be working with today, a directory 
 called "R_analysis" where we will performed our population genetic analyses, and two files, one is your reference sequence that we will map 
 our raw reads to, and the other contains metadata about our samples that we will be using later. It is a good idea to collect all metadata to 
 do with a study early, as it can help you explore your data in the analysis, and help interpret the genetic signals that you hopefully will 
 discover.
+
+
+---
+
+[↥ **Back to top**](#top)
+
+
+
 
 
 
@@ -115,19 +107,15 @@ Lets run FastQC and explore our data.
 ```bash
 
 # go to the working directory
-
 cd raw_data
 
 # lets run fastqc on a single file so you can see how it works
-
 fastqc AUS_WAL_OA_001_1.fastq.gz
 
 # it should have run pretty quickly - the dataset is quite small - and should have shown some progress report on the screen.
 
 # we have lots of samples - it might take a while to run them all, so lets run a small number of samples and take a look at the results.
-
 for i in AUS*.fastq.gz; do fastqc ${i}; done
-
 
 # This "for loop" is going to run fastqc on all of the files starting with "AUS", ie, the Australian samples. Once FastQC has finished running, run MultiQC and visualise output in web browser
 
@@ -174,9 +162,10 @@ Looking at the webpage, there are a number of windows to look at, including:
 		- NOTE: it is parameterised on human data, i.e., GC content, and so may report as “failing” based on assessing your data [if not human] because it does not look like human 
 		- some "fails" are not a problem  
 
-- Hopefully, you should see that all of the Australian samples are fairly similar to each other, and look like pretty good data. This is an ideal scenario. However, it is not always like this. To save time, we have generated a multiQC report for all of the samples, which can be accessed by clicking on the link below.
+Hopefully, you should see that all of the Australian samples are fairly similar to each other, and look like pretty good data. This is an ideal scenario. However, it is not always like this. To save time, we have generated a multiQC report for all of the samples, which can be accessed by clicking on the link below.
 
 [MultiQC report for all samples](figures/multiqc_all_samples.html)  
+
 
 ### Questions
 - how does the "all sample" report compared to the "Australian-only sample" report?
@@ -186,11 +175,12 @@ Looking at the webpage, there are a number of windows to look at, including:
 
 
 ---
+
 [↥ **Back to top**](#top)
 
 
 
-## Preparing your reference sequence prior to mapping
+## Preparing your reference sequence prior to mapping <a name="ref"></a>
 Before mapping out samples, we need a reference genome. If you didnt have a reference genome for your species, you might have to first assemble the reads to make a draft genome assembly. That is outside of the scope of this workshop, but please talk to the instructors about this if you are interested.
 
 Fortunately, we have access to a high-quality reference genome for Haemonchus contortus, which we can download from WormBase ParaSite. From this reference genome, we need to extract the mitochondrial genome, which will be the focus of our analyses.
@@ -221,8 +211,29 @@ samtools faidx haemonchus_contortus.PRJEB506.WBPS18.genomic.fa mitochondrion:1-1
 
 ```
 
+---
+
+[↥ **Back to top**](#top)
 
 
+
+
+## Short read mapping <a name="mapping"></a>
+There are multiple short-read alignment programs each with its own strengths, weaknesses, and caveats. Wikipedia has a good list and description of 
+each. Search for “Short-Read Sequence Alignment” if you are interested. We are going to use the Burrows-Wheeler Aligner or BWA. 
+
+From the manual available here http://bio-bwa.sourceforge.net/ : “BWA is a software package for mapping low-divergent sequences against a large 
+reference genome, such as the human genome. It consists of three algorithms: BWA-backtrack, BWA-SW and BWA-MEM. The first algorithm is designed 
+for Illumina sequence reads up to 100bp, while the rest two for longer sequences ranged from 70bp to 1Mbp. BWA-MEM and BWA-SW share similar features 
+such as long-read support and split alignment, but BWA-MEM, which is the latest, is generally recommended for high-quality queries as it is faster 
+and more accurate. BWA-MEM also has better performance than BWA-backtrack for 70-100bp Illumina reads.”
+
+Although BWA does not call Single Nucleotide Polymorphisms (SNPs) like some short-read alignment programs, e.g. MAQ, it is thought to be more 
+accurate in what it does do and it outputs alignments in the SAM format which is supported by several generic SNP callers such as SAMtools and GATK.
+BWA has a manual that has much more details on the commands we will use. This can be found here: http://bio-bwa.sourceforge.net/bwa.shtml or from 
+the original reference here:
+
+Li H. and Durbin R. (2009) Fast and accurate short read alignment with Burrows-Wheeler Transform. Bioinformatics, 25:1754-60. [PMID: 19451168]
 
 
 
@@ -232,6 +243,7 @@ To start with, we are going to work on a single sample to familiarise you with t
 - download and prepare your reference sequence
 - map your reads
 - convert your mapped reads file into a format that can be read by out visualization tool, Artemis.
+
 
 ```bash
 
@@ -272,12 +284,21 @@ head single_sample.tmp.sam
 ```
 
 ![](figures/figure6.2.PNG)  
-**Figure 2.** Exploring the SAM file format
+**Figure** Exploring the SAM file format
 
+
+Most of the data in a SAM file is fairly logical - it contains information about each read, where it is mapped in the genome, and how well it maps. One column that is not easy to interpret is the "Flag" column. It contains various numbers, which are the sum of "bits" that actually decribe many different aspects of how the read is mapped, in a very simple, numerical format. 
+
+Sometimes, understanding these numbers can be useful. We can use the following website to help us interpret these numbers. Click on the link, and input the numbers from the above figure and see what they mean for each read. Try putting in a random number and see what you get!
+
+[Picard: Decoding SAM flags](https://broadinstitute.github.io/picard/explain-flags.html)
+
+It is a good idea to look at how well the mapping went. We can use the tool "samtools flagstats" which reads the flag column we have just looked at above and summarises the data 
 
 ```bash
 
-# its a good idea to look at how well the mapping worked. 
+# run samtools flagstats and look at the output
+
 samtools flagstats single_sample.tmp.sorted.bam > single_sample.tmp.sorted.flagstats
 
 cat single_sample.tmp.sorted.flagstats
@@ -335,8 +356,9 @@ tabix -p vcf single_sample.tmp.vcf.gz
 zless single_sample.tmp.vcf.gz
 
 ```
+
 ![](figures/figure6.3.PNG)  
-**Figure 3.** Exploring the VCF file format
+**Figure.** Exploring the VCF file format
 
 
 ```bash
@@ -345,8 +367,9 @@ zless single_sample.tmp.vcf.gz
 ls -lrt
 
 ```
+
 ![](figures/figure6.4.PNG)  
-**Figure 4.**
+**Figure**
 
 ```
 
@@ -359,6 +382,11 @@ art &
 
 ```
 
+---
+
+[↥ **Back to top**](#top)
+
+
 
 ## Visualising mapped reads and variants using Artemis <a name="artemis"></a>
 We will use Artemis to visualize your mapped reads, and identify variant positions from the SNP calling we have performed on our single sample. 
@@ -367,10 +395,10 @@ genome. To explore the full functionality, you would need at least a week-long c
 to explore Artemis in your own time, and do ask questions if you have any.   
 
 ![](figures/figure6.5.PNG)  
-**Figure 5.** Opening and viewing reference sequencing data in Artemis
+**Figure.** Opening and viewing reference sequencing data in Artemis
 
 ![](figures/figure6.6.PNG)  
-**Figure 6.** Opening and viewing read and variant data in Artemis
+**Figure.** Opening and viewing read and variant data in Artemis
 
 
 Lets explore our data.
@@ -384,7 +412,13 @@ Lets explore our data.
 
 
 ---
+
 [↥ **Back to top**](#top)
+
+
+
+
+
 
 ## Mapping reads from multiple samples <a name="mapping_multi"></a>
 Now that we have shown you the steps involved in mapping a single sample, we will now show you how to map multiple samples. While you could 
@@ -392,7 +426,7 @@ repeat exactly the same commands as before and just change the sample name each 
 considerable amount of time to do it. We have enough samples that this is quite impractical. However, the power of bioinformatics and coding 
 comes from writing scripts that automates this process for you. 
 
-Here, we will  use a “for loop” to iterate over the 176 samples we have provided. 
+Here, we will use a “for loop” to iterate over the 176 samples we have provided. 
 
 ```bash
 
@@ -441,10 +475,15 @@ While we are waiting for our mapping to finish, lets break down what we just did
 NOTE: you don’t need to write any of the commands, on this page. This is just to explain what is going on. 
 
 ![](figures/figure6.7.PNG)  
-**Figure.** Breaking down out "for loop"
+**Figure** Breaking down our "for loop"
 
 ---
+
 [↥ **Back to top**](#top)
+
+
+
+
 
 ## Calling SNPs in multiple samples at the same time <a name="snps_multi"></a>
 Here, we are going to perform multi-sample SNP calling. While we could technically perform a loop like in our mapping example, the mpileup 
@@ -510,6 +549,7 @@ and genetic relationships among our samples.
 
 
 ---
+
 [↥ **Back to top**](#top)
 
 
@@ -525,6 +565,7 @@ the same ideas apply. We will point out some of these differences as we go to tr
 provides a convenient user interface that combines a scripting window, a command line window,  a plotting window, and a directory window. 
 
 ```bash
+
 # In the unix shell, lets prepare your data
 
 cd ~/Module_6_Genetic_Variation/R_analysis
@@ -603,7 +644,7 @@ vcf.gl
 ```
 
 ![](figures/figure6.8.PNG)  
-**Figure 8.** Viewing your variant data in genlight format in R
+**Figure.** Viewing your variant data in genlight format in R
 
 
 ```R
@@ -616,21 +657,26 @@ vcf.gl@pop
 ```
 
 ---
+
 [↥ **Back to top**](#top)
 
 
 ## Principal component analysis of genetic diversity <a name="pca"></a>
 ```R
+
 # Perform a PCA analysis, and we’ll have a look at it
 
 vcf.pca <- glPca(vcf.gl, nf = 10)
 
 vcf.pca
+
 ```
+
 ![](figures/figure6.9.PNG)  
-**Figure 9.** Understanding the data generated by PCA
+**Figure.** Understanding the data generated by PCA
 
 ```R
+
 # We will extract the scores for each PC in preparation for making some figures, and add the country information to allow us to explore the data 
 a little better
 
@@ -647,8 +693,9 @@ title(ylab = "Percent of variance explained")
 title(xlab = "Eigenvalues")
 
 ```
+
 ![](figures/figure6.10.PNG)  
-**Figure 10.** Loading plot from the PCA
+**Figure.** Loading plot from the PCA
 
 ```R
 # Lets extract the variance associated with the top 4 PCs, so we can use them in our plots.
@@ -691,10 +738,11 @@ plot12
 
 
 ```
+
 Now we are starting to get somewhere. Lets have a look and see what the data is telling us so far.
 
 ![](figures/figure6.11.PNG)  
-**Figure 11.** Viewing your PCA analysis
+**Figure.** Viewing your PCA analysis
 
 
 
@@ -712,12 +760,15 @@ plot12 + plot34
 # Note: You may have to change the plot dimension size by dragging the window size to make it wider.
 
 ```
-Question: How do these plots compare? What is the relative contribution of variance in the PC3/PC4 plot compared to the PC1/PC2 plot?
+
+Question: 
+- How do these plots compare? What is the relative contribution of variance in the PC3/PC4 plot compared to the PC1/PC2 plot?
 
 Some patterns are starting to emerge regarding the genetic  relatedness within and between countries. However, it may be difficult to see 
 some of the subtle features of the diversity that may be important. Lets explore the data in a slightly different way. 
 
 ```R
+
 # Calculate the mean value of the principal components for each country. We can use this to make some labels for our plots
 
 means <- vcf.pca.scores %>% group_by(country) %>% summarize(meanPC1 = mean(PC1), meanPC2 = mean(PC2),meanPC3 = mean(PC3), meanPC4 = mean(PC4))
@@ -726,6 +777,7 @@ means <- vcf.pca.scores %>% group_by(country) %>% summarize(meanPC1 = mean(PC1),
 
 
 ```R
+
 # Lets make a slightly different plot that our first comparison of PC1 and PC2, 
 
 plot12.2 <- ggplot(vcf.pca.scores, aes(PC1, PC2, col = 	country)) + 
@@ -738,12 +790,13 @@ plot12.2 <- ggplot(vcf.pca.scores, aes(PC1, PC2, col = 	country)) +
 plot12 + plot12.2
 
 ```
+
 In our new plot, we have added an ellipse that describes how the individual samples per country are distributed in the plot. We have also 
 added country labels, which are positioned on the plot using the mean PC values we calculated earlier. We expect that if all samples within a 
 country are genetically similar, we should see a small ellipse. However, if samples a not genetically similar, we will see a large ellipse. 
 
 ![](figures/figure6.12.PNG)  
-**Figure 12.** Viewing your PCA analysis
+**Figure.** Viewing your PCA analysis
 
 Compare the two plots, and try to identify similarities and differences
 
@@ -751,6 +804,7 @@ Q: Looking at the ellipses specifically, can you see any countries that have a d
 
 
 ---
+
 [↥ **Back to top**](#top)
 
 
@@ -763,6 +817,7 @@ A more common approach to directly compare samples is to perform a pairwise anal
 tree. This is the next step in our analysis, and we will compare these results to the PCAs. 
 
 ```R
+
 # Generated pairwise distances between samples that we will plot in a tree format
 
 tree_data <- aboot(vcf.gl, tree = "upgma", distance = bitwise.dist, sample = 100, showtree = F, cutoff = 50) 
@@ -777,11 +832,17 @@ tree_plot <- ggtree(tree_data) +
 tree_plot
 
 ```
+
 ![](figures/figure6.13.PNG)  
-**Figure 13.** Analysis of pairwise distance using a tree
+**Figure.** Analysis of pairwise distance using a tree
 
 ---
+
 [↥ **Back to top**](#top)
+
+
+
+
 
 ## Integrating genetic and geographic data: maps <a name="maps"></a>
 Here, we will make a map of the sampling locations, and plot the allele frequency data on it. This or similar may be used to explore how populations
@@ -793,6 +854,7 @@ However, it should give you an idea of what could be done integrating these data
 First, lets calculate allele frequencies per country, and integrate this with the latitude and longitude coordinates to prepare to plot.
 
 ```R
+
 # Calculate allele frequencies per country
 
 myDiff_pops <- genetic_diff(vcf,pops = vcf.gl@pop)
@@ -816,10 +878,12 @@ AF_data_coords <- dplyr::left_join(AF_data, coords, by = "country")
 head(AF_data_coords)
 
 ```
+
 ![](figures/figure6.14.PNG)  
-**Figure 14.** Integrating allele frequencing and geographic data
+**Figure.** Integrating allele frequencing and geographic data
 
 ```R
+
 # Lets make a map, and plot the sampling locations on it. 
 
 par(fg = "black")
@@ -832,21 +896,24 @@ legend( x = "left", legend = unique(pop(vcf.gl)), col = cols[unique(pop(vcf.gl))
 # your map should look a bit like the one below.
 
 ```
+
 ![](figures/figure6.15.PNG)  
-**Figure 15.** World map with sampling locations plotted
+**Figure.** World map with sampling locations plotted
 
 
 We need to decide on which SNP(s) we want to plot. One approach might be to identify the variants that seem to have the greatest influence 
 on the PC1 and PC2 variance. We can identify these in the “loadings” data set that was generated when we ran the PCA.
 
 ```R
+
 # we can find the loadings in the PCA of our SNP data
 
 vcf.pca 
 
 ```
+
 ![](figures/figure6.16.PNG)  
-**Figure 16.** Extracting SNP loadings from the PCA
+**Figure.** Extracting SNP loadings from the PCA
 
 
 
@@ -861,10 +928,14 @@ snp_loadings <- data.frame(vcf.gl@loc.names, vcf.pca$loadings[,1:2])
 head(snp_loadings[order(snp_loadings$Axis1, decreasing = T),])
 
 ```
+
 ![](figures/figure6.17.PNG)  
-**Figure 17.** Extracting SNP loadings from the PCA
+**Figure.** Extracting SNP loadings from the PCA
+
+
 
 ```R
+
 # select a SNP of interest based on its position 
 AF_SNP_coords <- AF_data_coords[AF_data_coords$POS == "7859",]
 
@@ -897,14 +968,18 @@ legend(title="Allele frequency", x = "bottomleft",
 	col = c(alpha("blue", 0.5), alpha("orange", 0.5)), pch = 15, box.lwd = 0, cex = 0.9)
 
 ```
+
 You should now have a map containing both sampling locations and pie charts showing the variant allele frequency of the SNP at position 7859. 
 If you have time, try explore plotting the allele frequency of other SNPs in PC1 or PC2.
 
 ![](figures/figure6.18.PNG)  
-**Figure 18.** World map with SNP frequency per sampling location
+**Figure.** World map with SNP frequency per sampling location
 
 ---
+
 [↥ **Back to top**](#top)
+
+
 
 ## Summary
 In this module, we have shown you how to:
@@ -914,6 +989,7 @@ In this module, we have shown you how to:
 
 
 ---
+
 [↥ **Back to top**](#top)
 
 
