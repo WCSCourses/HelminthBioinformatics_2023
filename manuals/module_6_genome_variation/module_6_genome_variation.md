@@ -249,30 +249,23 @@ mkdir single_sample_analysis
 
 cd single_sample_analysis
 
-
 # lets copy (cp) the reference into our working directory
 cp ../hcontortus_mtDNA.fasta .
-
 
 # prepare your reference sequence by creating an index. An index is like an index in a book - it speeds up searching 
 bwa index hcontortus_mtDNA.fasta
 
-
 # map your reads to the reference using bwa mem
 bwa mem hcontortus_mtDNA.fasta ../raw_reads/AUS_WAL_OA_001_1.fastq.gz ../raw_reads/AUS_WAL_OA_001_2.fastq.gz > single_sample.tmp.sam
-
 
 # convert the sam file to a bam file. We will also filter the reads using the “q” parameter
 samtools view -q 15 -b -o single_sample.tmp.bam single_sample.tmp.sam
 
-
 # sort the reads in the bam file 
 samtools sort single_sample.tmp.bam -o single_sample.tmp.sorted.bam
 
-
 # finally, index the bam file
 samtools index single_sample.tmp.sorted.bam
-
 
 # to make sense of what we are doing with the mapping, lets open the top of our SAM file and have a look at what the data means
 head single_sample.tmp.sam
@@ -294,7 +287,6 @@ It is a good idea to look at how well the mapping went. We can use the tool "sam
 
 ```bash
 # run samtools flagstats and look at the output
-
 samtools flagstats single_sample.tmp.sorted.bam > single_sample.tmp.sorted.flagstats
 
 cat single_sample.tmp.sorted.flagstats
@@ -335,18 +327,14 @@ files, and/or compress large files.
 # used bcftools mpileup and call commands to identify variants - NOTE: this command is all one line
 bcftools mpileup -Ou -f hcontortus_mtDNA.fasta single_sample.tmp.sorted.bam | bcftools call -v -c --ploidy 1 -Ob --skip-variants indels > single_sample.tmp.bcf
 
-
 # index the bcf variant file
 bcftools index single_sample.tmp.bcf
-
 
 # convert the bcf file to a vcf file
 bcftools view single_sample.tmp.bcf -Oz > single_sample.tmp.vcf.gz
  
-
 # index the vcf.gz file using tabix
 tabix -p vcf single_sample.tmp.vcf.gz
-
 
 # you can have a look at the vcf using the following - "zless" allows you to look inside a zipped file
 zless single_sample.tmp.vcf.gz
@@ -487,18 +475,14 @@ sample calling in a loop) is preferred.
 # First, we need to make a file-of-file-names – “bam.fofn” – that will contain the names of all of the bam files that we will call SNPs
 ls -1 *.sorted.bam > bam.fofn
 
-
 # call SNPs in the bam files using bam.fofn to generate a multi-sample bcf
 bcftools mpileup -Ou --annotate FORMAT/DP --fasta-ref hcontortus_mtDNA.fasta --bam-list bam.fofn | bcftools call -v -c --ploidy 1 -Ob --skip-variants indels > all_samples.bcf
-
 
 # index the multi-sample bcf
 bcftools index all_samples.bcf
 
-
 # convert the bcf to a compressed vcf
 bcftools view all_samples.bcf -Oz > all_samples.vcf.gz
-
 
 # index the compressed vcf
 tabix -p vcf all_samples.vcf.gz
@@ -573,22 +557,18 @@ R
 > 
 
 # R relies on packages or libraries that we need to load. They have previously been installed for you, but you will need to call on them each time to start R. Try load the following:
-
 library(ggplot2)
 library(dplyr)
 library(session)
 
 # There are many more packages required for this module to work, which are described in the appendix. Rather than getting you to type them all out, we will open an R environment that has them already loaded:
-
 restore.session(file =	"wtac_helminths.workbook.Rdata")
 
 # we can double-check which packages are loaded in the saved session using the following command
-
 (.packages())
 
 
 # Once we have done some work, we can save this environment for later by using the following:
-
 save.session(file = "wtac_helminths.workbook.Rdata")
 
 # this can be a good thing to do at the end of the day.
@@ -600,30 +580,21 @@ save.session(file = "wtac_helminths.workbook.Rdata")
 
 # Lets specify your input files that we will load into R
 #-- the vcf contain the SNP data your generated with bcftools
-
 vcf_file  <-  "all_samples.filtered.recode.vcf"
 
-
 #-- metadata that describes information about the samples, such as country of origin, and GPS coordinates
-
 metadata_file <- "sample_metadata.txt"
 
-
 # Read the actual data into R
-
 vcf <- read.vcfR(vcf_file, verbose = FALSE)
 metadata <- read.table(metadata_file, header = TRUE)
 
-
 # Convert your data into a “data frame” that the analysis  packages we will use can interpret easily. We will use a “genlight” format, which is good for storing variant call data. We will add the country IDs for each sample to the dataset, and because we are working on haploid mitochondrial DNA, we will set the ploidy to 1
-
 vcf.gl <- vcfR2genlight(vcf)
 pop(vcf.gl) <- metadata$country
 ploidy(vcf.gl) <- 1
 
-
 # Lets have a look at how the data is formatted
-
 vcf.gl
 
 ```
@@ -634,7 +605,6 @@ vcf.gl
 
 ```R
 # Have a close look at how the data is store in this object, for example
-
 vcf.gl@ind.names
 vcf.gl@pop
 
@@ -648,7 +618,6 @@ vcf.gl@pop
 ## Principal component analysis of genetic diversity <a name="pca"></a>
 ```R
 # Perform a PCA analysis, and we’ll have a look at it
-
 vcf.pca <- glPca(vcf.gl, nf = 10)
 
 vcf.pca
@@ -659,17 +628,13 @@ vcf.pca
 **Figure.** Understanding the data generated by PCA
 
 ```R
-# We will extract the scores for each PC in preparation for making some figures, and add the country information to allow us to explore the data 
-a little better
-
+# We will extract the scores for each PC in preparation for making some figures, and add the country information to allow us to explore the data a little better
 vcf.pca.scores <- as.data.frame(vcf.pca$scores)
 
 vcf.pca.scores$country <- metadata$country 
 
 
-# We will also determine the variance each PC contributes the data, which will help us understand potential drivers of patterns in our dataset. 
-Lets plot the eigenvectors to try an understand this a bit more.
-
+# We will also determine the variance each PC contributes the data, which will help us understand potential drivers of patterns in our dataset. Lets plot the eigenvectors to try an understand this a bit more.
 barplot(100 * vcf.pca$eig / sum(vcf.pca$eig), col="green")
 title(ylab = "Percent of variance explained") 
 title(xlab = "Eigenvalues")
@@ -681,7 +646,6 @@ title(xlab = "Eigenvalues")
 
 ```R
 # Lets extract the variance associated with the top 4 PCs, so we can use them in our plots.
-
 eig.total <- sum(vcf.pca$eig)
 
 PC1.variance <- formatC(head(vcf.pca$eig)[1]/eig.total * 100)
@@ -691,33 +655,25 @@ PC4.variance <- formatC(head(vcf.pca$eig)[4]/eig.total * 100)
 
 
 # Lets check that this has worked
-
 PC1.variance 
-[1] "36.96”
+[1] "36.96"
+
 # This suggests that PC1 describes 36.96% of the variance in the data, which is consistent with our previous plot.
 
-
 # OK, time to visualise our data and make some plots! 
-# Lets build a plot of your data using ggplot, and explore how to incorporate additional information into the plot to make it more 
-informative. Ggplot works by adding layers of information (hence the “+”) to build the plot.
-
+# Lets build a plot of your data using ggplot, and explore how to incorporate additional information into the plot to make it more informative. Ggplot works by adding layers of information (hence the “+”) to build the plot.
 plot12 <- ggplot(vcf.pca.scores, aes(PC1, PC2)) + geom_point()
 plot12
 
-
 # We’ll add some axis labels, and incorporate the variance information to describe the relative importance of the spread of the data
-
 plot12 <- plot12 + labs(x = paste0("PC1 variance = ",PC1.variance,"%"), y = paste0("PC2 variance = ", PC2.variance, "%"))
 plot12
 
-
 # We need some labels to describe the country of origin. We will also set some colours 
-
 cols <- colorRampPalette(brewer.pal(8, "Set1"))(17)
 
 plot12 <- plot12 + geom_point(aes(col = country)) + scale_colour_manual(values=cols) 
 plot12
-
 
 ```
 
@@ -731,7 +687,6 @@ Now we are starting to get somewhere. Lets have a look and see what the data is 
 
 ```R
 # Lets quickly look at PC3/PC4, and compare to the first plot.
-
 plot34 <- ggplot(vcf.pca.scores, aes(PC3, PC4)) + 
 	geom_point(aes(col = country)) + 
 	labs(x = paste0("PC3 variance = ", PC3.variance,"%"), y = paste0("PC4 variance = ", PC4.variance, "%")) + 
@@ -751,7 +706,6 @@ some of the subtle features of the diversity that may be important. Lets explore
 
 ```R
 # Calculate the mean value of the principal components for each country. We can use this to make some labels for our plots
-
 means <- vcf.pca.scores %>% group_by(country) %>% summarize(meanPC1 = mean(PC1), meanPC2 = mean(PC2),meanPC3 = mean(PC3), meanPC4 = mean(PC4))
 
 ```
@@ -779,7 +733,8 @@ country are genetically similar, we should see a small ellipse. However, if samp
 
 Compare the two plots, and try to identify similarities and differences
 
-Q: Looking at the ellipses specifically, can you see any countries that have a different distribution than the others, and describe this difference?
+### Question
+- Looking at the ellipses specifically, can you see any countries that have a different distribution than the others, and describe this difference?
 
 
 ---
@@ -838,16 +793,13 @@ AF_data <- melt(AF_data)
 colnames(AF_data) <- c("CHROM","POS","country","allele_frequency")
 AF_data$country <- gsub("Hs_","", AF_data$country)
 
-
 # extract the latitude and longitude for each country from the metadata file
 coords <- data.frame(metadata$country, metadata$latitude, metadata$longitude)
 coords <- unique(coords)
 colnames(coords) <- c("country","latitude","longitude")
 
-
 # join the allele frequency data and the latitude/longitude data together
 AF_data_coords <- dplyr::left_join(AF_data, coords, by = "country")
-
 
 # lets have a look at the new data.
 head(AF_data_coords)
@@ -864,7 +816,6 @@ map("world", col = "grey85", fill = TRUE, border = FALSE)
 map.axes()
 points(metadata$longitude, metadata$latitude, cex = 1.5, pch = 20, col = cols[pop(vcf.gl)])
 legend( x = "left", legend = unique(pop(vcf.gl)), col = cols[unique(pop(vcf.gl))], lwd = "1", lty = 0, 	pch = 20, box.lwd = 0, cex = 1)
-
 
 # your map should look a bit like the one below.
 
@@ -892,7 +843,6 @@ vcf.pca
 # We will make a new data frame, containing the SNP names and the loadings for the first two PCs
 snp_loadings <- data.frame(vcf.gl@loc.names, vcf.pca$loadings[,1:2])
 
-
 # sort the SNP loadings by the Axis 1 using the following:
 head(snp_loadings[order(snp_loadings$Axis1, decreasing = T),])
 
@@ -906,7 +856,6 @@ head(snp_loadings[order(snp_loadings$Axis1, decreasing = T),])
 ```R
 # select a SNP of interest based on its position 
 AF_SNP_coords <- AF_data_coords[AF_data_coords$POS == "7859",]
-
 
 # Remake your map, but this time, we’ll add a pie chart describing the population allele frequency per country. 
 par(fg = "black")
