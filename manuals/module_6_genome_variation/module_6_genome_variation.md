@@ -81,11 +81,12 @@ ls -lrt
 
 ![](figures/figure_6.1.PNG)   
 
-You should be able to see one directory called “raw_reads” containing all of the sequencing data we will be working with today, a directory 
-called "R_analysis" where we will performed our population genetic analyses, and two files, one is your reference sequence that we will map 
-our raw reads to, and the other contains metadata about our samples that we will be using later. It is a good idea to collect all metadata to 
-do with a study early, as it can help you explore your data in the analysis, and help interpret the genetic signals that you hopefully will 
-discover.
+You should be able to see:
+- one directory called “raw_reads” containing all of the sequencing data we will be working with today, 
+- a directory called "R_analysis" where we will performed our population genetic analyses, 
+- two files, one is your reference sequence that we will map our raw reads to, and the other contains metadata about our samples that we will be using later. 
+
+It is a good idea to collect all metadata to do with a study early, as it can help you explore your data in the analysis, and help interpret the genetic signals that you hopefully will discover.
 
 
 ---
@@ -140,33 +141,33 @@ Looking at the webpage, there are a number of windows to look at, including:
 - General statistics
 	- summarises various statistics per sample
 - FastQC 
-	- Sequence counts:
+	- ***Sequence counts:***
 		- shows relative proportion of unique and duplicated reads. Some duplicated reads are expected, however, it is a technical artefact and too many may be a problem.
-	- Sequence Quality Histograms:
+	- ***Sequence Quality Histograms:***
 		- Good overall indicator of data quality. Should remain mostly in the green, however, will drop in quality over the length of the read. Longer reads will show great drop, and R2 will show greater drop compared to R1.
-	- Per Sequence Quality Scores:
+	- ***Per Sequence Quality Scores:***
 		- similar data to the "Sequence Quality Histograms"
-	- Per Base Sequence Content:
+	- ***Per Base Sequence Content:***
 		- The proportion of each base position for which each of the four normal DNA bases has been called.
-	- Per Sequence GC Content:
+	- ***Per Sequence GC Content:***
 		-  The average GC content of reads. 
 		- Abnormal GC distribution is a good indicator of contamination. Does the GC profile fit the expected GC content for your species of interest? Is it a smooth distribution, or are their spikes? 
-	- Per Base N Content:
+	- ***Per Base N Content:***
 		- The percentage of base calls at each position for which an N was called.
 		- Is there an excess of positions in the reads for which a “N” base was called? Excess Ns can often indicate an issue with the sequencing.
-	- Sequence Length Distribution:
+	- ***Sequence Length Distribution:***
 		- The distribution of fragment sizes (read lengths) found. Sequencing lengths "should" be the same if they were sequenced together. 
 		- Might be more relevant if you have trimmed your data, and want to see the effect of processing.
-	- Sequence Duplication Levels:
+	- ***Sequence Duplication Levels:***
 		- The relative level of duplication found for every sequence.
 		- Is there excessive duplication? Duplication may suggests artefacts generated during library preparation / PCR amplification
-	- Overrepresented sequences:
+	- ***Overrepresented sequences:***
 		- The total amount of overrepresented sequences found in each library.
 		- could reflect biases based on certain sequences being present more than expected.
-	- Adapter Content:
+	- ***Adapter Content:***
 		- The cumulative percentage count of the proportion of your library which has seen each of the adapter sequences at each position.
 		- What is the proportion of known Illumina adapters that are present in the data?
-	- Status Checks:
+	- ***Status Checks:***
 		- Status for each FastQC section showing whether results seem entirely normal (green), slightly abnormal (orange) or very unusual (red).
 		- NOTE: it is parameterised on human data, i.e., GC content, and so may report as “failing” based on assessing your data [if not human] because it does not look like human 
 		- some "fails" are not a problem  
