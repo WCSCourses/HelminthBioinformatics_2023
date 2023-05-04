@@ -49,16 +49,14 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
 
 
 ## Timetable
-### Overview
+- overview 
 
 |           | Sunday                                   | Monday              | Tuesday             | Wednesday        | Thursday        | Friday        | Saturday                |
 |-----------|------------------------------------------|---------------------|---------------------|------------------|-----------------|---------------|-------------------------|
 | Morning   |                                          | WormBase Parasite 1 | WormBase Parasite 2 | Genome Variation | Transcriptomics | Project       | Public Engagement Event |
 | Afternoon |  Welcome session & Public Engagement     | Intro to Linux      | R and RStudio       | Genome Variation | Transcriptomics | Presentations | Public Engagement Event |  
 
-
-### Detailed timetable
--TODO [Download here](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/Helminth%20Bioinformatics%20Timetable%20and%20Planning%20Mastersheet%20-%20Helminth%20Bio%202023%20Timetable.pdf)
+- [Detailed timetable](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/Helminth%20Bioinformatics%20Timetable%20and%20Planning%20Mastersheet%20-%20Helminth%20Bio%202023%20Timetable.pdf)
 
 
 ## Course manual
