@@ -60,8 +60,8 @@ Overall, the aims of this module are to familiarize you with tools and concepts 
 
 
 Lets get started!
-```bash 
 
+```bash 
 # Lets move to the working directory
 cd Module_6_Genetic_Variation
 
