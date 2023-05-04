@@ -1,5 +1,4 @@
-theme: just-the-docs
-# theme: minima
+theme: minima
 # jekyll-theme-minimal
 
 #remote_theme: chrisrhymes/bulma-clean-theme
