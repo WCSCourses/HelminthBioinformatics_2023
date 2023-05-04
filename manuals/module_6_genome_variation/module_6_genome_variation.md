@@ -97,7 +97,7 @@ We will start by using a tool called **FastQC** (https://www.bioinformatics.babr
 
 ![fastqc](figures/module4_image2.png)
 
-Example FastQC output. 	https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+**Figure.** Example FastQC output. 	https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
 
 
 The main panel of this figure shows an example of the comparison of the distribution of per base quality (Phred score, on the y-axis) per base position in the read (x-axis). Phred scores above 30 are typically considered to be good quality for an Illumina read. In this case, it shows higher quality bases toward the start of the read (in the green section), followed by a decrease in quality along the read, in which the quality drops into the yellow (Phred < 30) and then into the red (Phred < 20). Some examples of “good” and “bad” quality data is found in the “Example Reports” section of the FastQC website.
@@ -105,7 +105,6 @@ The main panel of this figure shows an example of the comparison of the distribu
 Lets run FastQC and explore our data.
 
 ```bash
-
 # go to the working directory
 cd raw_data
 
@@ -124,6 +123,7 @@ multiqc --interactive .
 firefox multiqc_report.html
 
 ```
+
 
 FastQC generates output files than can be visualised independently. However, when you have multiple samples, it is slow and difficult to compare. MultiQC is a great too for visualising multiple samples at the same time, which simplifies comparing different samples and can help you to see trends in your data.
 
@@ -187,7 +187,6 @@ Fortunately, we have access to a high-quality reference genome for Haemonchus co
 
 
 ```bash
-
 # Download the Haemonchus contortus reference genome from WormBase ParaSite, and unzip it
 wget https://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/WBPS18/species/haemonchus_contortus/PRJEB506/haemonchus_contortus.PRJEB506.WBPS18.genomic.fa.gz
 
@@ -205,7 +204,6 @@ Samtools faidx is a really useful command for a few different reasons:
 - it can also be used to extract part of a sequence, for example, modifying the above command can be used to extract a particular sequnece based on a sequence range, ie 1-100
 
 ```bash
-
 # extract the first 100 bases of the mitochondrial genome
 samtools faidx haemonchus_contortus.PRJEB506.WBPS18.genomic.fa mitochondrion:1-100
 
@@ -246,7 +244,6 @@ To start with, we are going to work on a single sample to familiarise you with t
 
 
 ```bash
-
 # make a new directory (mkdir) and move into it (cd)
 mkdir single_sample_analysis
 
@@ -280,7 +277,6 @@ samtools index single_sample.tmp.sorted.bam
 # to make sense of what we are doing with the mapping, lets open the top of our SAM file and have a look at what the data means
 head single_sample.tmp.sam
 
-
 ```
 
 ![](figures/figure6.2.PNG)  
@@ -295,8 +291,8 @@ Sometimes, understanding these numbers can be useful. We can use the following w
 
 It is a good idea to look at how well the mapping went. We can use the tool "samtools flagstats" which reads the flag column we have just looked at above and summarises the data 
 
-```bash
 
+```bash
 # run samtools flagstats and look at the output
 
 samtools flagstats single_sample.tmp.sorted.bam > single_sample.tmp.sorted.flagstats
@@ -334,8 +330,8 @@ binary version of the VCF.
 SNP call data can take up a lot of disk space, and so we have generated a compressed format (gz). It is always good to remove unnecessary 
 files, and/or compress large files.
 
-```bash
 
+```bash
 # used bcftools mpileup and call commands to identify variants - NOTE: this command is all one line
 bcftools mpileup -Ou -f hcontortus_mtDNA.fasta single_sample.tmp.sorted.bam | bcftools call -v -c --ploidy 1 -Ob --skip-variants indels > single_sample.tmp.bcf
 
@@ -362,7 +358,6 @@ zless single_sample.tmp.vcf.gz
 
 
 ```bash
-
 # lets see what we have generated with the previous commands
 ls -lrt
 
@@ -372,7 +367,6 @@ ls -lrt
 **Figure**
 
 ```
-
 # to begin to explore what this data looks like, we will load Artemis and import the relevant data. In this case there relevant data we will load are:
 # - the reference sequence: hcontortus_mtDNA.fasta
 # - the mapping data: single_sample.tmp.sorted.bam
@@ -429,18 +423,14 @@ comes from writing scripts that automates this process for you.
 Here, we will use a “for loop” to iterate over the 176 samples we have provided. 
 
 ```bash
-
 # First, go back to the module home directory:
-
 cd ~/Module_6_Genetic_Variation
 
 # make a new directory to do this next step in.
-
 mkdir multi_sample_analysis
 cd multi_sample_analysis
 
 # lets copy your reference sequence into the new working dir and index it as before
-
 cp ../hcontortus_mtDNA.fasta .
 bwa index hcontortus_mtDNA.fasta
 
@@ -494,7 +484,6 @@ In some cases, the SNP caller is actually more accurate when multiple samples ar
 sample calling in a loop) is preferred.
 
 ```bash
-
 # First, we need to make a file-of-file-names – “bam.fofn” – that will contain the names of all of the bam files that we will call SNPs
 ls -1 *.sorted.bam > bam.fofn
 
@@ -524,7 +513,6 @@ collect biallelic SNPs, which are required for downstream analysis. Using the �
 our SNPs that were kept after filtering.
 
 ```bash
-
 # Filter SNPs in the vcf to select variants with:
 # 1. a minor allele frequence (maf) greater than 0.05, and
 # 2. minimum and maximum allele count of 2 
@@ -565,9 +553,7 @@ the same ideas apply. We will point out some of these differences as we go to tr
 provides a convenient user interface that combines a scripting window, a command line window,  a plotting window, and a directory window. 
 
 ```bash
-
 # In the unix shell, lets prepare your data
-
 cd ~/Module_6_Genetic_Variation/R_analysis
 cp ../multi_sample_analysis/all_samples.filtered.recode.vcf .
 cp ../sample_metadata.txt .
@@ -581,7 +567,6 @@ R
 ```
 
 ```R
-
 # Welcome to R!
 # Some things look a little different in here… some of the commands are very similar between R and unix, but there are also some differences too.
  
@@ -648,7 +633,6 @@ vcf.gl
 
 
 ```R
-
 # Have a close look at how the data is store in this object, for example
 
 vcf.gl@ind.names
@@ -663,7 +647,6 @@ vcf.gl@pop
 
 ## Principal component analysis of genetic diversity <a name="pca"></a>
 ```R
-
 # Perform a PCA analysis, and we’ll have a look at it
 
 vcf.pca <- glPca(vcf.gl, nf = 10)
@@ -676,7 +659,6 @@ vcf.pca
 **Figure.** Understanding the data generated by PCA
 
 ```R
-
 # We will extract the scores for each PC in preparation for making some figures, and add the country information to allow us to explore the data 
 a little better
 
@@ -768,7 +750,6 @@ Some patterns are starting to emerge regarding the genetic  relatedness within a
 some of the subtle features of the diversity that may be important. Lets explore the data in a slightly different way. 
 
 ```R
-
 # Calculate the mean value of the principal components for each country. We can use this to make some labels for our plots
 
 means <- vcf.pca.scores %>% group_by(country) %>% summarize(meanPC1 = mean(PC1), meanPC2 = mean(PC2),meanPC3 = mean(PC3), meanPC4 = mean(PC4))
@@ -777,9 +758,7 @@ means <- vcf.pca.scores %>% group_by(country) %>% summarize(meanPC1 = mean(PC1),
 
 
 ```R
-
 # Lets make a slightly different plot that our first comparison of PC1 and PC2, 
-
 plot12.2 <- ggplot(vcf.pca.scores, aes(PC1, PC2, col = 	country)) + 
   	labs(x = paste0("PC1 variance = ", PC1.variance, "%"), y = paste0("PC2 variance = ", PC2.variance, "%")) + 
   	scale_colour_manual(values = cols) +
@@ -817,9 +796,7 @@ A more common approach to directly compare samples is to perform a pairwise anal
 tree. This is the next step in our analysis, and we will compare these results to the PCAs. 
 
 ```R
-
 # Generated pairwise distances between samples that we will plot in a tree format
-
 tree_data <- aboot(vcf.gl, tree = "upgma", distance = bitwise.dist, sample = 100, showtree = F, cutoff = 50) 
 
 #--- make and plot the tree 
@@ -854,9 +831,7 @@ However, it should give you an idea of what could be done integrating these data
 First, lets calculate allele frequencies per country, and integrate this with the latitude and longitude coordinates to prepare to plot.
 
 ```R
-
 # Calculate allele frequencies per country
-
 myDiff_pops <- genetic_diff(vcf,pops = vcf.gl@pop)
 AF_data <- myDiff_pops[,c(1:19)]
 AF_data <- melt(AF_data)
@@ -883,9 +858,7 @@ head(AF_data_coords)
 **Figure.** Integrating allele frequencing and geographic data
 
 ```R
-
 # Lets make a map, and plot the sampling locations on it. 
-
 par(fg = "black")
 map("world", col = "grey85", fill = TRUE, border = FALSE)
 map.axes()
@@ -905,9 +878,7 @@ We need to decide on which SNP(s) we want to plot. One approach might be to iden
 on the PC1 and PC2 variance. We can identify these in the “loadings” data set that was generated when we ran the PCA.
 
 ```R
-
 # we can find the loadings in the PCA of our SNP data
-
 vcf.pca 
 
 ```
@@ -919,12 +890,10 @@ vcf.pca
 
 ```R
 # We will make a new data frame, containing the SNP names and the loadings for the first two PCs
-
 snp_loadings <- data.frame(vcf.gl@loc.names, vcf.pca$loadings[,1:2])
 
 
 # sort the SNP loadings by the Axis 1 using the following:
-
 head(snp_loadings[order(snp_loadings$Axis1, decreasing = T),])
 
 ```
@@ -935,13 +904,11 @@ head(snp_loadings[order(snp_loadings$Axis1, decreasing = T),])
 
 
 ```R
-
 # select a SNP of interest based on its position 
 AF_SNP_coords <- AF_data_coords[AF_data_coords$POS == "7859",]
 
 
 # Remake your map, but this time, we’ll add a pie chart describing the population allele frequency per country. 
-
 par(fg = "black")
 
 map("world", col = "grey85", fill = TRUE, border = FALSE)
