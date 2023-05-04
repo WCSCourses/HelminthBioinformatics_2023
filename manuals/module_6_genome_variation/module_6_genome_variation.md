@@ -4,8 +4,6 @@
 ## Table of Contents
 1. [Overview and Aims](#intro)
 2. [Quality control of raw sequencing data](#dataQC)
-
-
 2. [Short read mapping](#mapping)
 3. [Calling SNPs in our mapped sample](#snps)
 4. [Visualising mapped reads and variants using Artemis](#artemis)
@@ -31,7 +29,6 @@ closely related populations or individual organisms and may thus learn about gen
 in pathogens, or changed susceptibility to disease in humans. One important prerequisite for the mapping of sequence data to work is that the reference
 and the re-sequenced subject have the same genome architecture.
 
-
 In this exercise, you will be analyzing genetic variation in the gastrointestinal helminth *Haemonchus contortus*. *H. contortus* is an important 
 pathogen of wild and domesticated ruminants worldwide, and has a major impact on the health and economic viability of sheep and goat farming in 
 particular. It is also a genetically tractable model used for drug discovery, vaccine development, and anthelmintic resistance research. A chromosome-scale reference genome assembly and manually curated genome annotation are both available to download and explore at WormBase Parasite.
@@ -53,7 +50,7 @@ Overall, the aims of this module are to familiarize you with tools and concepts 
 - map high-throughput sequencing reads to a genome;
 - bioinformatically identify and filter single nucleotide polymorphisms in your samples;  
 - visualize sequencing reads and genetic variants in your samples;
-- analyze patterns of genetic diversity in your data, and link these patterns to metadata to uncover biological insights in your species.
+- analyse patterns of genetic diversity in your data, and link these patterns to metadata to uncover biological insights in your species.
 
 ---
 [↥ **Back to top**](#top)
@@ -79,13 +76,15 @@ Li H. and Durbin R. (2009) Fast and accurate short read alignment with Burrows-W
 
 Lets get started!
 ```bash 
+
 # Lets move to the working directory
 cd Module_6_Genetic_Variation
 
 # it is always worth checking what is in a directory before doing any work. It ensures you are in the right place and the files you want to work on a present. 
-ls -ltr 
+ls -lrt 
 
 ```
+
 ![](figures/figure_6.1.PNG)  
 **Figure 1.**  
 
@@ -114,6 +113,7 @@ The main panel of this figure shows an example of the comparison of the distribu
 Lets run FastQC and explore our data.
 
 ```bash
+
 # go to the working directory
 
 cd raw_data
@@ -134,7 +134,6 @@ for i in AUS*.fastq.gz; do fastqc ${i}; done
 multiqc --interactive .
 
 firefox multiqc_report.html
-
 
 ```
 
@@ -196,7 +195,9 @@ Before mapping out samples, we need a reference genome. If you didnt have a refe
 
 Fortunately, we have access to a high-quality reference genome for Haemonchus contortus, which we can download from WormBase ParaSite. From this reference genome, we need to extract the mitochondrial genome, which will be the focus of our analyses.
 
+
 ```bash
+
 # Download the Haemonchus contortus reference genome from WormBase ParaSite, and unzip it
 wget https://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/WBPS18/species/haemonchus_contortus/PRJEB506/haemonchus_contortus.PRJEB506.WBPS18.genomic.fa.gz
 
@@ -205,6 +206,7 @@ gunzip haemonchus_contortus.PRJEB506.WBPS18.genomic.fa.gz
 # The file you have downloaded is the whole genome assembly, and we only want the mitochondrial genome. We can create a new file containing the mitochondrial genome using:
 
 samtools faidx haemonchus_contortus.PRJEB506.WBPS18.genomic.fa mitochondrion > hcontortus_mtDNA.fasta
+
 ```
 
 Samtools faidx is a really useful command for a few different reasons:
@@ -213,6 +215,7 @@ Samtools faidx is a really useful command for a few different reasons:
 - it can also be used to extract part of a sequence, for example, modifying the above command can be used to extract a particular sequnece based on a sequence range, ie 1-100
 
 ```bash
+
 # extract the first 100 bases of the mitochondrial genome
 samtools faidx haemonchus_contortus.PRJEB506.WBPS18.genomic.fa mitochondrion:1-100
 
@@ -224,13 +227,14 @@ samtools faidx haemonchus_contortus.PRJEB506.WBPS18.genomic.fa mitochondrion:1-1
 
 
 ## Mapping reads from a single sample
-To start with, we are going to work on a single sample to familiarize you with the necessary steps required to:
-- get organized with directories (it is really important to keep organized!!!)
+To start with, we are going to work on a single sample to familiarise you with the necessary steps required to:
+- get organised with directories (it is really important to keep organised!!!)
 - download and prepare your reference sequence
 - map your reads
 - convert your mapped reads file into a format that can be read by out visualization tool, Artemis.
 
 ```bash
+
 # make a new directory (mkdir) and move into it (cd)
 mkdir single_sample_analysis
 
@@ -266,11 +270,13 @@ head single_sample.tmp.sam
 
 
 ```
+
 ![](figures/figure6.2.PNG)  
 **Figure 2.** Exploring the SAM file format
 
 
 ```bash
+
 # its a good idea to look at how well the mapping worked. 
 samtools flagstats single_sample.tmp.sorted.bam > single_sample.tmp.sorted.flagstats
 
@@ -280,7 +286,7 @@ cat single_sample.tmp.sorted.flagstats
 
 Here, we can see how many reads have mapped, and if they are "properly paired". Why might that be important?
 
-As we have mapped the reads to a single, small reference sequence (due to space and time), it looks like this read has mapped well. However, if it had not, this
+As we have mapped the reads to a single, small reference sequence (due to space and time), it looks like this read has mapped well. However, if it had not mapped well, we might need to decide if we have enough data to analyse, and whether more sequencing (or resampling) was needed.
 
 
 ---
@@ -308,6 +314,7 @@ SNP call data can take up a lot of disk space, and so we have generated a compre
 files, and/or compress large files.
 
 ```bash
+
 # used bcftools mpileup and call commands to identify variants - NOTE: this command is all one line
 bcftools mpileup -Ou -f hcontortus_mtDNA.fasta single_sample.tmp.sorted.bam | bcftools call -v -c --ploidy 1 -Ob --skip-variants indels > single_sample.tmp.bcf
 
@@ -333,19 +340,23 @@ zless single_sample.tmp.vcf.gz
 
 
 ```bash
+
 # lets see what we have generated with the previous commands
 ls -lrt
+
 ```
 ![](figures/figure6.4.PNG)  
 **Figure 4.**
 
 ```
+
 # to begin to explore what this data looks like, we will load Artemis and import the relevant data. In this case there relevant data we will load are:
 # - the reference sequence: hcontortus_mtDNA.fasta
 # - the mapping data: single_sample.tmp.sorted.bam
 # - the variant data: single_sample.tmp.vcf.gz
 
 art &
+
 ```
 
 
@@ -384,6 +395,7 @@ comes from writing scripts that automates this process for you.
 Here, we will  use a “for loop” to iterate over the 176 samples we have provided. 
 
 ```bash
+
 # First, go back to the module home directory:
 
 cd ~/Module_6_Genetic_Variation
@@ -421,13 +433,15 @@ for i in $( cd ../raw_reads ; ls -1 *_1.fastq.gz | sed -e 's/_1.fastq.gz//g' ); 
 done
 
 # !!! END !!!
+
 ```
+
 While we are waiting for our mapping to finish, lets break down what we just did. 
 
 NOTE: you don’t need to write any of the commands, on this page. This is just to explain what is going on. 
 
 ![](figures/figure6.7.PNG)  
-**Figure 7.** Breaking down out "for loop"
+**Figure.** Breaking down out "for loop"
 
 ---
 [↥ **Back to top**](#top)
@@ -441,6 +455,7 @@ In some cases, the SNP caller is actually more accurate when multiple samples ar
 sample calling in a loop) is preferred.
 
 ```bash
+
 # First, we need to make a file-of-file-names – “bam.fofn” – that will contain the names of all of the bam files that we will call SNPs
 ls -1 *.sorted.bam > bam.fofn
 
@@ -460,7 +475,6 @@ bcftools view all_samples.bcf -Oz > all_samples.vcf.gz
 # index the compressed vcf
 tabix -p vcf all_samples.vcf.gz
 
-
 ```
 
 In general, SNP callers tend to call too many variants, and so some filtering is required. Depending on that the intended outcome of the 
@@ -471,6 +485,7 @@ collect biallelic SNPs, which are required for downstream analysis. Using the �
 our SNPs that were kept after filtering.
 
 ```bash
+
 # Filter SNPs in the vcf to select variants with:
 # 1. a minor allele frequence (maf) greater than 0.05, and
 # 2. minimum and maximum allele count of 2 
@@ -478,6 +493,7 @@ our SNPs that were kept after filtering.
 vcftools --gzvcf all_samples.vcf.gz --maf 0.05 --min-alleles 2 --max-alleles 2 --recode --out all_samples.filtered
 
 ```
+
 Lets have a quick look in Artemis to see what our new data looks like. 
 
 If you have closed the previous Artemis window down, follow the previous instructions to load Artemis and your reference sequence.
@@ -496,6 +512,10 @@ and genetic relationships among our samples.
 ---
 [↥ **Back to top**](#top)
 
+
+
+
+
 ## Analysis of genetic variation using R <a name="r"></a>
 Well done getting this far! By now, you should  have been able to map reads from 176 samples, and call SNP variants in all of them. 
 Now we want to explore these data and identify any patterns in the genetic variation that might tell us something about the biology of 
@@ -507,7 +527,6 @@ provides a convenient user interface that combines a scripting window, a command
 ```bash
 # In the unix shell, lets prepare your data
 
-
 cd ~/Module_6_Genetic_Variation/R_analysis
 cp ../multi_sample_analysis/all_samples.filtered.recode.vcf .
 cp ../sample_metadata.txt .
@@ -517,9 +536,11 @@ cp ../sample_metadata.txt .
 # Alternatively, you can load R on the command line simply by typing :
 
 R
+
 ```
 
 ```R
+
 # Welcome to R!
 # Some things look a little different in here… some of the commands are very similar between R and unix, but there are also some differences too.
  
@@ -531,8 +552,7 @@ library(ggplot2)
 library(dplyr)
 library(session)
 
-# There are many more packages required for this module to work, which are described in the appendix. Rather than getting you to type them 
-all out, we will open an R environment that has them already loaded:
+# There are many more packages required for this module to work, which are described in the appendix. Rather than getting you to type them all out, we will open an R environment that has them already loaded:
 
 restore.session(file =	"wtac_helminths.workbook.Rdata")
 
@@ -551,6 +571,7 @@ save.session(file = "wtac_helminths.workbook.Rdata")
 
 ### Import and prepare your data for analysis
 ```R
+
 # Lets specify your input files that we will load into R
 #-- the vcf contain the SNP data your generated with bcftools
 
@@ -586,6 +607,7 @@ vcf.gl
 
 
 ```R
+
 # Have a close look at how the data is store in this object, for example
 
 vcf.gl@ind.names
@@ -646,7 +668,7 @@ PC1.variance
 # This suggests that PC1 describes 36.96% of the variance in the data, which is consistent with our previous plot.
 
 
-# OK, time to visualize our data and make some plots! 
+# OK, time to visualise our data and make some plots! 
 # Lets build a plot of your data using ggplot, and explore how to incorporate additional information into the plot to make it more 
 informative. Ggplot works by adding layers of information (hence the “+”) to build the plot.
 
