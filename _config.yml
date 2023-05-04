@@ -1,6 +1,7 @@
 # theme: minima
 # jekyll-theme-minimal
 
-remote_theme: pages-themes/dinky@v0.2.0
+remote_theme: chrisrhymes/bulma-clean-theme
+# remote_theme: pages-themes/dinky@v0.2.0
 plugins:
 - jekyll-remote-theme
