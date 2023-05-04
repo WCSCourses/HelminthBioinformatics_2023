@@ -25,13 +25,13 @@ github_username:  WCSCourses
 
 
 # Build settings
-markdown: kramdown
+#markdown: kramdown
 theme: minima
-gems:
-  - jekyll-feed
-exclude:
-  - Gemfile
-  - Gemfile.lock
+#gems:
+#  - jekyll-feed
+#exclude:
+#  - Gemfile
+#  - Gemfile.lock
 
 
 # theme: minima
