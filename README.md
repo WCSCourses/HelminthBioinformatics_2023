@@ -54,33 +54,14 @@ You may find a short online course on **Introduction to Genomics** beneficial fo
 |           | Sunday                                   | Monday              | Tuesday             | Wednesday        | Thursday        | Friday        | Saturday                |
 |-----------|------------------------------------------|---------------------|---------------------|------------------|-----------------|---------------|-------------------------|
 | Morning   |                                          | WormBase Parasite 1 | WormBase Parasite 2 | Genome Variation | Transcriptomics | Project       | Public Engagement Event |
-| Afternoon |  Welcome session & Public Engagement     | Intro to Linux      | R and RStudio       | Genome Variation | Transcriptomics | Presentations | Public Engagement Event |
-|           |                                          |                     |                     |                  |                 |               |                         |  
+| Afternoon |  Welcome session & Public Engagement     | Intro to Linux      | R and RStudio       | Genome Variation | Transcriptomics | Presentations | Public Engagement Event |  
 
-
-- Sunday
-     - Welcome session
-     - Public Engagement Part 1
-- Monday
-     - WormBase Parasite 1
-     - Introduction to Linux
-- Tuesday
-     - WormBase Parasite 2
-     - R and RStudio
-- Wednesday
-     - Genome Variation
-- Thursday
-     - Transcriptomics
-- Friday
-     - Project & presentations
-- Saturday 
-     - Public Engagement Event
 
 ### Detailed timetable
 -TODO [Download here](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/Helminth%20Bioinformatics%20Timetable%20and%20Planning%20Mastersheet%20-%20Helminth%20Bio%202023%20Timetable.pdf)
 
 
-## [Course manual](https://wcscourses.github.io/HelminthBioinformatics_2023/)
+## Course manual
 - https://wcscourses.github.io/HelminthBioinformatics_2023/
 
 **Module 1 - WormBase Parasite 1**  
