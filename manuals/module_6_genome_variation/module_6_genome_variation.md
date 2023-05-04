@@ -24,8 +24,8 @@ output:
 9. [Exploring genetic data using phylogenetic trees](#trees)
 10. [Integrating genetic and geographic data: maps](#maps)
 
----
-
+<br>
+<br>
 
 
 ## Overview and Aims <a name="intro"></a>
@@ -66,7 +66,8 @@ Overall, the aims of this module are to familiarize you with tools and concepts 
 ---
 
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 Lets get started!
 
@@ -92,7 +93,8 @@ It is a good idea to collect all metadata to do with a study early, as it can he
 ---
 
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 
@@ -187,7 +189,8 @@ Hopefully, you should see that all of the Australian samples are fairly similar 
 ---
 
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 ## Preparing your reference sequence prior to mapping <a name="ref"></a>
@@ -222,7 +225,8 @@ samtools faidx haemonchus_contortus.PRJEB506.WBPS18.genomic.fa mitochondrion:1-1
 ---
 
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 
@@ -310,7 +314,8 @@ As we have mapped the reads to a single, small reference sequence (due to space 
 
 ---
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 ## Calling SNPs in our mapped sample <a name="snps"></a>
@@ -377,8 +382,8 @@ art &
 ---
 
 [↥ **Back to top**](#top)
-
-
+<br>
+<br>
 
 ## Visualising mapped reads and variants using Artemis <a name="artemis"></a>
 We will use Artemis to visualize your mapped reads, and identify variant positions from the SNP calling we have performed on our single sample. 
@@ -406,7 +411,8 @@ Lets explore our data.
 ---
 
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 
@@ -468,7 +474,8 @@ NOTE: you don’t need to write any of the commands, on this page. This is just 
 ---
 
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 
@@ -533,7 +540,8 @@ and genetic relationships among our samples.
 ---
 
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 
@@ -585,6 +593,7 @@ save.session(file = "wtac_helminths.workbook.Rdata")
 
 ```
 
+
 ### Import and prepare your data for analysis
 ```R
 
@@ -623,7 +632,8 @@ vcf.gl@pop
 ---
 
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 ## Principal component analysis of genetic diversity <a name="pca"></a>
 ```R
@@ -750,7 +760,8 @@ Compare the two plots, and try to identify similarities and differences
 ---
 
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 ## Exploring genetic data using phylogenetic trees <a name="trees"></a>
 PCA is a great way to explore complex datasets, including genomics data, and can help to identify drivers (sometimes even technical biases) that 
@@ -781,8 +792,8 @@ tree_plot
 ---
 
 [↥ **Back to top**](#top)
-
-
+<br>
+<br>
 
 
 
@@ -904,7 +915,8 @@ If you have time, try explore plotting the allele frequency of other SNPs in PC1
 ---
 
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 
 ## Summary
@@ -917,7 +929,8 @@ In this module, we have shown you how to:
 ---
 
 [↥ **Back to top**](#top)
-
+<br>
+<br>
 
 ******
 ## License
