@@ -182,7 +182,7 @@ Looking at the webpage, there are a number of windows to look at, including:
 
 - Hopefully, you should see that all of the Australian samples are fairly similar to each other, and look like pretty good data. This is an ideal scenario. However, it is not always like this. To save time, we have generated a multiQC report for all of the samples, which can be accessed by clicking on the link below.
 
-![MultiQC report for all samples](figures/multiqc_all_samples.html)  
+[MultiQC report for all samples](figures/multiqc_all_samples.html)  
 
 ### Questions
 - how does the "all sample" report compared to the "Australian-only sample" report?
