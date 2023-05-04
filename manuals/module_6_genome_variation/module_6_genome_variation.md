@@ -34,14 +34,10 @@ and the re-sequenced subject have the same genome architecture.
 
 In this exercise, you will be analyzing genetic variation in the gastrointestinal helminth *Haemonchus contortus*. *H. contortus* is an important 
 pathogen of wild and domesticated ruminants worldwide, and has a major impact on the health and economic viability of sheep and goat farming in 
-particular. It is also a genetically tractable model used for drug discovery, vaccine development, and anthelmintic resistance research. A chromosome-scale 
-reference genome assembly and manually curated genome annotation are both available to download and explore at WormBase Parasite.
-The sequencing data you will be using in this module is from two recently published studies - [Salle et al 2019 Nature Communications](https://doi.org/10.1038/s41467-019-12695-4)
-and [Doyle et al. 2020 Communications Biology](https://doi.org/10.1038/s42003-020-01377-3) - which describe the global and genome-wide genetic diversity of *H. contortus*, all of which was generated at the Wellcome Sanger Institute. 
-Analysis of global diversity allows you to understand aspects of the species biology, such as how different populations are connected (which may be important to understand the spread of a pathogen or ongoing transmission), whether populations are growing or declining (perhaps in response to drug treatment), or the impact of selection on regions or specific genes throughout the genome. Although whole genome sequencing data was generated for these samples, we have extracted only 
-the mitochondrial DNA-derived reads for you to work with. The main reason for this is that at this scale, the data should be able to be analysed 
-efficiently on your computer without the need for high performance computing infrastructure and/or capacity. 
+particular. It is also a genetically tractable model used for drug discovery, vaccine development, and anthelmintic resistance research. A chromosome-scale reference genome assembly and manually curated genome annotation are both available to download and explore at WormBase Parasite.
+The sequencing data you will be using in this module is from two recently published studies - [Salle et al 2019 Nature Communications](https://doi.org/10.1038/s41467-019-12695-4) and [Doyle et al. 2020 Communications Biology](https://doi.org/10.1038/s42003-020-01377-3) - which describe the global and genome-wide genetic diversity of *H. contortus*, all of which was generated at the Wellcome Sanger Institute. 
 
+Analysis of global diversity allows you to understand aspects of the species biology, such as how different populations are connected (which may be important to understand the spread of a pathogen or ongoing transmission), whether populations are growing or declining (perhaps in response to drug treatment), or the impact of selection on regions or specific genes throughout the genome. Although whole genome sequencing data was generated for these samples, we have extracted only the mitochondrial DNA-derived reads for you to work with. The main reason for this is that at this scale, the data should be able to be analysed efficiently on your computer without the need for high performance computing infrastructure and/or capacity. 
 
 We will be working in both the unix and R command line environments. This is because we typically manipulate high throughput sequencing data such 
 as those you will be using in unix, i.e., read mapping and SNP calling, whereas the population genetic analyses are commonly written using R tools. 
@@ -52,7 +48,6 @@ a considerable amount of coding in this module - this may be daunting at first, 
 We will also be using Artemis, a computer program designed to view and edit genomic sequences and visualise annotations in a highly interactive graphical 
 format. In this exercise, we will use Artemis to visualise our genomic sequencing data mapped to our reference sequence, and identify the variants that 
 differ between our samples and the reference.
-
 
 Overall, the aims of this module are to familiarize you with tools and concepts that will allow you to:
 - map high-throughput sequencing reads to a genome;
@@ -186,7 +181,9 @@ Looking at the webpage, there are a number of windows to look at, including:
 
 ### Questions
 - how does the "all sample" report compared to the "Australian-only sample" report?
-- 
+- from the "General statistics" section, can we see any sample groups that look different and that might be problematic?
+- are all of the read lengths the same? How can you tell?
+- can you think of any other QC you might want to do before anlaysing your data?
 
 
 ---
@@ -194,7 +191,32 @@ Looking at the webpage, there are a number of windows to look at, including:
 
 
 
+## Preparing your reference sequence prior to mapping
+Before mapping out samples, we need a reference genome. If you didnt have a reference genome for your species, you might have to first assemble the reads to make a draft genome assembly. That is outside of the scope of this workshop, but please talk to the instructors about this if you are interested.
 
+Fortunately, we have access to a high-quality reference genome for Haemonchus contortus, which we can download from WormBase ParaSite. From this reference genome, we need to extract the mitochondrial genome, which will be the focus of our analyses.
+
+```bash
+# Download the Haemonchus contortus reference genome from WormBase ParaSite, and unzip it
+wget https://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/WBPS18/species/haemonchus_contortus/PRJEB506/haemonchus_contortus.PRJEB506.WBPS18.genomic.fa.gz
+
+gunzip haemonchus_contortus.PRJEB506.WBPS18.genomic.fa.gz
+
+# The file you have downloaded is the whole genome assembly, and we only want the mitochondrial genome. We can create a new file containing the mitochondrial genome using:
+
+samtools faidx haemonchus_contortus.PRJEB506.WBPS18.genomic.fa mitochondrion > hcontortus_mtDNA.fasta
+```
+
+Samtools faidx is a really useful command for a few different reasons:
+- its primary job is to create an "index" file which is necessary for some tools - the index file will have a ".fai" extension
+- however, it can be used to extract sequences from a multisequence file - this is exactly what we have done here, extracting the "mitochondria" sequence from the whole genome assembly
+- it can also be used to extract part of a sequence, for example, modifying the above command can be used to extract a particular sequnece based on a sequence range, ie 1-100
+
+```bash
+# extract the first 100 bases of the mitochondrial genome
+samtools faidx haemonchus_contortus.PRJEB506.WBPS18.genomic.fa mitochondrion:1-100
+
+```
 
 
 
@@ -204,7 +226,7 @@ Looking at the webpage, there are a number of windows to look at, including:
 ## Mapping reads from a single sample
 To start with, we are going to work on a single sample to familiarize you with the necessary steps required to:
 - get organized with directories (it is really important to keep organized!!!)
-- prepare your reference sequence
+- download and prepare your reference sequence
 - map your reads
 - convert your mapped reads file into a format that can be read by out visualization tool, Artemis.
 
@@ -238,6 +260,7 @@ samtools sort single_sample.tmp.bam -o single_sample.tmp.sorted.bam
 # finally, index the bam file
 samtools index single_sample.tmp.sorted.bam
 
+
 # to make sense of what we are doing with the mapping, lets open the top of our SAM file and have a look at what the data means
 head single_sample.tmp.sam
 
@@ -245,6 +268,20 @@ head single_sample.tmp.sam
 ```
 ![](figures/figure6.2.PNG)  
 **Figure 2.** Exploring the SAM file format
+
+
+```bash
+# its a good idea to look at how well the mapping worked. 
+samtools flagstats single_sample.tmp.sorted.bam > single_sample.tmp.sorted.flagstats
+
+cat single_sample.tmp.sorted.flagstats
+
+```
+
+Here, we can see how many reads have mapped, and if they are "properly paired". Why might that be important?
+
+As we have mapped the reads to a single, small reference sequence (due to space and time), it looks like this read has mapped well. However, if it had not, this
+
 
 ---
 [↥ **Back to top**](#top)
