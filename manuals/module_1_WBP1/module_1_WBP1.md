@@ -1,4 +1,14 @@
-# WormBase ParaSite
+---
+title: 'WormBase ParaSite (1) '
+author: ""
+date: "4th May 2023"
+output:
+ prettydoc::html_pretty:
+  theme: leonids
+  highlight: github
+    
+
+---
 
 ## Table of contents
 1. [Overview and Aims](#intro)

@@ -1,5 +1,14 @@
-# Linux Scripting
+---
+title: 'Introduction to Linux  '
+author: "Steve Doyle"
+date: "4th May 2023"
+output:
+ prettydoc::html_pretty:
+  theme: leonids
+  highlight: github
+    
 
+---
 
 ## Table of Contents
 1. [Introduction and aims](#intro)

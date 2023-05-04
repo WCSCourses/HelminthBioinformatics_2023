@@ -1,4 +1,14 @@
-# Setting up a shared folder between your computer and your VM
+---
+title: 'Setting up a shared folder between your computer and your VM'
+author: ""
+date: "4th May 2023"
+output:
+ prettydoc::html_pretty:
+  theme: leonids
+  highlight: github
+    
+
+---
 
 Once you start working on your own data after the course, you may want to import some of this data from your own computer to the VM to work on. This will allow you to make use of the tools you now have some experience with.
 
