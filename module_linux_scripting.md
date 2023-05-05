@@ -39,7 +39,7 @@ is the preferred operating system for large-scale scientific computing. It runs
 on all kinds of machines, from mobile phones (Android), desktop PCs... to supercomputers.
 
 
-### Why Linux?
+### Why Linux\?
 Increasingly, the output of biological research exists as *in silico* data, usually
 in the form of large text files. Unix is particularly suitable for working with
 such files and has several powerful and flexible commands that can be used to
@@ -114,10 +114,10 @@ and provide examples of how they can be used in bioinformatics analyses.
 <br>
 <br>
 
-## Getting started on the command line - Basic unix <a name="getting_started"></a>
+## Getting started on the command line <a name="getting_started"></a>
 
 ### Introduction to the terminal
-- Lets get started with the command line
+- Let's get started with the command line
 - In this workshop, we will be using Ubuntu, a version of Linux which was specially designed for PCs.
 
 - We will use a terminal window to type in our Linux command line.
@@ -135,13 +135,12 @@ and provide examples of how they can be used in bioinformatics analyses.
 
 ```bash
 # your first command – move to the working directory to get started!
-
 cd /home/manager/Module2_Linux_Scripting
 
 ```
 
-- A list of useful commands can be found on a previous page.   
-     - Many of them are two- or three-letter abbreviations. The earliest Linux systems (circa 1970) only had slow Teletype terminals, so it was faster to type 'rm' to remove a file than 'delete' or 'erase'. This terseness is a feature of Linux which still survives.   
+- A list of useful commands can be found above and at the end of this module.   
+- Many of them are two- or three-letter abbreviations. The earliest Linux systems (circa 1970) only had slow Teletype terminals, so it was faster to type 'rm' to remove a file than 'delete' or 'erase'. This terseness is a feature of Linux which still survives.   
 
 ---
 
@@ -149,13 +148,15 @@ cd /home/manager/Module2_Linux_Scripting
 <br>
 
 ### Command line arguments
-- You may subtly alter these commands by specifying certain options when typing in the command line.
-- Typing any Linux command for example *ls*, *mv* or *cd* at the Linux prompt with the appropriate variables such as files names or directories will result in the tasks being performed on pressing the enter key.
+- Typing any Linux command for example *ls*, *mv* or *cd* at the Linux prompt with the appropriate variables, such as files names or directories, followed by *pressing the enter key* will result in the tasks being performed.
+- You can alter the behaviour of these commands by specifying certain options (often called "parameters" or "flags") when typing in the command line.
 - The ‘command’ is separated from the options and arguments by a space.  
 - Additional options and/or arguments can be added to the commands to affect the way the command works.
 - Options usually have one dash and a letter (e.g. -h) or two dashes and a word (--help) with no space between the dash and the letter/word.
 - Arguments are usually filenames or directories.
-- For example, to get a list of files in the terminal you can use the ls command with no other options. This tells the computer you want a list of all the files in the current directory.  The same information is also displayed in the file browser but with nice looking pictures.
+- For example, to get a list of files in the terminal you can use the "ls" command with no other options. 
+     - This tells the computer you want a list of all the files in the current directory.  
+     - The same information is also displayed in the file browser but with nice looking pictures of folders and files.
 
 ![](figures/03_list_files.png)
 
@@ -165,10 +166,10 @@ cd /home/manager/Module2_Linux_Scripting
 # List the contents of a directory
 $ ls
 
-# List the contents of a directory with extra information about the files
+# List the contents of a directory with extra information about the files - this is particularly useful for view the size of the files
 $ ls –l
 
-# List all contents including hidden files & directories
+# List all contents, including hidden files & directories
 $ ls –al 	
 
 # List the contents of the directory called basic with extra information
@@ -182,7 +183,8 @@ $ ls –ltr
 	-t sort the output by time,
 	–r reverse sorts the output.
 
-# this will therefore provide a detailed list, with the most recent files at the bottom. This is really useful if you have a lot of files in the same directory
+# here, we have merged three flags together, ie. rather than "ls -l -r -t", we have combined the "-lrt".
+# Using "ls -lrt" will therefore provide a detailed list, with the most recent files at the bottom. This is really useful if you have a lot of files in the same directory
 
 ```
 
@@ -204,9 +206,12 @@ $ ls –ltr
 | Write (w) | 	permission to modify a file/directory |
 | Execute (x) | 	Tells the operating system that the file contains code for the computer to run, as opposed to a file of text which you open in a text editor. |
 
-- The first set of permissions (characters 2,3,4) refer to what the owner of the file can do
-- the second set of permissions (5,6,7) refers to what members of the Linux group can do
-- the third set of permissions (8,9,10) refers to what everyone else can do.
+- You can see in the image there are 9 characters in the file permissions column, or three sets of three
+     - The first set of permissions (characters 2,3,4) refer to what the owner of the file can do
+     - the second set of permissions (5,6,7) refers to what members of the Linux group can do
+     - the third set of permissions (8,9,10) refers to what everyone else can do.
+
+- by setting permissions at different levels, it is possible to control who can read, write, and execute commands in different areas of the file system.
 
 ---
 [↥ **Back to top**](#top)
@@ -218,12 +223,19 @@ $ ls –ltr
 ## Files and Directories <a name="file_directories"></a>
 - Directories are the Linux equivalent of folders on a PC or Mac.
 - They are organised in a hierarchy, so directories can have sub-directories and so on.
-- Directories are very useful for organising your work and keeping your account tidy - for example, if you have more than one project, you can organise the files for each project into different directories to keep them separate. You can think of directories as rooms in a house. You can only be in one room (directory) at a time. When you are in a room you can see everything in that room easily. To see things in other rooms, you have to go to the appropriate door and crane your head around. Linux works in a similar manner, moving from directory to directory to access files.
+- Directories are very useful for organising your work and keeping your account tidy - for example, if you have more than one project, you can organise the files for each project into different directories to keep them separate. 
+     - it can take some getting use to remembering where everything is in your directory system, so it is a good idea to have a system
+- You can think of directories as rooms in a house. 
+     - You can only be in one room (directory) at a time. 
+     - When you are in a room you can see everything in that room easily. 
+     - To see things in other rooms, you have to go to the appropriate door and crane your head around. 
+     - Linux works in a similar manner, moving from directory to directory to access files.
 - The location or directory that you are in is referred to as the current working directory.
 
 ![](figures/05_directories.png)
 
-- Therefore, if there is a file called *genome.seq* in the dna directory its location or full pathname can be expressed as */nfs/dna/genome.seq*.
+
+- For example, if there is a file called *genome.fasta* in the dna directory its location or full pathname can be expressed as */nfs/dna/genome.fasta*.
 
 ---
 
@@ -232,9 +244,10 @@ $ ls –ltr
 
 
 ### pwd - find where you are
-- The command *pwd* stands for print working directory.
+- The command *pwd* stands for "print working directory".
 - A command (also known as a program) is something which tells the computer to do something. Commands are therefore often the first thing that you type into the terminal (although we'll show you some advanced exceptions to this rule later).
-- As described above, directories are arranged in a hierarchical structure. To determine where you are in the hierarchy you can use the *pwd* command to display the name of the current working directory. The current working directory may be thought of as the directory you are in, i.e. your current position in the file-system tree.
+- As described above, directories are arranged in a hierarchical structure. To determine where you are in the hierarchy you can use the *pwd* command to display the name of the current working directory. 
+- The current working directory may be thought of as the directory you are in, i.e. your current position in the file-system tree.
 
 ```bash
 # To find out where you are, type this into your terminal.
@@ -256,9 +269,9 @@ $ pwd
 <br>
 
 ### cd - change current working directory
-- The command *cd* stands for change directory.
+- The command *cd* stands for "change directory".
 - The *cd* command will change the current working directory to another, in other words allow you to move up or down in the directory hierarchy.
-- To move into the genome_1 directory , complete the following:
+- To move into the genome_1 directory, complete the following:
      - Note, you'll remember this more easily if you type this into the terminal rather copying and pasting.
      - Also remember that you can use tab completion to save typing all of it.
 
