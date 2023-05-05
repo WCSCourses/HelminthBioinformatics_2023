@@ -19,16 +19,14 @@ The Helminth Bioinformatics course aims to equip participants with the skills ne
 The course is targeted at researchers at various stages of their career who are interested in accessing and analysing genetic and genomic data of helminth parasites. We cover a range of topics are a relatively high-level, and therefore, little prior experience is necessary. The course will be taught in English.
 
 ### Prerequisites and Introductory materials
-There are no formal prerequisties for the course. However, the practical computational sessions will be taught exclusively through Unix/Linux, and therefore, participants with some familiarity with the Linux operating system will allow them to fully benefit from the course. 
-
-There are numerous online introductory tutorials to the UNIX/Linux operating system and command line, including:
+There are no formal prerequisties for the course. However, the practical computational sessions will be taught exclusively through Unix/Linux, and therefore, participants with some familiarity with the Linux operating system will allow them to fully benefit from the course. There are numerous online introductory tutorials to the UNIX/Linux operating system and command line, including:
 - https://www.futurelearn.com/courses/linux-for-bioinformatics
 - http://www.ee.surrey.ac.uk/Teaching/Unix
 - http://swcarpentry.github.io/shell-novice/
 
 Participants may find a short online course on **Introduction to Genomics** beneficial for a quick recap and preparation. The course was designed specifically for the participants of Helminth Bioinformatics course, but is open for all. The course is on [KKUMedX online-learning platform](https://kkumedx.md.kku.ac.th/index/home2.php?p=courses&course_id=117). The instruction on how to register is available [here](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/Introductory%20materials/How%20to%20register%20for%20Intro%20to%20Genomics%20course%20on%20KKUMedX.pdf).  
 
-We are fortunate to also be supported by [DataCamp](https://datacamp.com), who are providing full classroom access for participants. DataCamp is an intuitive learning platform for data science and analytics. Participants can learn any time, anywhere and become an expert in R, Python, SQL, and more. DataCamp’s learn-by-doing methodology combines short expert videos and hands-on-the-keyboard exercises to help learners retain knowledge. DataCamp offers 350+ courses by expert instructors on topics such as importing data, data visualization, and machine learning. They’re constantly expanding their curriculum to keep up with the latest technology trends and to provide the best learning experience for all skill levels. Join over 6 million learners around the world and close your skills gap.
+We are fortunate to also be supported by [DataCamp](https://datacamp.com), who are providing full classroom access for participants. DataCamp is an intuitive learning platform for data science and analytics. Participants can learn any time, anywhere and become an expert in R, Python, SQL, and more. DataCamp’s learn-by-doing methodology combines short expert videos and hands-on-the-keyboard exercises to help learners retain knowledge. DataCamp offers 350+ courses by expert instructors on topics such as importing data, data visualization, and machine learning. They’re constantly expanding their curriculum to keep up with the latest technology trends and to provide the best learning experience for all skill levels. This is a fantastic resource for participants to continue developing their skills beyond the course.
 
 ![](assets/DataCamp_For_The_Classroom_2_lobb1p.webp)
 
