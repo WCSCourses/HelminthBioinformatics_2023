@@ -6,6 +6,8 @@
 ## 21 - 26 May 2023, Khon Kaen University, Thailand    
 Practical hands-on training in helminth genome analysis.
 
+[Course website](https://coursesandconferences.wellcomeconnectingscience.org/event/helminth-bioinformatics-asia-20230521/)
+
 ## Course overview
 Helminths infections contribute significantly to the burden of neglected tropical diseases (NTDs) in many low- and middle- income countries (LMICs). Despite important efforts to tackle these diseases through mass drug administration programs and other methods of control and containment, NTDs due to helminths such as schistosomiasis and soil-transmitted helminthiases continue to be among the most debilitating and morbidity-causing diseases in LMICs adding significantly to the economic burden in the strained economies. Moreover, decreased susceptibility to the most used chemotherapies is emerging in the field, raising concerns about the rise of drug-resistant helminths.
 
@@ -14,24 +16,21 @@ Advances in sequencing technologies have enabled the production of draft and hig
 The Helminth Bioinformatics course aims to equip participants with the skills needed to access, analyse and display large-scale genomic data. The course will provide hands-on training in read mapping, transcriptomics and genetic variation analysis, all tailored to address the challenges presented by large helminth genomes. Participants will acquire basic and advanced techniques in bioinformatics while getting familiar with computer command-line languages and public data repositories.
 
 ### Target audience
-The programme is aimed at researchers at various levels including Senior Research Assistants, PhD Students, Postdoctoral Researchers, Laboratory Scientists and Clinical Scientists.
+The course is targeted at researchers at various stages of their career who are interested in accessing and analysing genetic and genomic data of helminth parasites. We cover a range of topics are a relatively high-level, and therefore, little prior experience is necessary. The course will be taught in English.
 
-This week-long course is free to attend and open to applicants that are based in Asia involved in helminth-related research. The course will be taught in English.
+### Prerequisites and Introductory materials
+There are no formal prerequisties for the course. However, the practical computational sessions will be taught exclusively through Unix/Linux, and therefore, participants with some familiarity with the Linux operating system will allow them to fully benefit from the course. 
 
-### Prerequisites
-The practical computational sessions will be taught exclusively through Unix/Linux. Participants should have some familiarity with the Linux operating system. This will allow participants to fully benefit from the course. There are numerous online introductory tutorials to the UNIX/Linux operating system and command line, including:
+There are numerous online introductory tutorials to the UNIX/Linux operating system and command line, including:
+- https://www.futurelearn.com/courses/linux-for-bioinformatics
+- http://www.ee.surrey.ac.uk/Teaching/Unix
+- http://swcarpentry.github.io/shell-novice/
 
-https://www.futurelearn.com/courses/linux-for-bioinformatics
-http://www.ee.surrey.ac.uk/Teaching/Unix
-http://swcarpentry.github.io/shell-novice/
+Participants may find a short online course on **Introduction to Genomics** beneficial for a quick recap and preparation. The course was designed specifically for the participants of Helminth Bioinformatics course, but is open for all. The course is on [KKUMedX online-learning platform](https://kkumedx.md.kku.ac.th/index/home2.php?p=courses&course_id=117). The instruction on how to register is available [here](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/Introductory%20materials/How%20to%20register%20for%20Intro%20to%20Genomics%20course%20on%20KKUMedX.pdf).  
 
-[Course website](https://coursesandconferences.wellcomeconnectingscience.org/event/helminth-bioinformatics-asia-20230521/)
+We are fortunate to also be supported by [DataCamp](https://datacamp.com), who are providing full classroom access for participants. DataCamp is an intuitive learning platform for data science and analytics. Participants can learn any time, anywhere and become an expert in R, Python, SQL, and more. DataCamp’s learn-by-doing methodology combines short expert videos and hands-on-the-keyboard exercises to help learners retain knowledge. DataCamp offers 350+ courses by expert instructors on topics such as importing data, data visualization, and machine learning. They’re constantly expanding their curriculum to keep up with the latest technology trends and to provide the best learning experience for all skill levels. Join over 6 million learners around the world and close your skills gap.
 
-### Introductory materials
-You may find a short online course on **Introduction to Genomics** beneficial for a quick recap and preparation. The course was designed specifically for the participants of Helminth Bioinformatics course, but is open for all. The course is on [KKUMedX online-learning platform](https://kkumedx.md.kku.ac.th/index/home2.php?p=courses&course_id=117). The instruction on how to register is available [here](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/Introductory%20materials/How%20to%20register%20for%20Intro%20to%20Genomics%20course%20on%20KKUMedX.pdf).  
-
-- https://swcarpentry.github.io/shell-novice/
-- https://www.shellcheck.net/
+![](assets/DataCamp_For_The_Classroom_2_lobb1p.webp)
 
 <br>
 
