@@ -36,16 +36,16 @@ We are fortunate to be supported by [DataCamp](https://datacamp.com), who are pr
 
 ## Instructors
 - [Arporn (Koi) Wangwiwatsin](https://www.researchgate.net/profile/Arporn-koi-Wangwiwatsin) (co-lead), Khon Kaen University, Thailand
-- [Steve Doyle](https://www.sanger.ac.uk/person/doyle-stephen/) (co-lead), Wellcome Sanger Institute, UK
+- [Steve Doyle](https://stephenrdoyle.github.io/) (co-lead), Wellcome Sanger Institute, UK
 
 - [Matt Berriman](https://www.gla.ac.uk/research/az/wcip/research/researchleaders/berrimangroup/), University of Glasgow, UK
 - [Dionysis Grigoriadis](https://www.ebi.ac.uk/people/person/dionysios-grigoriadis/), EMBL-EBI, UK
 - [Siriyakorn Kulwong](https://www.linkedin.com/in/siriyakorn-kulwong-4958a3264/), Khon Kaen University, Thailand
 - [Heerman Kumar](https://www.researchgate.net/profile/Heerman-Kumar-Sandra-Kumar-2), Monash University, Malaysia
-- [Yi-Chien Lee](), Academia Sinica, Taiwan
+- [Yi-Chien Lee](http://ecogenomics.biodiv.tw/), Academia Sinica, Taiwan
 - [Marina Papaiakovou](https://www.vet.cam.ac.uk/staff/marina-papaiakovou), University of Cambridge, UK
 - [Sirinya Sittirak](), Khon Kaen University, Thailand
-- [Isheng Jason Tsai](https://www.biodiv.tw/pi.php?submitStr=20210203203919&lang=en), Academia Sinica, Taiwan
+- [Isheng Jason Tsai](http://ecogenomics.biodiv.tw/), Academia Sinica, Taiwan
 
 <br>
 
