@@ -134,7 +134,7 @@ along the read, in which the quality drops into the yellow (Phred < 30) and then
 the FastQC website.
 
 
-### 2.1 Running and interpreting FastQC
+### 2.1. Running and interpreting FastQC
 Lets run FastQC and explore our data.
 
 ```bash
@@ -204,7 +204,7 @@ To save time, we have generated a multiQC report for all of the samples, which c
 [MultiQC report for all samples](figures/multiqc_all_samples.html)  
 
 
-#### 2.2 Questions:
+#### 2.2. Questions:
 - How does the "all sample" report compared to the "Australian-only sample" report?
 - From the "General statistics" section, can we see any sample groups that look different and that might be problematic for our analyses?
 - Are all of the read lengths the same? How can you tell?
@@ -279,7 +279,7 @@ the [original reference](https://doi.org/10.1093/bioinformatics/btp324).
 
 
 
-### 4.1 Mapping reads from a single sample
+### 4.1. Mapping reads from a single sample
 To start with, we are going to work on a single sample to familiarise you with the necessary steps required to:
 - get organised with directories (it is really important to keep organised!!!)
 - map your reads
@@ -332,7 +332,7 @@ Try putting in a random number and see what you get!
 
 
 
-### 4.2 Mapping QC 
+### 4.2. Mapping QC 
 It is a good idea to look at how well the mapping went. We can use the tool *samtools flagstats* which reads the flag column we have just looked at above and summarises the data. 
 ```bash
 # Run samtools flagstats and look at the output:
@@ -362,8 +362,10 @@ To identify variants in our mapped reads, we are going to use a tool called **bc
 are many variant calling tools available, each with different strengths and sometimes weaknesses. Given we are working with mitochondrial 
 DNA which is haploid, the approach here is quick and straight-forward. 
 
-#### Question: 
+#### 5.1. Question: 
 - can you think of why variant calling in a haploid sample is less complicated in a diploid (or polyploid) sample?
+
+
 
 In the first command below, you will see we have joined two commands - *bcftools mpileup* and *bcftools call* - using a **pipe** represented by "|". This allows 
 us to perform the mpileup and then send the output to call without generating any intermediate files. As you become more experienced 
@@ -378,7 +380,8 @@ binary version of the VCF.
 SNP call data can take up a lot of disk space, and so we have generated a compressed format (gz). It is always good to remove unnecessary 
 files, and/or compress large files.
 
-### 5.1 Using mpileup and bcftools to identify variants
+
+### 5.2. Using mpileup and bcftools to identify variants
 
 ```bash
 # Use bcftools mpileup and call commands to identify variants: 
@@ -596,11 +599,17 @@ vcftools --gzvcf all_samples.vcf.gz --maf 0.05 --min-alleles 2 --max-alleles 2 -
 
 ```
 
-#### 8.1 Questions:
+#### 8.1. Questions:
 - how many variants were kept after filtering?
 - it is possible that not all samples will contain all of the SNPs, ie. there is some degree of "missingness". Can you find a flag in the vcftools manual to test this? Are there samples with a lot of missing data?
 
+
+---
+
+[↥ **Back to top**](#top)
 <br>
+<br>
+
 
 ## 9. Visualing SNP data using WormBase ParaSite and Artemis <a name="snps_vis"></a>
 ### 9.1 Analysing your SNPs in WormBase ParaSite
