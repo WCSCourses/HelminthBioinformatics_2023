@@ -14,21 +14,21 @@ output:
 1. [Overview and Aims](#intro)
 2. [Quality control of raw sequencing data](#dataQC)
 3. [Preparing your reference sequence prior to mapping](#ref)
-2. [Short read mapping](#mapping)
-3. [Calling SNPs in our mapped sample](#snps)
-4. [Visualising mapped reads and variants using Artemis](#artemis)
-5. [Mapping reads from multiple samples](#mapping_multi)
-6. [Calling SNPs in multiple samples at the same time](#snps_multi)
-7. [Analysis of genetic variation using R](#r)
-8. [Principal component analysis of genetic diversity](#pca)
-9. [Exploring genetic data using phylogenetic trees](#trees)
-10. [Integrating genetic and geographic data: maps](#maps)
+4. [Short read mapping](#mapping)
+5. [Calling SNPs in our mapped sample](#snps)
+6. [Visualising mapped reads and variants using Artemis](#artemis)
+7. [Mapping reads from multiple samples](#mapping_multi)
+8. [Calling SNPs in multiple samples at the same time](#snps_multi)
+9. [Analysis of genetic variation using R](#r)
+10. [Principal component analysis of genetic diversity](#pca)
+11. [Exploring genetic data using phylogenetic trees](#trees)
+12. [Integrating genetic and geographic data: maps](#maps)
 
 <br>
 <br>
 
 
-## Overview and Aims <a name="intro"></a>
+## 1. Overview and Aims <a name="intro"></a>
 Genetic variation can tell us a lot about an organisms evolutionary past, broad and fine-scale relationships within and between species, and the mechanisms by
 which organisms adapt to new environments or selection pressures such as drug treatmennt. The use of genomics to understand genetic variation offers insight into 
 these processes at a range of resolutions, from single nucleotide polymorphisms genome-wide to chromosomal rearrangements.   
@@ -111,7 +111,7 @@ It is a good idea to collect all metadata to do with a study early, as it can he
 
 
 
-## Quality control of raw sequencing data <a name="dataQC"></a>
+## 2. Quality control of raw sequencing data <a name="dataQC"></a>
 
 The first exercise of any genomics project is to turn your sample of interest into sequencing data. There are many steps involved, including sample collection (and storage), DNA extraction (and storage), 
 sequencing library preparation, and then finally submitting and having your DNA library sequenced on one or more of a number of different sequencing platforms. Not surprisingly then is that the 
@@ -201,7 +201,7 @@ To save time, we have generated a multiQC report for all of the samples, which c
 [MultiQC report for all samples](figures/multiqc_all_samples.html)  
 
 
-### Questions:
+#### 2.1 Questions:
 - How does the "all sample" report compared to the "Australian-only sample" report?
 - From the "General statistics" section, can we see any sample groups that look different and that might be problematic for our analyses?
 - Are all of the read lengths the same? How can you tell?
@@ -215,14 +215,14 @@ To save time, we have generated a multiQC report for all of the samples, which c
 <br>
 
 
-## Preparing your reference sequence prior to mapping <a name="ref"></a>
+## 3. Preparing your reference sequence prior to mapping <a name="ref"></a>
 Before mapping out samples, we need a reference genome. If you didn't have a reference genome for your species, you might have to first assemble the reads to make a draft genome assembly. 
 That is outside of the scope of this workshop, but please talk to the instructors about this if you are interested.
 
 Fortunately, we have access to a high-quality reference genome for *Haemonchus contortus*, which we can download from [WormBase ParaSite](https://parasite.wormbase.org/Haemonchus_contortus_prjeb506/Info/Index/). 
 From this reference genome, we need to extract the mitochondrial genome, which will be the focus of our analyses.
 
-### Questions:
+#### 3.1 Questions:
 - Looking at the WormBase ParaSite website for *Haemonchus contortus* - how big is the genome? how many genes are present?
 - There is a second *Haemonchus contortus* also present - how do the two genomes compare?
 
@@ -591,11 +591,11 @@ vcftools --gzvcf all_samples.vcf.gz --maf 0.05 --min-alleles 2 --max-alleles 2 -
 
 ```
 
-### Questions:
+#### Questions:
 - how many variants were kept after filtering?
 - it is possible that not all samples will contain all of the SNPs, ie. there is some degree of "missingness". Can you find a flag in the vcftools manual to test this? Are there samples with a lot of missing data?
 
-
+<br>
 
 ### Analysing your SNPs in WormBase ParaSite
 One aspect of characteriing genetic variants is to ask - are any of our variants in genes, and if so, do they have a functional consequence?
@@ -616,11 +616,7 @@ Perform the following to explore variant effects in your dataset:
 - can you think of other ways to determine if this variant might impact the function of this protein?
 
 
-
-
-### Questions: 
-
-
+<br>
 
 ### Visualising SNPs in Artemis
 
@@ -855,8 +851,9 @@ plot12 + plot34
 
 ```
 
-### Question: 
-- How do these plots compare? What is the relative contribution of variance in the PC3/PC4 plot compared to the PC1/PC2 plot?
+#### Questions: 
+- How do these plots compare? 
+- What is the relative contribution of variance in the PC3/PC4 plot compared to the PC1/PC2 plot?
 
 Some patterns are starting to emerge regarding the genetic relatedness within and between countries. However, it may be difficult to see some of the subtle features of the diversity that may be important. Lets explore the data in a slightly different way. 
 
@@ -891,7 +888,7 @@ large ellipse.
 
 Compare the two plots, and try to identify similarities and differences
 
-### Question
+#### Questions:
 - Looking at the ellipses specifically, can you see any countries that have a different distribution than the others, and describe this difference?
 
 
