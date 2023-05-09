@@ -380,16 +380,16 @@ files, and/or compress large files.
 # NOTE: this command is all one line:
 bcftools mpileup -Ou -f hcontortus_mtDNA.fasta single_sample.tmp.sorted.bam | bcftools call -v -c --ploidy 1 -Ob --skip-variants indels > single_sample.tmp.bcf
 
-# index the bcf variant file
+# index the bcf variant file:
 bcftools index single_sample.tmp.bcf
 
-# convert the bcf file to a vcf file
+# convert the bcf file to a vcf file:
 bcftools view single_sample.tmp.bcf -Oz > single_sample.tmp.vcf.gz
  
-# index the vcf.gz file using tabix
+# index the vcf.gz file using tabix:
 tabix -p vcf single_sample.tmp.vcf.gz
 
-# you can have a look at the vcf using the following - "zless" allows you to look inside a zipped file
+# you can have a look at the vcf using the following - "zless" allows you to look inside a zipped file:
 zless single_sample.tmp.vcf.gz
 
 ```
@@ -399,7 +399,7 @@ zless single_sample.tmp.vcf.gz
 
 
 ```bash
-# lets see what we have generated with the previous commands
+# lets see what we have generated using the previous commands:
 ls -lrt
 
 ```
@@ -407,12 +407,15 @@ ls -lrt
 ![](figures/figure6.4.PNG)  
 **Figure**
 
-```
-# to begin to explore what this data looks like, we will load Artemis and import the relevant data. In this case there relevant data we will load are:
-# - the reference sequence: hcontortus_mtDNA.fasta
-# - the mapping data: single_sample.tmp.sorted.bam
-# - the variant data: single_sample.tmp.vcf.gz
+To begin to explore what this data looks like, we will load Artemis and import the relevant data. In this case there 
+relevant data we will load are:
+- the reference sequence: hcontortus_mtDNA.fasta
+- the mapping data: single_sample.tmp.sorted.bam
+- the variant data: single_sample.tmp.vcf.gz
 
+
+```bash
+# open artemis:
 art &
 
 ```
@@ -424,10 +427,11 @@ art &
 <br>
 
 ## Visualising mapped reads and variants using Artemis <a name="artemis"></a>
-We will use **Artemis** to visualise your mapped reads, and identify variant positions from the SNP calling we have performed on our single sample. 
-Artemis ([instructions and download](http://sanger-pathogens.github.io/Artemis/Artemis/)) has many features for exploring genomes, genome annotations, 
-and genomic data (DNAseq, RNAseq, and more) that can be layered onto the genome. To explore the full functionality, you would need at least a week-long 
-course, so we will just touch on the basics. However, feel free to explore Artemis in your own time, and do ask questions if you have any.   
+We will use **Artemis** to visualise your mapped reads, and identify variant positions from the SNP calling we have 
+performed on our single sample. Artemis ([instructions and download](http://sanger-pathogens.github.io/Artemis/Artemis/)) 
+has many features for exploring genomes, genome annotations, and genomic data (DNAseq, RNAseq, and more) that can be 
+layered onto the genome. To explore the full functionality, you would need at least a week-long course, so we will 
+just touch on the basics. However, feel free to explore Artemis in your own time, and do ask questions if you have any.   
 
 ![](figures/figure6.5.PNG)  
 **Figure.** Opening and viewing reference sequencing data in Artemis
@@ -457,13 +461,16 @@ Lets explore our data.
 
 
 ## Mapping reads from multiple samples <a name="mapping_multi"></a>
-Now that we have shown you the steps involved in mapping a single sample, we will now show you how to map multiple samples. 
+Now that we have shown you the steps involved in mapping a single sample, we will now show you how 
+to map multiple samples. 
 
-While you could repeat exactly the same commands as before and just change the sample name each time, this would be a lot of manual work, and would take a 
-considerable amount of time to do it. We have a lot of samples, so this is quite impractical. However, the power of bioinformatics and coding 
+While you could repeat exactly the same commands as before and just change the sample name each time, 
+this would be a lot of manual work, and would take a considerable amount of time to do it. We have a 
+lot of samples, so this is quite impractical. However, the power of bioinformatics and coding 
 comes from writing scripts that automates this process for you. 
 
-Here, we will use another “for loop”, this time to iterate over the 176 samples we have provided, mapping each set of sequnecing reads to the reference genome. 
+Here, we will use another “for loop”, this time to iterate over the 176 samples we have provided, 
+mapping each set of sequnecing reads to the reference genome. 
 
 ```bash
 # First, go back to the module home directory:
@@ -478,8 +485,10 @@ cp ../hcontortus_mtDNA.fasta .
 bwa index hcontortus_mtDNA.fasta
 
 
-# using a single loop function, perform the mapping, sam-to-bam conversion, filtering, and indexing, for the 176 samples
-# this is one long command. The “#” commented lines are there to remind you what each step is doing in the script, but should not be written in the command. 
+# Using a single loop function, perform the mapping, sam-to-bam conversion, filtering, and indexing, for the 176 samples.
+
+# This is one long command. The “#” commented lines are there to remind you what each step is doing in the script, but 
+# should not be written in the command. 
 
 # !!! START !!!
 for i in $( cd ../raw_reads ; ls -1 *_1.fastq.gz | sed -e 's/_1.fastq.gz//g' ); do
@@ -505,6 +514,9 @@ done
 
 While we are waiting for our mapping to finish, lets break down what we just did. 
 
+We have used loops aleady durign the course, but hopefully this breakdown will help explain what is 
+going on in a bit more detail, and give you some confidence to adapt and use them in different ways in your own work.
+
 NOTE: you don’t need to write any of the commands, on this page. This is just to explain what is going on. 
 
 ![](figures/figure6.7.PNG)  
@@ -520,18 +532,20 @@ NOTE: you don’t need to write any of the commands, on this page. This is just 
 
 
 ## Calling SNPs in multiple samples at the same time <a name="snps_multi"></a>
-Here, we are going to perform multi-sample SNP calling. While we could technically perform a loop like in our mapping example, the mpileup 
-command can take a “file of file names” as input, which we will make in the first step. In this case, we will list (ls) all of the sorted.bam 
-files, and write them to a new file called bam.fofn. 
+Here, we are going to perform multi-sample SNP calling. While we could technically perform a loop like in our 
+mapping example, the mpileup command can take a “file of file names” as input, which we will make in the first 
+step. In this case, we will list (ls) all of the sorted.bam files, and write them to a new file called bam.fofn. 
 
-In some cases, the SNP caller is actually more accurate when multiple samples are called at the same time, and so this way (as opposed to single 
-sample calling in a loop) is preferred.
+In some cases, the SNP caller is actually more accurate when multiple samples are called at the same time, and so 
+this way (as opposed to single sample calling in a loop) is preferred.
 
 ```bash
-# First, we need to make a file-of-file-names – “bam.fofn” – that will contain the names of all of the bam files that we will call SNPs
+# First, we need to make a file-of-file-names – “bam.fofn” – that will contain the names of all of the bam 
+# files that we will call SNPs:
 ls -1 *.sorted.bam > bam.fofn
 
-# It is a good idea to make sure this file "bam.fofn" was made correctly. Have a look at the contents of this file - it should contain just a list of the bam files, one file per line.
+# It is a good idea to make sure this file "bam.fofn" was made correctly. Have a look at the contents of this 
+# file - it should contain just a list of the bam files, one file per line.
 
 # call SNPs in the bam files using bam.fofn to generate a multi-sample bcf
 bcftools mpileup -Ou --annotate FORMAT/DP --fasta-ref hcontortus_mtDNA.fasta --bam-list bam.fofn | bcftools call -v -c --ploidy 1 -Ob --skip-variants indels > all_samples.bcf
@@ -583,6 +597,31 @@ vcftools --gzvcf all_samples.vcf.gz --maf 0.05 --min-alleles 2 --max-alleles 2 -
 
 
 
+### Analysing your SNPs in WormBase ParaSite
+One aspect of characteriing genetic variants is to ask - are any of our variants in genes, and if so, do they have a functional consequence?
+There are many ways a variant can have a functional consequence on a gene, some more easy to predict than others. This is perhaps beyond the scope of this workshop. However, we can easily determine if there are putative changes to the coding sequences using WormBase ParaSite's "Variant Effect Predictor". 
+
+Perform the following to explore variant effects in your dataset:
+- navigate to [WormBase ParaSite](https://parasite.wormbase.org/index.html)
+- in the top menu, select "Tools", and then when the new page loads, select "Variant Effect Predictor"
+- select "New job"
+- change the "Species" and upload your filtered VCF file.
+- select "Run" and wait for the job to finish (it shouldn't take too long) - you should see a small green "Done" when completed.
+- once finished, select "View results", and explore the output
+
+#### Questions:
+- what proportion of SNPs are in coding regions vs non-coding regions? Why would this happen?
+- what proporiton of variants are a "synonymous_variant" and what proportion are "missense_variants"? What effect to these variants have on the coding sequence?
+- find a gene with a missense variant - what is the amino acid change, and is it likely to have an effect on the protein? (use the following table to help you: [table](https://en.wikipedia.org/wiki/File:ProteinogenicAminoAcids.svg)) 
+- can you think of other ways to determine if this variant might impact the function of this protein?
+
+
+
+
+### Questions: 
+
+
+
 ### Visualising SNPs in Artemis
 
 Lets have a quick look in Artemis to see what our new data looks like. 
@@ -596,7 +635,9 @@ If you have kept the previous window open,  or have now reloaded Artemis, do the
 You should now be able to see all of the SNPs called for all of your samples. Just quickly, looking at the sample names, can you see 
 any patterns in the SNPs based on similar names? Scrolling up and down in the SNP window will help. This is what we are trying to find. 
 
-It is impractical to try an do any meaningful analysis by eye in Artemis, so we will move on to using informatic ways to find patterns 
+Artemis provides a very broad-scale view of genetic variaiton - it is possible to see some differences between samples, and perhaps, some patterns in the presence or absence of variants that may suggest some "structure" to the way variants are distributed. However, it doesnt "scale" well - we can only observe a vary small part of the genome at one time, and it would be difficult to handle many more variants or samples. 
+
+To undertake a more meaningful and quantitative analysis, we need to move back to the command line to find patterns 
 and genetic relationships among our samples. 
 
 
