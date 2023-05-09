@@ -19,10 +19,11 @@ output:
 6. [Visualising mapped reads and variants using Artemis](#artemis)
 7. [Mapping reads from multiple samples](#mapping_multi)
 8. [Calling SNPs in multiple samples at the same time](#snps_multi)
-9. [Analysis of genetic variation using R](#r)
-10. [Principal component analysis of genetic diversity](#pca)
-11. [Exploring genetic data using phylogenetic trees](#trees)
-12. [Integrating genetic and geographic data: maps](#maps)
+9. [Visualing SNP data using WormBase ParaSite and Artemis](#snps_vis)
+10. [Analysis of genetic variation using R](#r)
+11. [Principal component analysis of genetic diversity](#pca)
+12. [Exploring genetic data using phylogenetic trees](#trees)
+13. [Integrating genetic and geographic data: maps](#maps)
 
 <br>
 <br>
@@ -132,6 +133,8 @@ are typically considered to be good quality for an Illumina read. In this case, 
 along the read, in which the quality drops into the yellow (Phred < 30) and then into the red (Phred < 20). Some examples of “good” and “bad” quality data is found in the “Example Reports” section of 
 the FastQC website.
 
+
+### 2.1 Running and interpreting FastQC
 Lets run FastQC and explore our data.
 
 ```bash
@@ -201,7 +204,7 @@ To save time, we have generated a multiQC report for all of the samples, which c
 [MultiQC report for all samples](figures/multiqc_all_samples.html)  
 
 
-#### 2.1 Questions:
+#### 2.2 Questions:
 - How does the "all sample" report compared to the "Australian-only sample" report?
 - From the "General statistics" section, can we see any sample groups that look different and that might be problematic for our analyses?
 - Are all of the read lengths the same? How can you tell?
@@ -224,7 +227,7 @@ From this reference genome, we need to extract the mitochondrial genome, which w
 
 #### 3.1 Questions:
 - Looking at the WormBase ParaSite website for *Haemonchus contortus* - how big is the genome? how many genes are present?
-- There is a second *Haemonchus contortus* also present - how do the two genomes compare?
+- There is a second *Haemonchus contortus* genome resource also present - how do the two genomes compare?
 
 
 ```bash
@@ -257,7 +260,7 @@ samtools faidx haemonchus_contortus.PRJEB506.WBPS18.genomic.fa mitochondrion:1-1
 
 
 
-## Short read mapping <a name="mapping"></a>
+## 4. Short read mapping <a name="mapping"></a>
 The next step is to map our sequencing data to the reference genome. 
 
 There are multiple short-read alignment programs, each with its own strengths, weaknesses, and caveats. Wikipedia has a good list and description of 
@@ -276,7 +279,7 @@ the [original reference](https://doi.org/10.1093/bioinformatics/btp324).
 
 
 
-## Mapping reads from a single sample
+### 4.1 Mapping reads from a single sample
 To start with, we are going to work on a single sample to familiarise you with the necessary steps required to:
 - get organised with directories (it is really important to keep organised!!!)
 - map your reads
@@ -327,9 +330,10 @@ the above figure and see what they mean for each read.
 
 Try putting in a random number and see what you get!
 
+
+
+### 4.2 Mapping QC 
 It is a good idea to look at how well the mapping went. We can use the tool *samtools flagstats* which reads the flag column we have just looked at above and summarises the data. 
-
-
 ```bash
 # Run samtools flagstats and look at the output:
 samtools flagstats single_sample.tmp.sorted.bam > single_sample.tmp.sorted.flagstats
@@ -338,7 +342,7 @@ cat single_sample.tmp.sorted.flagstats
 
 ```
 
-Here, we can see how many reads have mapped, and if they are "properly paired". Why might that be important?
+Here, we can see how many reads have mapped, and if they are "properly paired". Why might that be important? 
 
 As we have mapped the reads to a single, small reference sequence (due to space and time), it looks like these reads from this sample have mapped well. However, if this sample had not mapped 
 well, we might need to decide if we have enough data to analyse, and whether more sequencing (or resampling) was needed.
@@ -350,7 +354,7 @@ well, we might need to decide if we have enough data to analyse, and whether mor
 <br>
 
 
-## Calling SNPs in our mapped sample <a name="snps"></a>
+## 5. Calling SNPs in our mapped sample <a name="snps"></a>
 
 Once we have mapped reads, the next step is to identify variants in our sample relative to the reference.
 
@@ -358,7 +362,7 @@ To identify variants in our mapped reads, we are going to use a tool called **bc
 are many variant calling tools available, each with different strengths and sometimes weaknesses. Given we are working with mitochondrial 
 DNA which is haploid, the approach here is quick and straight-forward. 
 
-Question: 
+#### Question: 
 - can you think of why variant calling in a haploid sample is less complicated in a diploid (or polyploid) sample?
 
 In the first command below, you will see we have joined two commands - *bcftools mpileup* and *bcftools call* - using a **pipe** represented by "|". This allows 
@@ -374,6 +378,7 @@ binary version of the VCF.
 SNP call data can take up a lot of disk space, and so we have generated a compressed format (gz). It is always good to remove unnecessary 
 files, and/or compress large files.
 
+### 5.1 Using mpileup and bcftools to identify variants
 
 ```bash
 # Use bcftools mpileup and call commands to identify variants: 
@@ -426,7 +431,7 @@ art &
 <br>
 <br>
 
-## Visualising mapped reads and variants using Artemis <a name="artemis"></a>
+## 6. Visualising mapped reads and variants using Artemis <a name="artemis"></a>
 We will use **Artemis** to visualise your mapped reads, and identify variant positions from the SNP calling we have 
 performed on our single sample. Artemis ([instructions and download](http://sanger-pathogens.github.io/Artemis/Artemis/)) 
 has many features for exploring genomes, genome annotations, and genomic data (DNAseq, RNAseq, and more) that can be 
@@ -460,7 +465,7 @@ Lets explore our data.
 
 
 
-## Mapping reads from multiple samples <a name="mapping_multi"></a>
+## 7. Mapping reads from multiple samples <a name="mapping_multi"></a>
 Now that we have shown you the steps involved in mapping a single sample, we will now show you how 
 to map multiple samples. 
 
@@ -531,7 +536,7 @@ NOTE: you don’t need to write any of the commands, on this page. This is just 
 
 
 
-## Calling SNPs in multiple samples at the same time <a name="snps_multi"></a>
+## 8. Calling SNPs in multiple samples at the same time <a name="snps_multi"></a>
 Here, we are going to perform multi-sample SNP calling. While we could technically perform a loop like in our 
 mapping example, the mpileup command can take a “file of file names” as input, which we will make in the first 
 step. In this case, we will list (ls) all of the sorted.bam files, and write them to a new file called bam.fofn. 
@@ -591,13 +596,14 @@ vcftools --gzvcf all_samples.vcf.gz --maf 0.05 --min-alleles 2 --max-alleles 2 -
 
 ```
 
-#### Questions:
+#### 8.1 Questions:
 - how many variants were kept after filtering?
 - it is possible that not all samples will contain all of the SNPs, ie. there is some degree of "missingness". Can you find a flag in the vcftools manual to test this? Are there samples with a lot of missing data?
 
 <br>
 
-### Analysing your SNPs in WormBase ParaSite
+## 9. Visualing SNP data using WormBase ParaSite and Artemis <a name="snps_vis"></a>
+### 9.1 Analysing your SNPs in WormBase ParaSite
 One aspect of characteriing genetic variants is to ask - are any of our variants in genes, and if so, do they have a functional consequence?
 There are many ways a variant can have a functional consequence on a gene, some more easy to predict than others. This is perhaps beyond the scope of this workshop. However, we can easily determine if there are putative changes to the coding sequences using WormBase ParaSite's "Variant Effect Predictor". 
 
@@ -609,7 +615,7 @@ Perform the following to explore variant effects in your dataset:
 - select "Run" and wait for the job to finish (it shouldn't take too long) - you should see a small green "Done" when completed.
 - once finished, select "View results", and explore the output
 
-#### Questions:
+#### 9.2 Questions:
 - what proportion of SNPs are in coding regions vs non-coding regions? Why would this happen?
 - what proporiton of variants are a "synonymous_variant" and what proportion are "missense_variants"? What effect to these variants have on the coding sequence?
 - find a gene with a missense variant - what is the amino acid change, and is it likely to have an effect on the protein? (use the following table to help you: [table](https://en.wikipedia.org/wiki/File:ProteinogenicAminoAcids.svg)) 
@@ -618,7 +624,7 @@ Perform the following to explore variant effects in your dataset:
 
 <br>
 
-### Visualising SNPs in Artemis
+### 9.3 Visualising SNPs in Artemis
 
 Lets have a quick look in Artemis to see what our new data looks like. 
 
@@ -646,7 +652,7 @@ and genetic relationships among our samples.
 
 
 
-## Analysis of genetic variation using R <a name="r"></a>
+## 10. Analysis of genetic variation using R <a name="r"></a>
 Well done getting this far! By now, you should  have been able to map reads from 176 samples, and call SNP variants in all of them. 
 
 Now we want to explore these data and identify any patterns in the genetic variation that might tell us something about the biology of 
@@ -655,6 +661,7 @@ as plotting tools, written specifically in R that we will make use of. It is a l
 the same ideas apply. We will point out some of these differences as we go to try not to confuse you too much. We will be using Rstudio, which 
 provides a convenient user interface that combines a scripting window, a command line window,  a plotting window, and a directory window. 
 
+### 10.1 Setting up R and loading R libraries
 ```bash
 # In the unix shell, lets prepare your data
 cd ~/Module_6_Genetic_Variation/R_analysis
@@ -711,7 +718,7 @@ library(apex) # dependent on igraph and adegenet
 ```
 
 
-### Import and prepare your data for analysis
+### 10.2 Import and prepare your data for analysis
 ```R
 
 # Lets specify your input files that we will load into R
@@ -755,7 +762,7 @@ vcf.gl@pop
 <br>
 <br>
 
-## Principal component analysis of genetic diversity <a name="pca"></a>
+## 11. Principal component analysis of genetic diversity <a name="pca"></a>
 ```R
 # load some required libraries for this section
 # install.packages("pacman")
@@ -851,7 +858,7 @@ plot12 + plot34
 
 ```
 
-#### Questions: 
+#### 11.1 Questions: 
 - How do these plots compare? 
 - What is the relative contribution of variance in the PC3/PC4 plot compared to the PC1/PC2 plot?
 
@@ -888,7 +895,7 @@ large ellipse.
 
 Compare the two plots, and try to identify similarities and differences
 
-#### Questions:
+#### 11.2 Questions:
 - Looking at the ellipses specifically, can you see any countries that have a different distribution than the others, and describe this difference?
 
 
@@ -907,7 +914,7 @@ Compare the two plots, and try to identify similarities and differences
 
 
 
-## Exploring genetic data using phylogenetic trees <a name="trees"></a>
+## 12. Exploring genetic data using phylogenetic trees <a name="trees"></a>
 PCA is a great way to explore complex datasets, including genomics data, and can help to identify drivers 
 (sometimes even technical biases) that are shaping genetic differences between samples. However, it is a 
 data reduction approach, and sometimes interpreting PCAs can be cryptic. Moreover, it is not a direct 
@@ -917,6 +924,7 @@ A more common approach to directly compare samples is to perform a pairwise anal
 differences, and to visualise them using a phylogenetic tree. This is the next step in our analysis, and 
 we will compare these results to the PCAs. 
 
+### 12.1 Making trees using ggtree
 ```R
 # load required libraries for this section:
 pacman::p_load(tidyverse, ggtree, poppr)
@@ -948,7 +956,7 @@ tree_plot
 
 
 
-## Integrating genetic and geographic data: maps <a name="maps"></a>
+## 13. Integrating genetic and geographic data: maps <a name="maps"></a>
 Here, we will make a map of the sampling locations, and plot the allele frequency data on it. This or similar may be used to explore how populations
 may be connected to each other. We will explore this by plotting SNPs that seem to have the most effect 
 in driving the variance in the PCA plot.
@@ -958,6 +966,7 @@ these populations is made up of many variants. However, it should give you an id
 
 First, lets calculate allele frequencies per country, and integrate this with the latitude and longitude coordinates to prepare to plot.
 
+### 13.1 Calculating allele frequencies per country
 ```R
 # load required libraries for this section
 pacman::p_load(tidyverse, reshape2, maps, mapplots)
@@ -987,6 +996,8 @@ head(AF_data_coords)
 ![](figures/figure6.14.PNG)  
 **Figure.** Integrating allele frequencing and geographic data
 
+
+### 13.2 Making maps using data
 ```R
 # Lets make a map, and plot the sampling locations on it. 
 par(fg = "black")
@@ -1078,7 +1089,7 @@ If you have time, try explore plotting the allele frequency of other SNPs in PC1
 <br>
 
 
-## Summary
+## 14. Summary
 In this module, we have shown you how to:
 - map and call variants from Illumina sequencing data in a single sample and a cohort of samples
 - visualize this data in the genome browser Artemis
