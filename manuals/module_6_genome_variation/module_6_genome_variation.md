@@ -573,6 +573,10 @@ Great - we now have a single file "all_samples.vcf.gz" containing all of our var
 
 
 ```bash
+# we need to install a tool called vcftools to run the next step (this is very common - to realise a tool is missing and have to install it last minute - so good practice). 
+mambra install vcftools
+
+
 # lets check to see how many variants were called in original sample set:
 vcftools --gzvcf all_samples.vcf.gz 
 
@@ -774,9 +778,12 @@ vcf.gl@pop
 ## 11. Principal component analysis of genetic diversity <a name="pca"></a>
 ```R
 # load some required libraries for this section
-# install.packages("pacman")
-library(pacman)
-pacman::p_load(vcfR, adegenet, tidyverse, RColorBrewer, patchwork, ggrepel)
+library(vcfR)
+library(adegenet)
+library(tidyverse)
+library(RColorBrewer)
+library(patchwork)
+library(ggrepel)
 
 
 
@@ -936,9 +943,9 @@ we will compare these results to the PCAs.
 ### 12.1 Making trees using ggtree
 ```R
 # load required libraries for this section:
-pacman::p_load(tidyverse, ggtree, poppr)
-
-
+library(tidyverse)
+library(ggtree)
+library(poppr)
 
 # Generate pairwise distances between samples that we will plot in a tree format:
 tree_data <- aboot(vcf.gl, tree = "upgma", distance = bitwise.dist, sample = 100, showtree = F, cutoff = 50) 
@@ -978,8 +985,10 @@ First, lets calculate allele frequencies per country, and integrate this with th
 ### 13.1 Calculating allele frequencies per country
 ```R
 # load required libraries for this section
-pacman::p_load(tidyverse, reshape2, maps, mapplots)
-
+library(tidyverse)
+library(reshape2)
+library(maps)
+library(mapplots)
 
 
 # Calculate allele frequencies per country
