@@ -573,10 +573,6 @@ Great - we now have a single file "all_samples.vcf.gz" containing all of our var
 
 
 ```bash
-# we need to install a tool called "vcftools" to run the next step (this is very common - to realise a tool is missing and have to install it last minute - so good practice). 
-mamba install vcftools
-
-
 # lets check to see how many variants were called in original sample set:
 vcftools --gzvcf all_samples.vcf.gz 
 
