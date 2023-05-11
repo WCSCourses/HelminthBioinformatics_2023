@@ -6,17 +6,15 @@
     * [Genes: the basics](#basics_genes)
     * [Genomes: the basics](#basics_genomes)
     * [Sequence databases](#sequence_databases)
-3. [Looking at genes in WormBase ParaSite](#wbps_genes)
+3. [Looking at genomes in WormBase ParaSite](#wbps_genomes)
+    * [EXERCISE](#genomes_exercise)
+4. [Looking at genes in WormBase ParaSite](#wbps_genes)
     * [The gene page](#gene_page)
     * [Functional annotation: protein domains and GO terms](#functional_annotation)
     * [Orthologues and paralogues](#comparative_genomics)
     * [EXERCISE](#gene_page_exercise)
-4. [Looking at genomes in WormBase ParaSite](#wbps_genomes)
-    * [EXERCISE](#genomes_exercise)
 5. [BioMart](#biomart)
     * [EXERCISE](#biomart_exercise)
-
-### $\textcolor{red}{\textsf{DG: Update screenshots}}$
 
 ## Overview and Aims <a name="intro"></a>
 In this first module we'll start by reviewing the basics on genes and genomes: what they are, how we represent and talk about them, and how we go from a DNA sequence- a string of letters- to making predictions about gene function. We'll look at this in the context of WormBase ParaSite (which you might also see referred to as WBPS) and other online database resources. 
@@ -59,19 +57,67 @@ Over the last few decades, as technology has evolved, we've seen an explosion in
 
 Together they form the [International Nucleotide Sequence Database Collaboration](http://www.insdc.org/about) and luckily for users, they all “mirror” each other. This means that irrespective of where a sequence is submitted, the entry will appear in all three databases. Once data are deposited in primary databases, they can be accessed freely by anyone around the world.
 
-INSDC stores both primary data (i.e. the sequence reads exactly as they come off the machine) and assembled genomes (i.e. where an assembly algorithm has been used to build scaffolds or chromosomes from those reads). Commonly, these data are all stored together under what's known as a **BioProject**. Each BioProject is identified by an **accession**. Although every BioProject accession is a unique identifier for that project, they all start with a 5-letter code that denotes which INSDC database the data were submitted to: "PRJEB" for ENA, "PRJNA" for GenBank, and "PRJDB" for DDBJ. 
-
-An AGP file is often also provided, describing how the contigs fit together as scaffolds, and how the scaffolds fit together as chromosomes. A genome project may also contain an annotation file in GFF format (more on this file format later). This file contains predicted gene structures: based on the genome sequence, certain algorithms can predict which regions encode genes. An example of a commonly-used gene prediction tools is [BRAKER](https://github.com/Gaius-Augustus/BRAKER). These predictions may or may not be guided by other types of evidence, such as RNA sequencing data. It is important to bear in mind that the majority of genes as they appear in the sequence databases (and also in WormBase ParaSite) are based on predictions: these predictions are driven by evidence, but most genes from helminth genome assemblies are unlikely to have been cloned and sequenced in their entirety. We'll look at an example of checking how well a gene model is supported by RNAseq evidence in the next WormBase ParaSite module.
+WormBase ParaSite takes sequencing data from INSDC (a genome assembly and a set of gene predictions) and adds additional value to the data by performing additional analyses. The data is being available to researchers in a user-friendly interactive way. In this part of the module we will explore the basic functionality of the website for looking at helminth genomes and genes.
 
 [↥ **Back to top**](#top)
 
-#### $\textcolor{red}{\textsf{DG: For me it would make sense to re-order and start from Genomes and then go to genes.}}$
+## Looking at genomes in WormBase ParaSite <a name="wbps_genomes"></a>
+
+In this section, we’ll explore how genome assemblies are presented in WormBase ParaSite, and look at some commonly used metrics of assembly quality. Earlier, we introduced the idea that a genome assembly is constructed from shorter segments of sequence, pieced back together in the right order. In an ideal world the assembly would be constructed back into chromosomes. Many of the genomes in WormBase ParaSite are much more fragmented than this; this means that a chromsome might actually be represented by hundreds or even thousands of smaller stretches of sequence (scaffolds or contigs). Having a more fragmented genome makes identifying genes much more challenging, as gene models are more likely to be split across scaffolds. 
+
+* From the WormBase ParaSite homepage, click either the ”Genome List” tab in the tools bar, or the “Genomes” icon.
+
+![](figures/figure_4.1.png)
+
+This will take you to a list of all of the genomes currently available in WormBase ParaSite, divided phylogenetically into the phyla *Nematoda* and  *Platyhelminthes*. You might notice that some species (like _Ancylostoma ceylanicum_ in the figure below) have two entries: this is because the research community has produced two different reference assemblies for these genomes, and WormBase ParaSite makes them both available. In this table you can also find a link to the sequence archive where the genome sequence was originally deposited (‘BioProject ID’) and a link to two different genomes browsers, JBrowse and Ensembl. We’ll cover the use of genome browsers to visualise genomes later. The ‘BUSCO ASSEMBLY’, ‘BUSCO ANNOTATION’ and ‘N50’ columns give some statistics about the quality of the genome assembly. More statistics can be loaded by using the "Show/hide" columns drop-down menu at the top of the table. We will cover exactly what these values mean below.
+
+![](figures/figure_4.2.png)
+
+* Scroll down the page to find _Brugia malayi_ and click the species name link- this will take you to the _B. malayi_ genome landing page.
+
+![](figures/figure_4.3.png)
+
+The genome page has useful summary information about the species and the assembly. You can see a summary of the methods used to produce the assembly and the annotation, and links to the publication describing it in more detail (where this is available).
+
+* Look now at the ‘Assembly statistics’ box.
+
+![](figures/figure_4.4.png)
+
+The information in this box tells us about two metrics related to the quality of the assembly: contiguity and completeness.<br>
+**Contiguity** describes how many scaffolds a genome is represented by: in a perfectly contiguous reference genome, the number of scaffolds would be equal to the number of chromosomes. Contiguity is described by several values, including the total number of scaffolds in the assembly, the length of the longest scaffold, the N50 length and the N90 length. If all of the scaffolds of the assembly were lined up in order of longest to shortest, the N50 length is the length of the scaffold at the midpoint. Similarly, the N90 length is the length of the scaffold at the 90th percentile. For a given genome, a larger N50 length and N90 length generally indicate a more contiguous assembly.
+
+In the “Assembly statistics” widget, the circumference of the circle represents the whole genome assembly, with scaffolds ordered from longest to shortest. The diameter of the grey colour represents the length of the scaffold represented at each point of the circle. The light grey shading represents the N90 scaffold, whilst the dark grey shading represents the N50 scaffold. The light blue outer ring shows the GC/AT/N percentage of the scaffold.
+
+Mouse over the widget to explore the number of scaffolds contributing to the genome. You should see that the N50 length (14.2 Mb) is the third longest scaffold, and the N90 length (13.5 Mb) is the fifth longest scaffold.
+<br>
+**Completeness**
+BUSCO is a method of assessing genome completeness based on the principle that some genes are so highly conserved across eukaryotic species that they should be present in any genome assembly, in single copy. Generally speaking, a higher percentage of single BUSCO genes, indicates a higher quality assembly. BUSCO ASSEMBLY does not take account the genome's provided gene models, assessing the assembly quality of a genome by predicting a gene-set ab initio using AUGUSTUS. BUSCO ANNOTATION, on the other hand, is running at the protein level, assessing not only the assembly quality of a genome but also the quality of its annotation.
+
+A word of warning though: BUSCO scores can be misleading for certain taxonomic groups. Although the genes are selected because they are supposed to be universally conserved, this is not always the case. Platyhelminth genomes tend to have lowerBUSCO scores; this is not necessarily because the genomes are lower quality, but because some highly conserved eukaryotic genes are truly absent from this group of organisms.
+
+#### Genome assembly metrics exercise <a name="genomes_exercise"></a>
+
+There are two other genome assemblies from different _Brugia_ species in WormBase ParaSite, which are of lower quality than _Brugia malayi_. According to their scaffold statistics and BUSCO scores, which of these two assemblies is more contiguous and complete?
+
+#### Submit your sequenced genome to WormBase ParaSite.
+
+WormBase ParaSite takes sequencing data from INSDC (a genome assembly and a set of gene predictions).
+
+If you are interested in including your newly sequenced genome to WBPS:
+
+1) Make sure to first submit the genome assembly to the INSDC either through [ENA](https://ena-docs.readthedocs.io/en/latest/submit/assembly.html), [NCBI](https://www.ncbi.nlm.nih.gov/assembly/docs/submission/) or [DDBJ](https://www.ddbj.nig.ac.jp/ddbj/submission-e.html).
+
+INSDC stores both primary data (i.e. the sequence reads exactly as they come off the machine) and assembled genomes (i.e. where an assembly algorithm has been used to build scaffolds or chromosomes from those reads). Commonly, these data are all stored together under what's known as a **BioProject**. Each BioProject is identified by an **accession**. Although every BioProject accession is a unique identifier for that project, they all start with a 5-letter code that denotes which INSDC database the data were submitted to: "PRJEB" for ENA, "PRJNA" for GenBank, and "PRJDB" for DDBJ. 
+
+An AGP file is often also provided, describing how the contigs fit together as scaffolds, and how the scaffolds fit together as chromosomes. 
+
+2) Submit the gene models annotation file: A genome project may also contain an annotation file in GFF format (more on this file format later). This file contains predicted gene structures: based on the genome sequence, certain algorithms can predict which regions encode genes. An example of a commonly-used gene prediction tools is [BRAKER](https://github.com/Gaius-Augustus/BRAKER). These predictions may or may not be guided by other types of evidence, such as RNA sequencing data. It is important to bear in mind that the majority of genes as they appear in the sequence databases (and also in WormBase ParaSite) are based on predictions: these predictions are driven by evidence, but most genes from helminth genome assemblies are unlikely to have been cloned and sequenced in their entirety. We'll look at an example of checking how well a gene model is supported by RNAseq evidence in the next WormBase ParaSite module. The gene models annotation file can either be submitted to the INSDC 
 
 ## Looking at genes in WormBase ParaSite <a name="wbps_genes"></a>
-WormBase ParaSite takes sequence data from INSDC (a genome assembly and a set of gene predictions) and adds additional analyses that assist scientists in interpreting and querying this data. In this part of the module we will explore the basic functionality of the website for looking at helminth genes and genomes. 
+For each genome in WormBase ParaSite, there are gene and transcript pages available for browsing. The aim of this section is to familiarise you with retrieving information about a gene of interest from WormBase ParaSite.
 
 ### The Gene Page <a name="gene_page"></a>
-The aim of this section is to familiarise you with retrieving information about a gene of interest from WormBase ParaSite. We will use a walk through example to illustrate how to use the website to find out about the function of an _Opisthorcis viverrini_ gene.
+We will use a walk through example to illustrate how to use the website to find out about the function of an _Opisthorcis viverrini_ gene.
 
 #### Basic Navigation
 * Open up a web browser, and type this URL into the address bar: https://parasite.wormbase.org/
@@ -94,9 +140,7 @@ Every gene in WormBase ParaSite has a gene page, which presents sequence data an
 
 The gene page has three main sections. In the summary section, together with the description of our gene we can also see the genomic location of the gene ("opera_v5_385", in this case) and the INSDC Sequence ID. This is an identifier that links to an entry for the scaffold in ENA.
 
-* Click the "INSDC Sequence ID" link to look at the scaffold's entry in ENA. Can you identify the accession of the BioProject (or "Study") that this genome assembly belongs to?
-
-Navigate back to the T265_10539 gene page on WormBase ParaSite. Underneath, we can see some information about the gene: it has one transcript isoform and a number of orthologues and paralogues. We’ll revisit this later. We can also see that the gene is protein-coding.
+Underneath, we can see some information about the gene: it has one transcript isoform and a number of orthologues and paralogues. We’ll revisit this later. We can also see that the gene is protein-coding.
 
 On the left, we have a navigation menu, which can be used to explore the information that is available for each gene. We’ll be going through each of these menu options in turn.
 
@@ -112,6 +156,10 @@ We can see that:
 (a) the gene is on the forward strand - you can see this from the ‘>’ symbol located next to the gene name in the protein coding genes track.
 
 (b) the gene has three exons in total, of which 2 contain coding sequence. Both 5' and 3' UTRs (untranslated regions) are annotated.
+
+You can learn more about the Genome Browser here (https://parasite.wormbase.org/info/Browsing/genome_browser_ensembl.html).
+
+Sneak peek: There is an alternative interactive Genome Browser in WormBase ParaSite that can be accessed by the "View region in Jbrowse" button at the top-right of the gene page but we're going to talk about it in our next module! 
 
 * Navigate back to the gene page by clicking the "Gene:inx" tab at the top of the page.
 
@@ -132,6 +180,8 @@ Again using the navigation menu on the left hand side of the page, we can retrie
 The “Exons” tab displays the sequence of individual exons in a table (useful if you’re interested in retrieving, say, only the sequence of exon 2); the “cDNA” tab has the cDNA sequence (the sequence you would get if you reverse transcribed mature mRNA); and the “Protein” tab has the amino acid sequence.
 All of the sequences can be downloaded in FASTA format - this is a text format that is widely used for representing sequences. It consists of a header line (a “>” character and a description or name of the sequence) followed by the sequence itself on the next line. As well as the sequences displayed in the browser, you can also choose to download, for example, genomic sequence, just UTRs etc.
 
+Many users use sequences retrieved from these pages to design primers.
+
 ![](figures/figure_3.8.png)
 
 Note that this protein sequence is what is known as a conceptual translation: the amino acids have not been sequenced directly, but we can infer the sequence given the predicted structure of the gene (the coordinates of the introns and exons), the underlying DNA sequence and a given codon usage table.
@@ -144,26 +194,12 @@ How we do go from a string of amino acids to predicting what this protein might 
 
 For the vast majority of predicted protein sequences, nobody will have done experiments to test what its function is. However, we can use the principle of **homology** to take proteins that are well-studied in one experimental system and infer that proteins of similar sequence in other organisms are likely to have similar structure, and therefore similar function. In reality, protein sequences are analysed in terms of domains: these are subsequences of a protein that have a defined tertiary structure or sequence motif, conferring a defined function. A protein can consist of several domains. When comparing proteins between organisms, often the region encoding a protein domain is highly conserved whilst the bit that connects different domains together is more divergent.
 
-### $\textcolor{red}{\textsf{DG: Update: PFAM is retired now, also do we really need this next section? We could replace with an AlphaFold section}}$
-
-A well known example of a protein domain database is [Pfam](http://pfam.xfam.org/). Pfam uses multiple sequence alignments of the known proteins with a certain domain to capture a representative model (a profile Hidden Markov Model) of that domain. Other protein domain databases, that might use slightly different methods to define domains, are:  CATH, CDD, HAMAP, MobiDB Lite, Panther, PIRSF, PRINTS, Prosite, SFLD, SMART, SUPERFAMILY and TIGRfams. Luckily for us, all of these databases are united under the [InterPro](https://www.ebi.ac.uk/interpro/) consortium .
+A well known example of a protein domain database is [Pfam](http://pfam.xfam.org/). Pfam uses multiple sequence alignments of the known proteins with a certain domain to capture a representative model (a profile Hidden Markov Model) of that domain. Other protein domain databases, that might use slightly different methods to define domains, are:  CATH, CDD, HAMAP, MobiDB Lite, Panther, PIRSF, PRINTS, Prosite, SFLD, SMART, SUPERFAMILY and TIGRfams. Luckily for us, all of these databases are united under the [InterPro](https://www.ebi.ac.uk/interpro/) consortium.
 
 InterPro provide a tool, InterProScan, that we can use to search protein sequences against all of the member databases to identify any protein domains that the protein might have:
-
-* Copy the T265_10539 protein sequence from WormBase ParaSite onto your clipboard
-* Go to the [Interpro Search page](https://www.ebi.ac.uk/interpro/search/sequence/), paste your sequence into the box and click search.
-
-You may need to wait a few minutes for the search to run.
-
-![](figures/figure_3.8.5.png)
-
-On the results page, each horizontal coloured line represents a match between our protein sequence and a domain or motif in one of the InterPro member databases. If you mouse over these, you'll notice that several databases have a match to an Innexin domain. InterPro groups the same domain represented in different databases under a single InterPro accession; in our case this is the Innexin family (IPR000990).
-
-* Click through to read more about the Innexin protein family on the Interpro site.
-
 InterProScan is an extremely useful tool for predicting gene and protein function. At WormBase ParaSite, we have pre-run InterProScan to annotate protein domains for all of the genes in our database so you don't have to do it yourself every time!
 
-* Back on WormBase ParaSite, click the “Protein summary” menu option in the navigation menu on the T265_10539 transcript page.
+* To view the annotated protein domains, click the “Protein summary” menu option in the navigation menu on the T265_10539 transcript page.
 
 On this page we see a pictorial representation of the protein domains that have been annotated to this polypeptide. Hopefully they look familiar from your own analysis. We can see here that this protein has a match with an Innexin domain in several protein domain databases, and four transmembrane helices.
 
@@ -174,6 +210,20 @@ The same data is available in tabular format
 * Click the “Domains & features” menu option.
 
 ![](figures/figure_3.10.png)
+
+<details open>
+<summary>How to explore the protein domains of a protein that is not available in WormBase ParaSite?</summary>
+
+* Go to the [Interpro Search page](https://www.ebi.ac.uk/interpro/search/sequence/), paste your protein sequence into the box and click search.
+
+You may need to wait a few minutes for the search to run.
+
+![](figures/figure_3.8.5.png)
+
+On the results page, each horizontal coloured line represents a match between our protein sequence and a domain or motif in one of the InterPro member databases. Mouse over these, to get more information. InterPro groups the same domain represented in different databases under a single InterPro accession.
+
+* Click through to read more about the annotated protein family on the Interpro site.
+</details>
 
 External references are the identifiers by which the gene (or transcript or protein, in this case) is known in other databases. These usually include RefSeq (the reference sequence database of the NCBI) and UniProt, and sometimes (though not in this case), WormBase ParaSite’s sister database, WormBase.
 
@@ -253,42 +303,6 @@ Go to the gene page for the _Trichuris muris_ gene TMUE_2000008757 and retrieve 
 8. Download the protein alignment of TMUE_2000008757 and its _C. elegans_ orthologue. Is there any published literature on the _C. elegans_ orthologue? (Hint: follow the link to the WormBase ParaSite page for the _C. elegans_ orthologue and look in the “Literature” tab).
 
 [↥ **Back to top**](#top)
-
-## Looking at genomes in WormBase ParaSite <a name="wbps_genomes"></a>
-
-In this section, we’ll explore how genome assemblies are presented in WormBase ParaSite, and look at some commonly used metrics of assembly quality. Earlier, we introduced the idea that a genome assembly is constructed from shorter segments of sequence, pieced back together in the right order. In an ideal world the assembly would be constructed back into chromosomes. Many of the genomes in WormBase ParaSite are much more fragmented than this; this means that a chromsome might actually be represented by hundreds or even thousands of smaller stretches of sequence (scaffolds or contigs). Having a more fragmented genome makes identifying genes much more challenging, as gene models are more likely to be split across scaffolds. 
-
-* From the WormBase ParaSite homepage, click either the ”Genome List” tab in the tools bar, or the “Genomes” icon.
-
-![](figures/figure_4.1.png)
-
-This will take you to a list of all of the genomes currently available in WormBase ParaSite, divided phylogenetically into the phyla *Nematoda* and  *Platyhelminthes*. You might notice that some species (like _Ancylostoma ceylanicum_ in the figure below) have two entries: this is because the research community has produced two different reference assemblies for these genomes, and WormBase ParaSite makes them both available. In this table you can also find a link to the sequence archive where the genome sequence was originally deposited (‘BioProject ID’) and a link to two different genomes browsers, JBrowse and Ensembl. We’ll cover the use of genome browsers to visualise genomes later. The ‘CEGMA’, ‘BUSCO’ and ‘N50’ columns give some statistics about the quality of the genome assembly. We will cover exactly what these values mean below.
-
-![](figures/figure_4.2.png)
-
-* Scroll down the page to find _Brugia malayi_ and click the species name link- this will take you to the _B. malayi_ genome page.
-
-![](figures/figure_4.3.png)
-
-The genome page has useful summary information about the species and the assembly. You can see a summary of the methods used to produce the assembly and the annotation, and links to the publication describing it in more detail (where this is available).
-
-* Look now at the ‘Assembly statistics’ box.
-
-![](figures/figure_4.4.png)
-
-The information in this box tells us about two metrics related to the quality of the assembly: contiguity and completeness. **Contiguity** describes how many scaffolds a genome is represented by: in a perfectly contiguous reference genome, the number of scaffolds would be equal to the number of chromosomes. Contiguity is described by several values, including the total number of scaffolds in the assembly, the length of the longest scaffold, the N50 length and the N90 length. If all of the scaffolds of the assembly were lined up in order of longest to shortest, the N50 length is the length of the scaffold at the midpoint. Similarly, the N90 length is the length of the scaffold at the 90th percentile. For a given genome, a larger N50 length and N90 length generally indicate a more contiguous assembly.
-
-In the “Assembly statistics” widget, the circumference of the circle represents the whole genome assembly, with scaffolds ordered from longest to shortest. The diameter of the grey colour represents the length of the scaffold represented at each point of the circle. The light grey shading represents the N90 scaffold, whilst the dark grey shading represents the N50 scaffold. The light blue outer ring shows the GC/AT/N percentage of the scaffold.
-
-### $\textcolor{red}{\textsf{DG: Check numbers}}$
-Mouse over the widget to explore the number of scaffolds contributing to the genome. You should see that the N50 length (14.2 Mb) is the third longest scaffold, and the N90 length (13.5 Mb) is the fifth longest scaffold.
-
-### $\textcolor{red}{\textsf{DG: CEGMA is retired. Update BUSCO text}}$
-CEGMA and BUSCO are two (similar) methods of assessing genome completeness. They are based on the principle that some genes are so highly conserved across eukaryotic species that they should be present in any genome assembly, in single copy. Generally speaking, a higher percentage of complete CEGMA genes, or single BUSCO genes, indicates a higher quality assembly. A word of warning though: CEGMA and BUSCO scores can be misleading for certain taxonomic groups. Although the genes are selected because they are supposed to be universally conserved, this is not always the case. Platyhelminth genomes tend to have lower CEGMA and BUSCO scores; this is not necessarily because the genomes are lower quality, but because some highly conserved eukaryotic genes are truly absent from this group of organisms.
-
-#### Genome assembly metrics exercise <a name="genomes_exercise"></a>
-
-There are two other _Brugia sp._ genome assemblies in WormBase ParaSite, which are of much lower quality than _Brugia malayi_. According to their scaffold statistics and CEGMA/BUSCO scores, which of these two assemblies is more contiguous and complete?
 
 [↥ **Back to top**](#top)
 
