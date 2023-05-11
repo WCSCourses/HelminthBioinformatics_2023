@@ -252,6 +252,14 @@ samtools faidx haemonchus_contortus.PRJEB506.WBPS18.genomic.fa mitochondrion:1-1
 
 ```
 
+- this could be useful to, for example, extract specific gene or feature coordinates. 
+- to try this, attempt the following:
+	- go to WormBase ParaSite, and search for the "cox1" gene (HCON_00667215)
+	- on the command line, using "samtools faidx" and the cox1 gene coordinates, extract the sequence and save it to a new file
+	- once you have the cox1 sequence in the new file, have a look at the header of the sequence - does it look sensible?
+	- if not, change the header name using a "sed" command.
+
+
 ---
 
 [↥ **Back to top**](#top)
@@ -692,43 +700,20 @@ R
  
 > 
 
-# R relies on packages or libraries that we need to load. They have previously been installed 
-# for you, but you will need to call on them each time to start R. Try load the following:
-
-#-- data manipulation
-library(dplyr) # installed
-library(reshape2) # install.packages('reshape2')
-
-#-- making figures
-library(ggplot2) # installed
-library(patchwork) # install.packages('patchwork')
-library(ggrepel) # install.packages('ggrepel')
-library(ggtree) # BiocManager::install("ggtree")
-library(RColorBrewer) # installed
-
-#-- making maps
-library(ggmap) # install.packages('ggmap')
-library(maps) # install.packages('maps')
-library(mapdata) # install.packages('mapdata')
-library(plotrix) # install.packages('plotrix')
-library(mapplots) # install.packages('mapplots')
-
-#-- population genetics
-library(igraph) # dependency for adegenet - Problem
-library(adegenet) # install.packages('adegenet', dependencies=TRUE) - PROBLEMS
-library(vcfR) # install.packages('vcfR')
-library(poppr) # install.packages('poppr') - dependent on adegenet
-library(ape) # install.packages('ape')
-library(pegas) # install.packages('pegas')
-library(mmod) # dependent on igraph and adegenet
-library(apex) # dependent on igraph and adegenet
-
-
 ```
 
 
 ### 10.2 Import and prepare your data for analysis
 ```R
+# R relies on packages or libraries that we need to load. They have previously been installed 
+# for you, but you will need to call on them each time to start R. Try load the following:
+
+library(vcfR) # install.packages('vcfR')
+library(adegenet) # install.packages('adegenet', dependencies=TRUE)
+
+# just to note, we've included the commands to install the package, if you want to use these on your own system
+
+
 
 # Lets specify your input files that we will load into R
 #-- the vcf contain the SNP data your generated with bcftools
@@ -869,6 +854,7 @@ plot12 + plot34
 # Note: You may have to change the plot dimension size by dragging the window size to make it wider.
 
 ```
+
 
 #### 11.1 Questions: 
 - How do these plots compare? 
