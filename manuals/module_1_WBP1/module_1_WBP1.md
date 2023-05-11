@@ -103,7 +103,7 @@ There are two other genome assemblies from different _Brugia_ species in WormBas
 
 WormBase ParaSite takes sequencing data from INSDC (a genome assembly and a set of gene predictions).
 
-If you are interested in including your newly sequenced genome to WBPS:
+If you are interested in including your newly sequenced genome to WBPS you need to:
 
 1) Make sure to first submit the genome assembly to the INSDC either through [ENA](https://ena-docs.readthedocs.io/en/latest/submit/assembly.html), [NCBI](https://www.ncbi.nlm.nih.gov/assembly/docs/submission/) or [DDBJ](https://www.ddbj.nig.ac.jp/ddbj/submission-e.html).
 
@@ -199,9 +199,11 @@ A well known example of a protein domain database is [Pfam](http://pfam.xfam.org
 InterPro provide a tool, InterProScan, that we can use to search protein sequences against all of the member databases to identify any protein domains that the protein might have:
 InterProScan is an extremely useful tool for predicting gene and protein function. At WormBase ParaSite, we have pre-run InterProScan to annotate protein domains for all of the genes in our database so you don't have to do it yourself every time!
 
+![](https://raw.githubusercontent.com/ProteinsWebTeam/interpro-docs/master/docs/images/member_databases/member_db.png)
+
 * To view the annotated protein domains, click the “Protein summary” menu option in the navigation menu on the T265_10539 transcript page.
 
-On this page we see a pictorial representation of the protein domains that have been annotated to this polypeptide. Hopefully they look familiar from your own analysis. We can see here that this protein has a match with an Innexin domain in several protein domain databases, and four transmembrane helices.
+On this page we see a pictorial representation of the protein domains that have been annotated to this polypeptide.  We can see here that this protein has a match with an Innexin domain in several protein domain databases, and four transmembrane helices.
 
 ![](figures/figure_3.9.png)
 
