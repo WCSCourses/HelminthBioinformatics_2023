@@ -27,6 +27,9 @@ output:
 4. [The WormBase ParaSite Expression browser](#expression_data)
       * [EXERCISE](#expression_exercise)
 
+### $\textcolor{red}{\textsf{DG: We could add the gProfiler Gene-set enrichment analysis tool underneath the expression browser as it got lots of questions from the audience in Brazil}}$
+### $\textcolor{red}{\textsf{DG: Update screenshots}}$
+
 ## Overview and Aims <a name="aims"></a>
 
 In this module, we return to WormBase ParaSite. We will start by looking at three commonly-used tools in WBPS: BLAST, JBrowse (a genome browser), and the Variant Effect Predictor (VEP). We will then go on to apply some of the command line skills that you were introduced to in module 2 to explore WormBase ParaSite data programmatically. Finally, the module ends with a Bonus section introducing our Expression browser.
@@ -216,6 +219,8 @@ Now we can see the IsoSeq reads aligned to the genome. Notice that IsoSeq data i
 
 ### VEP <a name="vep"></a>
 
+### $\textcolor{red}{\textsf{DG: We could add a section about the VEP->AlphaFold functionality which will have been implemented by the course day hopefully}}$
+
 The final WormBase ParaSite tool that we will look at today is the Variant Effect Predictor, or VEP. A common approach to understanding the genetic basis of phenotypic differences is to identify genetic variants that are overrepresented in some populations of individuals. For example, you might sequence two populations of worm: one that is susceptible to a drug and one that is resistant to the drug. You could then identify genomic positions where each of these populations differs from the reference genome. VEP is a tool that allows you to predict what the consequences of these variants are: whether they fall within or near genes, and whether they result in a change to the amino acid sequence of a protein.
 
 The standard file format for storing variation data is the [Variant Call Format (VCF)](https://samtools.github.io/hts-specs/VCFv4.2.pdf); this is another tab-delimited text format. In the module 3 data directory, we have provided you with a Hymenolepis microstoma VCF file to demonstrate how to use VEP. Unzip and then have a look at the file to see how it is structured (you'll have to scroll down beyond the headers to see the data lines):
@@ -303,6 +308,8 @@ KI657455        WormBase_imported       CDS     25      277     .       -       
 Finally, we provide a TSV (tab-separated variable) file for each genome containing calculated ortholog and paralog relationships for all genes in the genome.
 
 #### Walk through examples
+
+### $\textcolor{red}{\textsf{DG: Make sure the commands work}}$
 
 ```wget``` is a handy utility for retrieving files from an FTP site. The following will pull down the _Necator americanus_ GFF3 file into your working directory:
 
