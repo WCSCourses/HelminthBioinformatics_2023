@@ -271,11 +271,14 @@ samtools faidx haemonchus_contortus.PRJEB506.WBPS18.genomic.fa mitochondrion:1-1
 ## 4. Short read mapping <a name="mapping"></a>
 The next step is to align or map our raw sequencing data to the reference genome. 
 
-There are multiple short-read alignment programs, each with their own strengths, weaknesses, and caveats. Wikipedia has a good list and description of each. In this example, we are going to use one of the most commonly used tools for sequence alignment, BWA.
+There are multiple short-read alignment programs, each with their own strengths, weaknesses, and caveats. Wikipedia has a good list and description 
+of each. In this example, we are going to use one of the most commonly used tools for sequence alignment, BWA.
 
 From the manual available here http://bio-bwa.sourceforge.net/ : “BWA is a software package for mapping low-divergent sequences against a large 
 reference genome, such as the human genome. It consists of three algorithms: BWA-backtrack, BWA-SW and BWA-MEM. The first algorithm is designed 
-for Illumina sequence reads up to 100bp, while the rest two for longer sequences ranged from 70 bp to 1 Mbp. BWA-MEM and BWA-SW share similar features such as long-read support and split alignment, but BWA-MEM, which is the latest, is generally recommended for high-quality queries as it is faster and more accurate. BWA-MEM also has better performance than BWA-backtrack for 70-100bp Illumina reads.”
+for Illumina sequence reads up to 100bp, while the rest two for longer sequences ranged from 70 bp to 1 Mbp. BWA-MEM and BWA-SW share similar features
+such as long-read support and split alignment, but BWA-MEM, which is the latest, is generally recommended for high-quality queries as it is faster and 
+more accurate. BWA-MEM also has better performance than BWA-backtrack for 70-100bp Illumina reads.”
 
 Although BWA does not call Single Nucleotide Polymorphisms (SNPs) like some short-read alignment programs, e.g. MAQ, it is thought to be more 
 accurate in what it does do and it outputs alignments in the SAM format which is supported by several generic SNP callers such as SAMtools and GATK.
@@ -327,9 +330,11 @@ head single_sample.tmp.sam
 Most of the data in a SAM file is relatively easy to interpret - it contains information about each read, where 
 it is mapped in the genome, and how well it maps to the genome. 
 
-One column that is not easy to interpret is the "flag" column. It contains various numbers, which are the sum of "bits" that actually decribe many different aspects of how the read is mapped, in a very simple, numerical format. 
+One column that is not easy to interpret is the "flag" column. It contains various numbers, which are the sum of "bits" that actually decribe many different
+aspects of how the read is mapped, in a very simple, numerical format. 
 
-Sometimes, understanding these numbers can be useful. We can use the following website to help us interpret these numbers. Click on the link, and input the numbers from the above figure and see what they mean for each read. 
+Sometimes, understanding these numbers can be useful. We can use the following website to help us interpret these numbers. Click on the link, and input 
+the numbers from the above figure and see what they mean for each read. 
 
 [Picard: Decoding SAM flags](https://broadinstitute.github.io/picard/explain-flags.html)
 
@@ -375,8 +380,8 @@ DNA which is haploid, the approach here is quick and straight-forward.
 
 
 
-In the first command below, you will see we have joined two commands - *bcftools mpileup* and *bcftools call* - using a **pipe** represented by "|". This allows 
-us to perform the mpileup and then send the output to call without generating any intermediate files. As you become more experienced 
+In the first command below, you will see we have joined two commands - *bcftools mpileup* and *bcftools call* - using a **pipe** represented by "|". 
+This allows us to perform the mpileup and then send the output to call without generating any intermediate files. As you become more experienced 
 using the command line, you will find “pipes” are very handy.
 
 The mpileup step is assessing, at each position in the reference genome, the number of reads that support the reference base OR a variant 
@@ -670,13 +675,13 @@ and genetic relationships among our samples.
 
 
 ## 10. Analysis of genetic variation using R <a name="r"></a>
-Well done getting this far! By now, you should  have been able to map reads from 176 samples, and call SNP variants in all of them. 
+Well done getting this far! By now, you should have been able to map reads from the 176 samples, and call SNP variants in all of them. 
 
-Now we want to explore these data and identify any patterns in the genetic variation that might tell us something about the biology of 
+Now we want to explore these data. The broad aim is to identify any patterns in the genetic variation that might tell us something about the biology of 
 the parasite. To do so, we are going to use the language R. This is because there are a number of good population genetic tools, as well 
-as plotting tools, written specifically in R that we will make use of. It is a little different from using the unix command line, but overall 
-the same ideas apply. We will point out some of these differences as we go to try not to confuse you too much. We will be using Rstudio, which 
-provides a convenient user interface that combines a scripting window, a command line window,  a plotting window, and a directory window. 
+as tools to visualise your data in ifferent ways, written specifically in R that we will make use of. R is a little different from using the unix command line, but overall 
+the similar ideas apply. We will point out some of these differences as we go to try not to confuse you too much. R can be run on directly on the command line, or alternatively, using Rstudio, which 
+provides a convenient user interface that combines a scripting window, a command line window, a plotting window, and a directory window. 
 
 ### 10.1 Setting up R and loading R libraries
 ```bash
@@ -696,7 +701,7 @@ R
 ```R
 # Welcome to R!
 # Some things look a little different in here… some of the commands are very similar between
-# R and unix, but there are also some differences too.
+# R and unix, but there are also some differences too. One of the main differences is the command prompt, which looks like this:
  
 > 
 
@@ -860,7 +865,8 @@ plot12 + plot34
 - How do these plots compare? 
 - What is the relative contribution of variance in the PC3/PC4 plot compared to the PC1/PC2 plot?
 
-Some patterns are starting to emerge regarding the genetic relatedness within and between countries. However, it may be difficult to see some of the subtle features of the diversity that may be important. Lets explore the data in a slightly different way. 
+Some patterns are starting to emerge regarding the genetic relatedness within and between countries. However, it may be difficult 
+to see some of the subtle features of the diversity that may be important. Lets explore the data in a slightly different way. 
 
 ```R
 # Calculate the mean value of the principal components for each country. We can use this to make some labels for our plots

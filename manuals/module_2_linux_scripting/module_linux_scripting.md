@@ -26,11 +26,17 @@ output:
 ## Introduction and Aims <a name="intro"></a>
 
 ### Introducing Linux
-Unix is the standard operating system on most large computer systems in scientific research, in the same way that Microsoft Windows is the dominant operating system on desktop PCs. Linux is an open source, free to use operating system using the Unix architecture.
+Unix is the standard operating system on most large computer systems in scientific research, in the same way that Microsoft Windows 
+is the dominant operating system on desktop PCs. Linux is an open source, free to use operating system using the Unix architecture.
 
-Operating systemls such as Linux, macOS and MS Windows both perform the important job of managing the computer's hardware (screen, keyboard, mouse, hard disks, network connections, etc...) on your behalf. They also provide you with tools to manage your files and to run application software. They both offer a graphical user interface (desktop). These desktop interfaces look different between the operating systems, use different names for things (e.g. directory versus folder) and have different images but they mostly offer the same functionality.
+Operating systems such as Linux, macOS and MS Windows each perform the important job of managing the computer's hardware (screen, keyboard, 
+mouse, hard disks, network connections, etc...) on your behalf. They also provide you with tools to manage your files and to run application 
+software. They each offer a graphical user interface (desktop). These desktop interfaces look different between the operating systems, use 
+different names for things (e.g. "directory" versus "folder") and have different images, but they mostly offer the same functionality.
 
-Linux is a powerful, secure, robust and stable operating system which allows dozens of people to run programs on the same computer at the same time. This is why it is the preferred operating system for large-scale scientific computing. It runs on all kinds of machines, from mobile phones (Android), desktop PCs... to supercomputers.
+Linux is a powerful, secure, robust and stable operating system which allows dozens of people to run programs on the same computer at the same 
+time. This is why it is the preferred operating system for large-scale scientific computing. It runs on all kinds of machines, from mobile phones 
+(Android), desktop PCs... to supercomputers.
 
 
 ### Why Linux?
@@ -48,21 +54,21 @@ and provide examples of how they can be used in bioinformatics analyses.
 
 
 ### General points to consider
-- Using Linux can deep pretty daunting, but is pretty straightforward once you get the hang of it.
+- Using Linux can be daunting, but is pretty straightforward once you get the hang of it.
 - Learning Linux is much like learning other languages - it takes time to master and requires practice.
 - However, even proficient users of Linux still rely of "google" and other sources of information all the time to help them with day-to-day tasks. So... 
      - if you are learning to use a new tool, *google it*.
      - if you can't remember all of the different parameters or how to run a command, *google it*.
      - if you are struggling due to errors or don't know what a certain error means, *google it*.
 
-- there are some very practical points that will make your life easier:
+- some very practical points that will make your life easier:
      - Linux is *case sensitive* 
           - typing *"ls"* is not the same as typing *"LS"*.
      - You need to put a space between a command and its argument
           - for example, *"more myfile"* will show you the contents of the file called *myfile*; *"moremyfile"* will just give you an error!
      - Linux is not psychic! If you misspell the name of a command or the name of a file, it will not understand you.
      - Many of the commands are only a few letters long; this can be confusing until you start to think logically about why those letters were chosen
-          - ls for list, rm for remove and so on.
+          - "ls" for "list", "rm" for "remove" and so on.
      - Often, when your command is running fine, *nothing happens* - this is good! You just need to wait until the command has completed its task.
      - However, when your command is not working, you will be presented with the error and/or a "usage statement" that tells you what is needed to run the command
           - more often than not, the error will tell you the problem, ie, "file not found"
@@ -101,8 +107,8 @@ and provide examples of how they can be used in bioinformatics analyses.
 <br>
 
 ### Tips to get you started
-- read the text! It contain lots of hints that should help you to answer some of the questions
-- light blue boxes contain instructions for running commands
+- Make sure you carefully read the text in this manual and on the command line! It contain lots of hints that should help you to answer some of the questions
+- Light blue boxes contain instructions for running commands
      - lines that start with a hash, ie *"#"* are a comment line - do not type these out.
      - lines that start with the following symbols should be typed out. Different programming languages have different symbols,
           - '\$' : this is a shell prompt
@@ -325,7 +331,7 @@ cd /home/manager/Module_2_Linux_scripting
 	- The disadvantage is that it requires more typing.
 - a relative path is a short desciption of a path, that is **relative and specific** to where you are in the directory structure. eg. if you are in the "/home/manager/Module_2_Linux_scripting/genome_1/" directory, you can move up one directory using "cd ..", two directories to the home directory using "cd ../../", or even move directories using " cd ../genome_2/" . 
 	- The advantage of using a relative path is that is it quick to type. 
-	- The disadvantage is that it is very specific to where you currently are in the directory strucutre, and if you move to a different location, the same command will not work. 
+	- The disadvantage is that it is very specific to where you currently are in the directory structure, and if you move to a different location, the same command will not work. 
 - You will see some examples of relative and absolute paths in later modules. 
 - If you use relative paths, great, but it does require a good understanding of your directory structure and where everything is located.
 - A common error message on the command line is "file not found" and is commonly related:
@@ -370,7 +376,7 @@ $ ls -lrt
 
 ### mv - move a file
 - The *mv* command stand for "move".
-- The *mv* command will move a file from one location to another. This moves the file rather than copies it, therefore you end up with only one file rather than two.
+- The *mv* command will move a file from one location to another. This moves the file rather than copies it, therefore, you end up with only one file rather than two.
 - When using the command, the path or pathname is used to tell Unix where to find the file.
 - You refer to files in other directories by using the list of hierarchical names separated by slashes.
      - For example, the file called bases in the directory genome has the path genome/bases.
@@ -405,17 +411,17 @@ $ rm genome_1.withseq.gff
 $ ls -lrt
 
 ```
-- Linux as a general rule does exactly what you ask, and does not ask for confirmation.
-- Unfortunately there is no "recycle bin" on the command line to recover the file from, so you have to be careful.
+- Linux, as a general rule, does exactly what you ask, and does not ask for confirmation.
+- Unfortunately there is no "recycle bin" on the command line to recover the file from, so you have to be careful with the "rm" command.
 
 ---
 <br>
 
 
 ### Exercises
-- Many people panic when they are confronted with a Unix prompt! Don't! All the commands you need to solve these exercises are provided above and don't be afraid to make a mistake.
+- Many people panic when they are confronted with a Unix prompt! Please don't! All the commands you need to solve these exercises are provided above. Don't be afraid to make a mistake.
 - If you get lost ask a demonstrator. If you are a person skilled at Unix, be patient this is only a short exercise.
-- To begin, open a terminal window and navigate to the basic directory in the Module_2_Linux_Scripting directory (remember use the command "cd") and then complete the exercise below.
+- To begin, open a terminal window and navigate to the basic directory in the Module_2_Linux_Scripting directory (remember use the command "cd"), and then complete the exercise below.
 
 1. Use the ls command to show the contents of the basic directory.
 2. How many files are there in the genome_2 directory?
@@ -433,7 +439,7 @@ $ ls -lrt
 
 
 ## Looking inside files <a name="inside_files"></a>
-- A common task is to look at the contents of a file. This can be achieved using several different Unix commands, less, head and tail. Let us consider some examples.
+- A common task is to look at the contents of a file. This can be achieved using several different Unix commands, "less", "head" and "tail". Let us consider some examples.
 
 
 ### less
@@ -445,12 +451,12 @@ $ ls -lrt
 $ less genome_1.gff
 
 ```
-- The contents of the file genome_1.gff is displayed one screen at a time, to view the next screen press the spacebar.
-- As genome_1.gff is a large file this will take a while, therefore you may want to escape or exit from this command.
-     - To do this, press the q key, this kills the less command and returns you to the Unix prompt.
-- less can also scroll backwards if you hit the b key.
+- The contents of the file "genome_1.gff" is displayed one screen at a time, to view the next screen press the spacebar.
+- As genome_1.gff is a large file this will take a while, therefore, you may want to escape or exit from this command.
+     - To do this, press the "q" key - this kills the less command and returns you to the Unix prompt.
+- "less" can also scroll backwards if you hit the "b" key.
 - Another useful feature is the slash key, /, to search for an expression in the file.
-     - Try it, search for the gene with locus tag t0038.
+     - Try it, search for the gene with locus tag *t0038*.
      - What is the start and end position of this gene?
 
 ---
@@ -487,9 +493,9 @@ $ tail –n 25 genome_1.gff
 ```
 
 - In this case you've given tail an argument in two parts.
-     - the -n says that you want to specify the number of lines to show and the 25 bit tells it how many.
+     - the "-n" says that you want to specify the number of lines to show and the 25 bit tells it how many.
 - Unlike earlier when we merged arguments like *ls -lha* together, it's not a good idea to merge multiple two part arguments together because otherwise it is ambiguous which value goes with which argument.
-     - -n is such a common argument for tail and head that it even has a shorthand: -n 25 and -25 mean the same thing.
+     - "-n" is such a common argument for tail and head that it even has a shorthand: -n 25 and -25 mean the same thing.
 
 ---
 <br>
@@ -1028,7 +1034,9 @@ $ awk -F"\t" 'BEGIN{OFS="\t"} {$2="new_source"; print $0}' genes.gff
 - There are several types of loop used by Unix but we will concentrate on two, the *"for loop"* and the *"while loop"*.
 
 ```bash
-# We will use a for loop to run wc on the files in the directory loop_files/
+
+
+# We will use a for loop to run wc on the files in the directory loop_files/ . Note you need to be in the "Module_2_Linux_scripting" directory to run this command.
 $ for filename in loop_files/*; do wc ${filename}; done
 
 ```
@@ -1111,7 +1119,7 @@ $ chmod +x hello.sh
 
 ```
 
-- The final thing we need to do is change our setup so Unix can find our scripts without explicitly being told where they are.
+- The final thing we need to do is change our setup so that Unix can find our scripts without explicitly being told where they are.
 - When a command is typed, Unix searches a list of directories looking for it.
 - This list is stored as an environmental variable known as the *PATH*.
 - Some of the directories in the PATH are looked at for all users but others can be set explicitly for an individual user.
@@ -1131,9 +1139,9 @@ $ export PATH=$PATH:~/scripts
 
 ```
 
-- If you want this change to be permanent i.e. so Unix finds your scripts directory in a new terminal or after a fresh login, add the above line to a file called ~/.bashrc.
-- Each user has a .bashrc file. It stores environment variables and aliases for the individual user account.
-- On a Mac, the equivalent file is called ~/.bash_profile.
+- If you want this change to be permanent, i.e. so that Unix finds your scripts directory in a new terminal or after a fresh login, add the above line to a file called ~/.bashrc.
+- Each user has a ".bashrc" file. It stores environment variables and aliases for the individual user account.
+- On a Mac, the equivalent file is called "~/.bash_profile".
 - This file is only usually looked at when logging in or opening a new terminal.
 
 ```bash
@@ -1177,7 +1185,7 @@ $ ./options_example.sh test_file 2
 
 ```
 - You will notice that, whilst the script works, is not very readable.
-     - It is better to replace $1 and $2 with meaningful variable names.
+     - It is better to replace "$1" and "$2" with meaningful variable names.
 
 ```bash
 # We have provided a second version of the script which is more readable
@@ -1185,7 +1193,7 @@ $ cat options_example2.sh
 
 ```
 
-- We have set the variable filename to be $1 and the variable number_of_lines to be $2.
+- We have set the variable "filename" to be "$1" and the variable "number_of_lines" to be "$2".
 - This may seem unimportant with a simple script but, as you write more complex scripts or adapt them to particular datasets, you will realise that setting meaningful variable names saves a lot of time.
 
 ---
