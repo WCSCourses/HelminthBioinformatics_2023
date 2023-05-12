@@ -1189,7 +1189,7 @@ $ ./options_example.sh test_file 2
 
 ```bash
 # We have provided a second version of the script which is more readable
-$ cat options_example2.sh
+$ cat options_example.2.sh
 
 ```
 
