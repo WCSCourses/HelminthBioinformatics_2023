@@ -254,10 +254,10 @@ samtools faidx haemonchus_contortus.PRJEB506.WBPS18.genomic.fa mitochondrion:1-1
 
 - this could be useful to, for example, extract specific gene or feature coordinates. 
 - to try this, attempt the following:
-	- go to WormBase ParaSite, and search for the "cox1" gene (HCON_00667215)
+	- go to WormBase ParaSite, and search for the "cox1" gene (HCON_00667215) to identify the start and end coordinates in the mitochondrial genome
 	- on the command line, using "samtools faidx" and the cox1 gene coordinates, extract the sequence and save it to a new file
-	- once you have the cox1 sequence in the new file, have a look at the header of the sequence - does it look sensible?
-	- if not, change the header name using a "sed" command.
+	- once you have the cox1 sequence in the new file, have a look at the header of the sequence - does it look sensible? What would be a sensible naming stategy if you have 100 mtDNA genomes or genes or sequneces from different species extracted this way?
+	- if not, change the header name using a "sed" command.  
 
 
 ---
@@ -269,16 +269,13 @@ samtools faidx haemonchus_contortus.PRJEB506.WBPS18.genomic.fa mitochondrion:1-1
 
 
 ## 4. Short read mapping <a name="mapping"></a>
-The next step is to map our sequencing data to the reference genome. 
+The next step is to align or map our raw sequencing data to the reference genome. 
 
-There are multiple short-read alignment programs, each with its own strengths, weaknesses, and caveats. Wikipedia has a good list and description of 
-each. Search for “Short-Read Sequence Alignment” if you are interested. We are going to use the *Burrows-Wheeler Aligner* or *BWA*. 
+There are multiple short-read alignment programs, each with their own strengths, weaknesses, and caveats. Wikipedia has a good list and description of each. In this example, we are going to use one of the most commonly used tools for sequence alignment, BWA.
 
 From the manual available here http://bio-bwa.sourceforge.net/ : “BWA is a software package for mapping low-divergent sequences against a large 
 reference genome, such as the human genome. It consists of three algorithms: BWA-backtrack, BWA-SW and BWA-MEM. The first algorithm is designed 
-for Illumina sequence reads up to 100bp, while the rest two for longer sequences ranged from 70 bp to 1 Mbp. BWA-MEM and BWA-SW share similar features 
-such as long-read support and split alignment, but BWA-MEM, which is the latest, is generally recommended for high-quality queries as it is faster 
-and more accurate. BWA-MEM also has better performance than BWA-backtrack for 70-100bp Illumina reads.”
+for Illumina sequence reads up to 100bp, while the rest two for longer sequences ranged from 70 bp to 1 Mbp. BWA-MEM and BWA-SW share similar features such as long-read support and split alignment, but BWA-MEM, which is the latest, is generally recommended for high-quality queries as it is faster and more accurate. BWA-MEM also has better performance than BWA-backtrack for 70-100bp Illumina reads.”
 
 Although BWA does not call Single Nucleotide Polymorphisms (SNPs) like some short-read alignment programs, e.g. MAQ, it is thought to be more 
 accurate in what it does do and it outputs alignments in the SAM format which is supported by several generic SNP callers such as SAMtools and GATK.
@@ -295,30 +292,30 @@ To start with, we are going to work on a single sample to familiarise you with t
 
 
 ```bash
-# make a new directory (mkdir) and move into it (cd)
+# make a new directory (mkdir) and move into it (cd):
 mkdir single_sample_analysis
 
 cd single_sample_analysis
 
-# lets copy (cp) the reference into our working directory
+# lets copy (cp) the reference into our working directory:
 cp ../hcontortus_mtDNA.fasta .
 
-# prepare your reference sequence by creating an index. An index is like an index in a book - it speeds up searching 
+# prepare your reference sequence by creating an index. An index is like an index in a book - it speeds up searching:
 bwa index hcontortus_mtDNA.fasta
 
-# map your reads to the reference using bwa mem
+# map your reads to the reference using bwa mem. Note that we are referring back into the raw reads directory using the "../":
 bwa mem hcontortus_mtDNA.fasta ../raw_reads/AUS_WAL_OA_001_1.fastq.gz ../raw_reads/AUS_WAL_OA_001_2.fastq.gz > single_sample.tmp.sam
 
-# convert the sam file to a bam file. We will also filter the reads using the “q” parameter
+# convert the sam file to a bam file. We will also filter the reads using the “q” parameter:
 samtools view -q 15 -b -o single_sample.tmp.bam single_sample.tmp.sam
 
-# sort the reads in the bam file 
+# sort the reads in the bam file: 
 samtools sort single_sample.tmp.bam -o single_sample.tmp.sorted.bam
 
-# finally, index the bam file
+# finally, index the bam file:
 samtools index single_sample.tmp.sorted.bam
 
-# to make sense of what we are doing with the mapping, lets open the top of our SAM file and have a look at what the data means
+# to make sense of what we are doing with the mapping, lets open the top of our SAM file and have a look at what the data means:
 head single_sample.tmp.sam
 
 ```
@@ -327,12 +324,12 @@ head single_sample.tmp.sam
 **Figure** Exploring the SAM file format
 
 
-Most of the data in a SAM file is relatively easy to interpret - it contains information about each read, where it is mapped in the genome, and how well it maps. 
-One column that is not easy to interpret is the "Flag" column. It contains various numbers, which are the sum of "bits" that actually decribe many different aspects of how 
-the read is mapped, in a very simple, numerical format. 
+Most of the data in a SAM file is relatively easy to interpret - it contains information about each read, where 
+it is mapped in the genome, and how well it maps to the genome. 
 
-Sometimes, understanding these numbers can be useful. We can use the following website to help us interpret these numbers. Click on the link, and input the numbers from 
-the above figure and see what they mean for each read. 
+One column that is not easy to interpret is the "flag" column. It contains various numbers, which are the sum of "bits" that actually decribe many different aspects of how the read is mapped, in a very simple, numerical format. 
+
+Sometimes, understanding these numbers can be useful. We can use the following website to help us interpret these numbers. Click on the link, and input the numbers from the above figure and see what they mean for each read. 
 
 [Picard: Decoding SAM flags](https://broadinstitute.github.io/picard/explain-flags.html)
 
@@ -341,19 +338,22 @@ Try putting in a random number and see what you get!
 
 
 ### 4.2. Mapping QC 
-It is a good idea to look at how well the mapping went. We can use the tool *samtools flagstats* which reads the flag column we have just looked at above and summarises the data. 
+It is a good idea to look at how well the mapping went. We can use the tool *samtools flagstats* which reads the 
+flag column we have just looked at above and summarises the data. 
+
 ```bash
 # Run samtools flagstats and look at the output:
-samtools flagstats single_sample.tmp.sorted.bam > single_sample.tmp.sorted.flagstats
+samtools flagstats single_sample.tmp.sorted.bam > single_sample.sorted.flagstats
 
-cat single_sample.tmp.sorted.flagstats
+cat single_sample.sorted.flagstats
 
 ```
 
 Here, we can see how many reads have mapped, and if they are "properly paired". Why might that be important? 
 
-As we have mapped the reads to a single, small reference sequence (due to space and time), it looks like these reads from this sample have mapped well. However, if this sample had not mapped 
-well, we might need to decide if we have enough data to analyse, and whether more sequencing (or resampling) was needed.
+As we have mapped the reads to a single, small reference sequence (due to space and time), it looks like these reads 
+from this sample have mapped well. However, if this sample had not mapped well, we might need to decide if we have 
+enough data to analyse, and whether more sequencing (or resampling) was needed.
 
 
 ---
@@ -371,7 +371,7 @@ are many variant calling tools available, each with different strengths and some
 DNA which is haploid, the approach here is quick and straight-forward. 
 
 #### 5.1. Question: 
-- can you think of why variant calling in a haploid sample is less complicated in a diploid (or polyploid) sample?
+- can you think of a reason why variant calling in a haploid sample is less complicated than compared to a diploid (or polyploid) sample?
 
 
 

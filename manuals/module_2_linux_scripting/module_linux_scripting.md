@@ -415,7 +415,7 @@ $ ls -lrt
 ### Exercises
 - Many people panic when they are confronted with a Unix prompt! Don't! All the commands you need to solve these exercises are provided above and don't be afraid to make a mistake.
 - If you get lost ask a demonstrator. If you are a person skilled at Unix, be patient this is only a short exercise.
-- To begin, open a terminal window and navigate to the basic directory in the Unix_course directory (remember use the Unix command cd) and then complete the exercise below.
+- To begin, open a terminal window and navigate to the basic directory in the Module_2_Linux_Scripting directory (remember use the command "cd") and then complete the exercise below.
 
 1. Use the ls command to show the contents of the basic directory.
 2. How many files are there in the genome_2 directory?
@@ -438,7 +438,7 @@ $ ls -lrt
 
 ### less
 - The *less* command displays the contents of a specified file one screen at a time.
-- To test this command, open a terminal window on the computer, navigate to the directory files in the Unix_course directory and type the following command followed by the enter key:
+- To test this command, open a terminal window on the computer, navigate to the directory files in the Module_2_Linux_Scripting directory and type the following command followed by the enter key:
 
 ```bash
 # Use the less command to open a gff
@@ -664,7 +664,7 @@ $ awk '{ print $1 }' genome_2.bed | sort | uniq | less
 
 
 ### Exercises
-- Open up a new terminal window, navigate to the files directory in the Unix_course directory and complete the following exercise:
+- Open up a new terminal window, navigate to the files directory in the Module_2_Linux_Scripting directory and complete the following exercise:
 1. Use the head command to extract the first 500 lines of the file genome_1.gff and store the output in a new file called genome_1.500.gff.
 2. Use the wc command to count the number of lines in the genome_2.bed file.
 3. Use the sort command to sort the file genome_2.bed on chromosome and then gene position.
