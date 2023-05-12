@@ -1,4 +1,14 @@
-# Project Introduction and Planning
+---
+title: 'Project Introduction and Planning'
+author: ""
+date: "4th May 2023"
+output:
+ prettydoc::html_pretty:
+  theme: leonids
+  highlight: github
+    
+
+---
 
 In just a few days, you will have reached the final module of the course, where you will apply what you learn in this course on a new problem. 
 

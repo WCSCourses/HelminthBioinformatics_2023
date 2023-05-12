@@ -1,4 +1,14 @@
-# Transcriptomics
+---
+title: 'Transcriptomics'
+author: ""
+date: "4th May 2023"
+output:
+ prettydoc::html_pretty:
+  theme: leonids
+  highlight: github
+    
+
+---
 
 ## Table of Contents
 1. [Overview and Aims](#intro)

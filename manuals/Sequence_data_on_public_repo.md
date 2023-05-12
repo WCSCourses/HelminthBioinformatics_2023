@@ -1,4 +1,14 @@
-# Finding data on the web.
+---
+title: 'Finding data on the web'
+author: ""
+date: "4th May 2023"
+output:
+ prettydoc::html_pretty:
+  theme: leonids
+  highlight: github
+    
+
+---
 
 There is a lot of data already available on public repositories. These are fantastic resources to the scientific community and it is worth learning where to find it, how to search for it and how to download the data. 
 
