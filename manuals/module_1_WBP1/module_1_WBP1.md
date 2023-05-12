@@ -8,9 +8,13 @@
     * [Sequence databases](#sequence_databases)
 3. [Looking at genomes in WormBase ParaSite](#wbps_genomes)
     * [EXERCISE](#genomes_exercise)
+    * [Submit a genome to WormBase ParaSite](#submit_genome)
 4. [Looking at genes in WormBase ParaSite](#wbps_genes)
     * [The gene page](#gene_page)
     * [Functional annotation: protein domains and GO terms](#functional_annotation)
+    * [Gene Ontology terms](#go_terms)
+    * [Protein domains](#protein_domains)
+    * [AlphaFold 3D protein structures](#af)
     * [Orthologues and paralogues](#comparative_genomics)
     * [EXERCISE](#gene_page_exercise)
 5. [BioMart](#biomart)
@@ -121,7 +125,7 @@ The information in this box tells us about two metrics related to the quality of
 2. According to their scaffold statistics and BUSCO scores, which of these two assemblies is more contiguous and complete?
 
 ---
-#### How to submit a genome to WormBase ParaSite?
+#### How to submit a genome to WormBase ParaSite? <a name="submit_genome"></a>
 
 Let's say you have just finished working on a genome project and you would like to submit it to WormBase ParaSite. WBPS takes sequencing data from INSDC (a genome assembly and a set of gene predictions).
 
@@ -216,7 +220,7 @@ Note that this protein sequence is what is known as a conceptual translation: th
 So far we have gathered general information about this _Opisthorcis viverrini_ gene. We have also inspected their genomic location and sequence. However, we don't have any clues about the genes' function! What does the protein encoded from this gene do?
 
 
-##### Gene ontology (GO)
+##### Gene ontology (GO) <a name="go_terms"></a>
 
 A fast way to find out about the function of a gene’s product is to see which Gene Ontology (GO) terms have been associated with it. GO is a project that seeks to describe complex biology in a logical, hierarchical and computer-processable way. It is a controlled vocabulary, whereby proteins are associated with GO terms that describe their function. There are three aspects to GO: Cellular Component, Molecular Function and Biological Process. Cellular Component GO terms describe where a protein is localised (in the membrane, extracellular, in the nucleus etc). Molecular Function GO terms describe the biochemical activity of the protein. Biological Process GO terms describe the pathways and broader processes that the protein contributes to.
 
@@ -232,7 +236,7 @@ WormBase ParaSite imports GO annotations from three sources:
 The GO terms associated with this gene make sense given what we already know about the Innexin protein family: this protein likely forms part of the gap junction, which is a channel connecting the cytoplasm of two cells.
 
 ---
-##### Protein Features and Domains
+##### Protein Features and Domains <a name="protein_domains"></a>
 
 How we do go from a string of amino acids to predicting what this protein might do in the cell? This is where another type of database comes in: protein family databases. 
 
@@ -274,7 +278,7 @@ On the results page, each horizontal coloured line represents a match between ou
 </details>
 
 ---
-##### Protein Structure: Explore the 3D protein model of the gene using AlphaFold
+##### Protein Structure: Explore the 3D protein model of the gene using AlphaFold <a name="af"></a>
 
 Knowledge of protein's 3D structure is a huge hint for understanding how the protein works, and use that information for different purposes; control or modify protein's function, predict what molecules bind to that protein and understand various biological interactions, assist drug discovery or even design our own proteins.
 
