@@ -225,15 +225,22 @@ The final WormBase ParaSite tool that we will look at today is the Variant Effec
 
 The standard file format for storing variation data is the [Variant Call Format (VCF)](https://samtools.github.io/hts-specs/VCFv4.2.pdf); this is another tab-delimited text format. Later in the course, you’ll see how to make one of these files.  In the meantime, for some helminth genomes, these files have already been shared by other researchers. Today you’ll be using an available VCF file for Strongyloides ratti. 
 
+First, we'll download a VCF file from the European Variation Archive (EVA).   Then will upload it to WormBase ParaSite
 
+* Go to the EVA
+(you can find it by searching for EBI EVA)
+
+* Select "Variant Browser" tab
+You can download complete studies from the "Study Browser" tab but today we are using the Variant Browser to download a much smaller file corresponding to a 250 kb region of the genome.
+
+* Download the first 250kb of S. ratti chromosome 2
+
+have a look at the file to see how it is structured (you'll have to scroll down beyond the headers to see the data lines)
 
 
 ````
-# unzip
-gunzip h_microstoma.vcf.gz
-
 # look at the contents
-less h_microstoma.vcf
+less sratti*.vcf
 ````
     
 ![](figures/vep_1.png)
@@ -248,7 +255,9 @@ less h_microstoma.vcf
 ![](figures/vep_3.png)
 
 The pie charts give a summary of the consequences of the variants found in the file. Variants with coding consequences are found in the protein-coding sequence of genes, whilst variants with non-coding consequences are in intergenic regions or non-coding regions of genes. These variants could still be functionally important; for example, variants in non-coding regions near genes can have effects on expression dynamics.
-You can explore the results interactively on the webpage, or download them to file.
+
+You can explore the results interactively on the webpage.  For instance, by filtering for variant that cause (select "consequence") changes to amino acids (select "missense_variant").  Alternatively, you can download and search through the file directly.
+
 
 [↥ **Back to top**](#top)
 
