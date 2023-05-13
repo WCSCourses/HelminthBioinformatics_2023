@@ -237,12 +237,11 @@ You can download complete studies from the "Study Browser" tab but today we are 
 
 have a look at the file to see how it is structured (you'll have to scroll down beyond the headers to see the data lines)
 
-
 ````
 # look at the contents
 less sratti*.vcf
 ````
-    
+### $\textcolor{red}{\textsf{MB: REPLACE THIS WITH S. ratti file}}$
 ![](figures/vep_1.png)
 
 * From the WormBase ParaSite homepage, select “Tools” from the toolbar.
@@ -250,7 +249,7 @@ less sratti*.vcf
 
 ![](figures/vep_2.png)
 
-* To submit a VEP job, just select the correct species (Hymenolepis microstoma), upload your VCF file and click “Run”.
+* To submit a VEP job, just select the correct species (_Strongyloides ratti_), upload your VCF file and click “Run”.
 
 ![](figures/vep_3.png)
 
@@ -266,13 +265,13 @@ You can explore the results interactively on the webpage.  For instance, by filt
 Download the VEP results from the example above as a “VEP file”. Use this file and the original VCF file to answer the following questions:
 
 1. How many variants were there in the original dataset?
-
+### $\textcolor{red}{\textsf{MB: Check this}}$
 2. What is their distribution across the scaffolds of the _H. microstoma_ genome (hint: count how many times each scaffold appears in the VCF file)?
 
 3. What are the different types of consequence that are found in the file, and how often does each occur?
 
-4. List the genes where a ‘stop gained’ variant is found.
-
+4. Create a list of genes where a ‘stop gained’ variant is found.
+### $\textcolor{red}{\textsf{MB: change to S. ratti example}}$
 5. You are interested in one particular gene, HmN_002063100. Does it have any variants in the file, and what are the reported consequences? Now view the VCF file in JBrowse and visualise where the variants are in the gene model.
 
 Hint: to view the VCF in JBrowse you first need to compress and index it. Do:
