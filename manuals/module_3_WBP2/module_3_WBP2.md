@@ -265,18 +265,17 @@ You can explore the results interactively on the webpage.  For instance, by filt
 Download the VEP results from the example above as a “VEP file”. Use this file and the original VCF file to answer the following questions:
 
 1. How many variants were there in the original dataset?
-### $\textcolor{red}{\textsf{MB: Check this}}$
-2. What is their distribution across the scaffolds of the _H. microstoma_ genome (hint: count how many times each scaffold appears in the VCF file)?
 
-3. What are the different types of consequence that are found in the file, and how often does each occur?
+2. What are the different types of consequence that are found in the file, and how often does each occur?
 
-4. Create a list of genes where a ‘stop gained’ variant is found.
-### $\textcolor{red}{\textsf{MB: change to S. ratti example}}$
-5. You are interested in one particular gene, HmN_002063100. Does it have any variants in the file, and what are the reported consequences? Now view the VCF file in JBrowse and visualise where the variants are in the gene model.
+3. List all of the variants found in SRAE_2000005500.1.  Which variant or variants how the greatest impact?
 
+4. Create a list of genes where a missense variant is found.  
+
+5. Find out which genes has the highest number of missense mutations.  View the distribution of variants along the coding sequence
 Hint: to view the VCF in JBrowse you first need to compress and index it. Do:
 
-    bgzip h_microstoma.vcf && tabix -p vcf h_microstoma.vcf.gz
+    bgzip file.vcf && tabix -p vcf file.vcf.gz
 
 [↥ **Back to top**](#top)
 
