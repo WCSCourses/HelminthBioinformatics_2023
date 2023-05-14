@@ -28,7 +28,6 @@ output:
       * [EXERCISE](#expression_exercise)
 
 ### $\textcolor{red}{\textsf{DG: We could add the gProfiler Gene-set enrichment analysis tool underneath the expression browser as it got lots of questions from the audience in Brazil}}$
-### $\textcolor{red}{\textsf{DG: Update screenshots}}$
 
 ## Overview and Aims <a name="aims"></a>
 
@@ -273,6 +272,7 @@ Download the VEP results from the example above as a “VEP file”. Use this fi
 4. Create a list of genes where a missense variant is found.  
 
 5. Find out which genes has the highest number of missense mutations.  View the distribution of variants along the coding sequence
+### $\textcolor{red}{\textsf{MB: I can't get this bit to work!}}$
 Hint: to view the VCF in JBrowse you first need to compress and index it. Do:
 
     bgzip file.vcf && tabix -p vcf file.vcf.gz
