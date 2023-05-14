@@ -227,11 +227,12 @@ The standard file format for storing variation data is the [Variant Call Format 
 
 First, we'll download a VCF file from the European Variation Archive (EVA).   Then will upload it to WormBase ParaSite
 
-### $\textcolor{red}{\textsf{MB: Insert composite EVA screenshot}}$
 * Go to the EVA
 (you can find it by searching for EBI EVA)
 * Select "Variant Browser" tab
 You can download complete studies from the "Study Browser" tab but today we are using the Variant Browser to download a much smaller file corresponding to a 250 kb region of the genome.
+
+![](figures/eva_1.png)
 
 * Download the first 250kb of S. ratti chromosome 2
 
