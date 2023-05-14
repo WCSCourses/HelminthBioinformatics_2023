@@ -250,7 +250,7 @@ less sratti*.vcf
 ![](figures/vep_2.png)
 
 * To submit a VEP job, just select the correct species (_Strongyloides ratti_), upload your VCF file and click “Run”.
-### $\textcolor{red}{\textsf{MB: New screenshot}}$
+
 ![](figures/vep_3.png)
 
 The pie charts give a summary of the consequences of the variants found in the file. Variants with coding consequences are found in the protein-coding sequence of genes, whilst variants with non-coding consequences are in intergenic regions or non-coding regions of genes. These variants could still be functionally important; for example, variants in non-coding regions near genes can have effects on expression dynamics.
