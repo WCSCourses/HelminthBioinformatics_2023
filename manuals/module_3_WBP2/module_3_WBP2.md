@@ -241,7 +241,6 @@ have a look at the file to see how it is structured (you'll have to scroll down 
 # look at the contents
 less sratti*.vcf
 ````
-### $\textcolor{red}{\textsf{MB: REPLACE THIS WITH S. ratti file}}$
 ![](figures/vep_1.png)
 
 * From the WormBase ParaSite homepage, select “Tools” from the toolbar.
