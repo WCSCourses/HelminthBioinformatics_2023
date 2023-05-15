@@ -176,8 +176,8 @@ Looking at the "multiqc_report.html" report in FireFox, there are a number of wi
 	- ***Per Base Sequence Content:***
 		- The proportion of each base position for which each of the four normal DNA bases has been called.
 	- ***Per Sequence GC Content:***
-		-  The average GC content of reads. 
-		- Abnormal GC distribution is a good indicator of contamination. Does the GC profile fit the expected GC content for your species of interest? Is it a smooth distribution, or are their spikes? 
+		- The average GC content of reads. 
+		- Abnormal GC distribution is a good indicator of contamination. Does the GC profile fit the expected GC content for your species of interest? Is it a smooth distribution, or are there spikes? 
 	- ***Per Base N Content:***
 		- The percentage of base calls at each position for which an N was called.
 		- Is there an excess of positions in the reads for which a “N” base was called? Excess Ns can often indicate an issue with the sequencing.
