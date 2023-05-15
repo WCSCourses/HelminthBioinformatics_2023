@@ -6,7 +6,7 @@ output:
  prettydoc::html_pretty:
   theme: leonids
   highlight: github
-    
+title: nullß
 
 ---
 
