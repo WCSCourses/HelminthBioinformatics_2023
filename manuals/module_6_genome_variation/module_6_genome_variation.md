@@ -620,7 +620,7 @@ vcftools --gzvcf all_samples.vcf.gz --maf 0.05 --min-alleles 2 --max-alleles 2 -
 <br>
 
 
-## 9. Visualing SNP data using WormBase ParaSite and Artemis <a name="snps_vis"></a>
+## 9. Visualising SNP data using WormBase ParaSite and Artemis <a name="snps_vis"></a>
 ### 9.1 Analysing your SNPs in WormBase ParaSite
 One aspect of characteriing genetic variants is to ask - are any of our variants in genes, and if so, do they have a functional consequence?
 There are many ways a variant can have a functional consequence on a gene, some more easy to predict than others. This is perhaps beyond the scope of this workshop. However, we can easily determine if there are putative changes to the coding sequences using WormBase ParaSite's "Variant Effect Predictor". 
