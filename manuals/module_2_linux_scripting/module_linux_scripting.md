@@ -10,6 +10,7 @@ output:
 title: null
 ---
 
+# Introduction to Linux
 
 ## Table of Contents
 1. [Introduction and aims](#intro)
