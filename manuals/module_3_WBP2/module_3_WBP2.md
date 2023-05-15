@@ -1,15 +1,4 @@
----
-title: 'WormBase ParaSite (2) '
-author: ""
-date: "4th May 2023"
-output:
- prettydoc::html_pretty:
-  theme: leonids
-  highlight: github
-    
-
----
-
+# WormBase ParaSite (2)
 
 ## Table of contents
 1. [Overview and Aims](#aims)

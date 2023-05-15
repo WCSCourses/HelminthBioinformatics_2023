@@ -1,14 +1,5 @@
----
-title: 'Transcriptomics'
-author: ""
-date: "4th May 2023"
-output:
- prettydoc::html_pretty:
-  theme: leonids
-  highlight: github
-    
+# Transcriptomics
 
----
 ## Table of Contents
 1. [Overview and Aims](#intro)
 2. [Introduction to transcriptome and experiment design](#basic)

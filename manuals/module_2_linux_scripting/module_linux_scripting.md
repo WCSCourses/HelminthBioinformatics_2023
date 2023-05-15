@@ -1,15 +1,3 @@
----
-name: Introduction to Linux
-author: "Steve Doyle"
-date: "4th May 2023"
-output:
- prettydoc::html_pretty:
-  theme: leonids
-  highlight: github
-
-title: null
----
-
 # Introduction to Linux
 
 ## Table of Contents
