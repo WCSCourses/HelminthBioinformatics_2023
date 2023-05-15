@@ -6,9 +6,10 @@ output:
  prettydoc::html_pretty:
   theme: leonids
   highlight: github
-title: null
-
+title-heading: false
 ---
+
+# Genetic Variation
 
 ## Table of Contents
 1. [Overview and Aims](#intro)
