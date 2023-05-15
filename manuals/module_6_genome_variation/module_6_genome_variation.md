@@ -686,7 +686,7 @@ cd ~/Module_6_Genetic_Variation/R_analysis
 cp ../multi_sample_analysis/all_samples.filtered.recode.vcf .
 cp ../sample_metadata.txt .
 
-# Once you have completed this, open Rstudio. Note that there is a script that you use called "walk_through_genetic_diversity.R" to help you out.
+# Once you have completed this, open Rstudio.
 
 # Alternatively, you can load R on the command line simply by typing :
 
