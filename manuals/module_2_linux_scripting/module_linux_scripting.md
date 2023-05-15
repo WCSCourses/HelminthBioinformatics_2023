@@ -1,4 +1,6 @@
-# Introduction to Linux
+Introduction to Linux
+
+Steve Doyle, 2023
 
 ## Table of Contents
 1. [Introduction and aims](#intro)
