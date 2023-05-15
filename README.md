@@ -106,9 +106,9 @@ We are fortunate to be supported by [DataCamp](https://datacamp.com), who are pr
      - [Manual PDF version](manuals/)
 
 **Appendix**  
-- [Creating a shared folder between your computer and VM](manuals/creating_a_shared_folder_in_VM.md)     
-- [Finding and download sequence data from public repository](manuals/Sequence_data_on_public_repo.md)     
-- [Downloading GO term annotation from WormBase ParaSite and formatting it for topGO](manuals/GO_ref_download_and_formatting.md)
+- [Creating a shared folder between your computer and VM](manuals/other_information/creating_a_shared_folder_in_VM.md)     
+- [Finding and download sequence data from public repository](manuals/other_information/Sequence_data_on_public_repo.md)     
+- [Downloading GO term annotation from WormBase ParaSite and formatting it for topGO](manuals/other_information/GO_ref_download_and_formatting.md)
 
 
 

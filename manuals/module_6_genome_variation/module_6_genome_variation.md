@@ -1,14 +1,10 @@
 ---
-title: 'Genetic Variation '
-author: "Steve Doyle"
-date: "4th May 2023"
-output:
- prettydoc::html_pretty:
-  theme: leonids
-  highlight: github
-    
-
+title: null
 ---
+
+# Genetic Variation
+
+Steve Doyle, 2023
 
 ## Table of Contents
 1. [Overview and Aims](#intro)
@@ -139,7 +135,7 @@ Lets run FastQC and explore our data.
 
 ```bash
 # Go to the working directory:
-cd raw_data
+cd raw_reads
 
 # To start with, let's run fastqc on a single file so you can see how it works:
 fastqc AUS_WAL_OA_001_1.fastq.gz
@@ -176,8 +172,8 @@ Looking at the "multiqc_report.html" report in FireFox, there are a number of wi
 	- ***Per Base Sequence Content:***
 		- The proportion of each base position for which each of the four normal DNA bases has been called.
 	- ***Per Sequence GC Content:***
-		-  The average GC content of reads. 
-		- Abnormal GC distribution is a good indicator of contamination. Does the GC profile fit the expected GC content for your species of interest? Is it a smooth distribution, or are their spikes? 
+		- The average GC content of reads. 
+		- Abnormal GC distribution is a good indicator of contamination. Does the GC profile fit the expected GC content for your species of interest? Is it a smooth distribution, or are there spikes? 
 	- ***Per Base N Content:***
 		- The percentage of base calls at each position for which an N was called.
 		- Is there an excess of positions in the reads for which a “N” base was called? Excess Ns can often indicate an issue with the sequencing.
@@ -535,10 +531,10 @@ done
 
 While we are waiting for our mapping to finish, lets break down what we just did. 
 
-We have used loops aleady durign the course, but hopefully this breakdown will help explain what is 
+We have used loops aleady during the course, but hopefully this breakdown will help explain what is 
 going on in a bit more detail, and give you some confidence to adapt and use them in different ways in your own work.
 
-NOTE: you don’t need to write any of the commands, on this page. This is just to explain what is going on. 
+NOTE: you don’t need to write any of the commands on this page. This is just to explain what is going on. 
 
 ![](figures/figure6.7.PNG)  
 **Figure** Breaking down our "for loop"

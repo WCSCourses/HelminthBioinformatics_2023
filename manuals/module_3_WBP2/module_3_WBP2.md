@@ -28,7 +28,6 @@ output:
       * [EXERCISE](#expression_exercise)
 
 ### $\textcolor{red}{\textsf{DG: We could add the gProfiler Gene-set enrichment analysis tool underneath the expression browser as it got lots of questions from the audience in Brazil}}$
-### $\textcolor{red}{\textsf{DG: Update screenshots}}$
 
 ## Overview and Aims <a name="aims"></a>
 
@@ -223,16 +222,25 @@ Now we can see the IsoSeq reads aligned to the genome. Notice that IsoSeq data i
 
 The final WormBase ParaSite tool that we will look at today is the Variant Effect Predictor, or VEP. A common approach to understanding the genetic basis of phenotypic differences is to identify genetic variants that are overrepresented in some populations of individuals. For example, you might sequence two populations of worm: one that is susceptible to a drug and one that is resistant to the drug. You could then identify genomic positions where each of these populations differs from the reference genome. VEP is a tool that allows you to predict what the consequences of these variants are: whether they fall within or near genes, and whether they result in a change to the amino acid sequence of a protein.
 
-The standard file format for storing variation data is the [Variant Call Format (VCF)](https://samtools.github.io/hts-specs/VCFv4.2.pdf); this is another tab-delimited text format. In the module 3 data directory, we have provided you with a Hymenolepis microstoma VCF file to demonstrate how to use VEP. Unzip and then have a look at the file to see how it is structured (you'll have to scroll down beyond the headers to see the data lines):
+The standard file format for storing variation data is the [Variant Call Format (VCF)](https://samtools.github.io/hts-specs/VCFv4.2.pdf); this is another tab-delimited text format. Later in the course, you’ll see how to make one of these files.  In the meantime, for some helminth genomes, these files have already been shared by other researchers. Today you’ll be using an available VCF file for Strongyloides ratti. 
+
+First, we'll download a VCF file from the European Variation Archive (EVA).   Then will upload it to WormBase ParaSite
+
+* Go to the EVA
+(you can find it by searching for EBI EVA)
+* Select "Variant Browser" tab
+You can download complete studies from the "Study Browser" tab but today we are using the Variant Browser to download a much smaller file corresponding to a 250 kb region of the genome.
+
+![](figures/eva_1.png)
+
+* Download the first 250kb of S. ratti chromosome 2
+
+have a look at the file to see how it is structured (you'll have to scroll down beyond the headers to see the data lines)
 
 ````
-# unzip
-gunzip h_microstoma.vcf.gz
-
 # look at the contents
-less h_microstoma.vcf
+less sratti*.vcf
 ````
-    
 ![](figures/vep_1.png)
 
 * From the WormBase ParaSite homepage, select “Tools” from the toolbar.
@@ -240,12 +248,14 @@ less h_microstoma.vcf
 
 ![](figures/vep_2.png)
 
-* To submit a VEP job, just select the correct species (Hymenolepis microstoma), upload your VCF file and click “Run”.
+* To submit a VEP job, just select the correct species (_Strongyloides ratti_), upload your VCF file and click “Run”.
 
 ![](figures/vep_3.png)
 
 The pie charts give a summary of the consequences of the variants found in the file. Variants with coding consequences are found in the protein-coding sequence of genes, whilst variants with non-coding consequences are in intergenic regions or non-coding regions of genes. These variants could still be functionally important; for example, variants in non-coding regions near genes can have effects on expression dynamics.
-You can explore the results interactively on the webpage, or download them to file.
+
+You can explore the results interactively on the webpage.  For instance, by filtering for variant that cause (select "consequence") changes to amino acids (select "missense_variant").  Alternatively, you can download and search through the file directly.
+
 
 [↥ **Back to top**](#top)
 
@@ -255,17 +265,17 @@ Download the VEP results from the example above as a “VEP file”. Use this fi
 
 1. How many variants were there in the original dataset?
 
-2. What is their distribution across the scaffolds of the _H. microstoma_ genome (hint: count how many times each scaffold appears in the VCF file)?
+2. What are the different types of consequence that are found in the file, and how often does each occur?
 
-3. What are the different types of consequence that are found in the file, and how often does each occur?
+3. List all of the variants found in SRAE_2000005500.1.  Which variant or variants how the greatest impact?
 
-4. List the genes where a ‘stop gained’ variant is found.
+4. Create a list of genes where a missense variant is found.  
 
-5. You are interested in one particular gene, HmN_002063100. Does it have any variants in the file, and what are the reported consequences? Now view the VCF file in JBrowse and visualise where the variants are in the gene model.
-
+5. Find out which genes has the highest number of missense mutations.  View the distribution of variants along the coding sequence
+### $\textcolor{red}{\textsf{MB: I can't get this bit to work!}}$
 Hint: to view the VCF in JBrowse you first need to compress and index it. Do:
 
-    bgzip h_microstoma.vcf && tabix -p vcf h_microstoma.vcf.gz
+    bgzip file.vcf && tabix -p vcf file.vcf.gz
 
 [↥ **Back to top**](#top)
 
