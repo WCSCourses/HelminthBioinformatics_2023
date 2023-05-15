@@ -12,3 +12,7 @@ theme: minima
 #- jekyll-remote-theme
 #- jekyll-feed
 
+include:
+- module_1_WBP1.md
+- module_linux_scripting.md
+- module_3_WBP2.md
