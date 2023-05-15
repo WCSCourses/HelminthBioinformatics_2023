@@ -1,12 +1,14 @@
 ---
-title: 'Genetic Variation '
+name: Genetic Variation
 author: "Steve Doyle"
 date: "4th May 2023"
 output:
  prettydoc::html_pretty:
   theme: leonids
   highlight: github
-title-heading: false
+
+
+title: null
 ---
 
 # Genetic Variation
