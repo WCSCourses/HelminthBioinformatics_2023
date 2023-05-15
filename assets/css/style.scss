@@ -1,12 +1,10 @@
 ---
 ---
 
+@import 'jekyll-theme-hacker';
+
 @import "{{ site.theme }}";
 
-inner {
-  max-width: 150%;
-}
-
-header { 
-  display: none; 
+header {
+    display: none;
 }
