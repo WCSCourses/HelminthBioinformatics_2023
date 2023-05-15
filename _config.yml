@@ -12,7 +12,13 @@ theme: minima
 #- jekyll-remote-theme
 #- jekyll-feed
 
+plugins:
+  - jekyll-relative-links
+  - jekyll-remote-theme
+relative_links:
+  enabled: false
+  collections: false
 include:
-- module_1_WBP1.md
-- module_linux_scripting.md
-- module_3_WBP2.md
+  - module_1_WBP1.md
+  - module_linux_scripting.md
+  - module_3_WBP2.md
