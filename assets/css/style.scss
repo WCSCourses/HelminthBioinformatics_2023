@@ -3,6 +3,10 @@
 
 @import "{{ site.theme }}";
 
-header {
-    display: none;
+inner {
+  max-width: 150%;
+}
+
+header { 
+  display: none; 
 }
