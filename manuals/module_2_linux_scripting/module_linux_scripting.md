@@ -1,5 +1,9 @@
 # Introduction to Linux
 
+---
+title: null
+---
+
 Steve Doyle, 2023
 
 ## Table of Contents
