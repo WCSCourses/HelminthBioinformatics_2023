@@ -1,8 +1,9 @@
-# Introduction to Linux
-
 ---
 title: null
 ---
+
+# Introduction to Linux
+
 
 Steve Doyle, 2023
 
