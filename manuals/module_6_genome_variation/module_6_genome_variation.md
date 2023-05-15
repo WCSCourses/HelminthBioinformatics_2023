@@ -535,10 +535,10 @@ done
 
 While we are waiting for our mapping to finish, lets break down what we just did. 
 
-We have used loops aleady durign the course, but hopefully this breakdown will help explain what is 
+We have used loops aleady during the course, but hopefully this breakdown will help explain what is 
 going on in a bit more detail, and give you some confidence to adapt and use them in different ways in your own work.
 
-NOTE: you don’t need to write any of the commands, on this page. This is just to explain what is going on. 
+NOTE: you don’t need to write any of the commands on this page. This is just to explain what is going on. 
 
 ![](figures/figure6.7.PNG)  
 **Figure** Breaking down our "for loop"
