@@ -139,7 +139,7 @@ Lets run FastQC and explore our data.
 
 ```bash
 # Go to the working directory:
-cd raw_data
+cd raw_reads
 
 # To start with, let's run fastqc on a single file so you can see how it works:
 fastqc AUS_WAL_OA_001_1.fastq.gz
