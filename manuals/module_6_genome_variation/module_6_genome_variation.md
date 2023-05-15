@@ -2,7 +2,7 @@
 title: null
 ---
 
-# Genetic Variation
+# Genetic Variation <! -- omit in toc -->
 
 Steve Doyle, 2023
 
