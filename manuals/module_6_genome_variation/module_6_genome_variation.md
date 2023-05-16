@@ -754,6 +754,16 @@ vcf.gl@pop
 <br>
 
 ## 11. Principal component analysis of genetic diversity <a name="pca"></a>
+
+Principal components analysis, PCA, is a statistical method used to reduce the complexity of multi-dimensional datasets to aid with visualisation and interpretation. It works by transforming the data into a new, simpler coordinate system which explains variance in the dataset. These transformations results in an ordering in your data, called a principle component (PC), and these PC are subsequently ranked by the amount of variance that can be explained, ie. the first PC will explain the most variance in your data. We can compare PCs in a scatter plot, ie, PC1 vs PC2, to help explore, analyse, and identify patterns in these otherwise complex data. 
+
+PCA is commonly used in population genetics to identify structure in the distribution of genetic variation. Most commonly, it is used to identify patterns in genetic variation between samples, and compare this to features of samples such as population of origin. PCA is not specifically used for genetics - it can be used to explore patterns in any multivariate datasets. If you have metadata associated with a sample set, you can use PCA to ientify which parameters of your metadata influence the variance of the data. In the case of population genetics, it might be country or origin, but it could be other biological parameters (eg, host, temperature, altitude, etc) or technical factors (eg. sequnecing run, collection date, levels of contamination) that might be biasing your sample. 
+
+As a general note to remember, visualising your data can be a powerful way to identify patterns in data. PCA is a good way to do this.
+
+Here, we will perfrom a PCA of your genetic variants, and try to see if there is any clustering of samples by the country of origin.
+
+
 ```R
 # load some required libraries for this section
 library(vcfR)
