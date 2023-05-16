@@ -27,30 +27,87 @@ output:
 4. [The WormBase ParaSite Expression browser](#expression_data)
       * [EXERCISE](#expression_exercise)
 
-### $\textcolor{red}{\textsf{DG: We could add the gProfiler Gene-set enrichment analysis tool underneath the expression browser as it got lots of questions from the audience in Brazil}}$
-
 ## Overview and Aims <a name="aims"></a>
 
-In this module, we return to WormBase ParaSite. We will start by looking at three commonly-used tools in WBPS: BLAST, JBrowse (a genome browser), and the Variant Effect Predictor (VEP). We will then go on to apply some of the command line skills that you were introduced to in module 2 to explore WormBase ParaSite data programmatically. Finally, the module ends with a Bonus section introducing our Expression browser.
+In this module, we return to WormBase ParaSite.
 
+We will start by looking at three commonly-used tools in WBPS:
+- BLAST
+- JBrowse (a genome browser)
+- Variant Effect Predictor (VEP)
+
+We will then go on to apply some of the command line skills that you were introduced to in module 2 to explore WormBase ParaSite data programmatically.
+
+Finally, the module ends with a Bonus section introducing our Expression browser.
+
+---
 ## Tools <a name="tools"></a>
 
 ### BLAST <a name="blast"></a>
 
-BLAST (Basic Local Alignment Search Tool) is one of the most commonly used tools to search for sequences that are similar to each other. BLAST is a fast searching programme that is able to compare a query sequence with hundreds to millions of sequences quickly. You can use BLAST to search a query sequence against the sequences in WormBase ParaSite.
+BLAST (Basic Local Alignment Search Tool) is one of the most commonly used tools to search for sequences that are similar to each other. It is a fast searching programme that is able to compare a query sequence with hundreds to millions of sequences quickly. 
 
-BLAST uses three steps. First, it 'chops' the query sequence into small 'words' of typically 3-4 amino acids for proteins or 10-12 nucleotides for DNA sequences. Second, it uses these short words to look for perfect matches across all the entries in the database. Third, when a match is found it then tries to extend the alignment by comparing consecutive letters of the word. For each new pair of letters, it evaluates whether it is a good match. If it is a good match then the score is increased and if it is a bad match the score is reduced. The score table for each pair of amino acids or nucleotides is precomputed and incorporated into the BLAST algorithm.
+You can use BLAST to search a query sequence against the sequences in WormBase ParaSite.
 
+**How BLAST works?**
+
+BLAST uses three steps:
 ![](figures/BLAST_1.png)
+1) It 'chops' the query sequence into small 'words' of typically 3-4 amino acids for proteins or 10-12 nucleotides for DNA sequences.
+2) It uses these short words to look for perfect matches across all the entries in the database.
+3) When a match is found it then tries to extend the alignment by comparing consecutive letters of the word. For each new pair of letters, it evaluates whether it is a good match.
+   - If it is a good match then the score is increased and if it is a bad match the score is reduced.
+   - The score table for each pair of amino acids or nucleotides is precomputed and incorporated into the BLAST algorithm. 
+   - The extension step will continue until the overall score drops below a given value. At this point, the extension step is dropped and the alignment is recorded with its score.
+   - The results are then presented as a list of alignments with associated scores. The alignments with the highest scores are most likely to be true matches or homologues of the query sequence.
 
-The extension step will continue until the overall score drops below a given value. At this point, the extension step is dropped and the alignment is recorded with its score. The results are then presented as a list of alignments with associated scores. The alignments with the highest scores are most likely to be true matches or homologues of the query sequence. Other result parameters are reported, such as E-value (expectation value) and the percentage identity. The E-value describes the number of hits that could be found by chance given the length of the sequence and the size of the database. The lower the E-value, the greater the chances that the result is not due to chance.
+**Types of BLAST search**
 
-There are different flavours of the BLAST programme depending on whether the query is a nucleotide or a protein sequence and also depending on the nature (nucleotide or protein) of the database we are searching in. If the query is a nucleotide sequence and we are searching for matches in a nucleotide database, the program to use is BLASTn. Similarly, if the query is a protein sequence and we are looking for matches in a protein database, the programme to use is BLASTp.
+There are different flavours of the BLAST programme depending on whether the query is a nucleotide or a protein sequence and also depending on the nature (nucleotide or protein) of the database we are searching in.
+![](https://thebiologynotes.com/wp-content/uploads/2022/07/Basic-Local-Alignment-Search-Tool-BLAST.jpg) 
+- BLASTn: If the query is a nucleotide sequence and we are searching for matches in a nucleotide database, the program to use is BLASTn.
+- BLASTp: If the query is a protein sequence and we are looking for matches in a protein database, the programme to use is BLASTp. 
+- tBLASTn: If the query and the database are different, for example, if you want to query a protein sequence to find the best matches in a nucleotide database, BLAST can translate all the entries in the nucleotide database into protein sequences (each sequence can be translated into the 6 possible frames) You can then use the resulting "translated database" as the subject for the search. This flavour of BLAST is called tBLASTn.
+- BLASTx: In the reverse scenario, when a nucleotide sequence is the query and you want to search a protein database. The query is translated into the 6 possible frames and is then aligned to the query. This is called BLASTx.
 
-But what should you do when the query and the database are different? For example, if you want to query a protein sequence to find the best matches in a nucleotide database? In order to make an alignment, query and subject need to be of the same nature. Helpfully, BLAST can translate all the entries in the nucleotide database into protein sequences - each sequence can be translated into the 6 possible frames! You can then use the resulting "translated database" as the subject for the search. This flavour of BLAST is called tBLASTn. In the reverse scenario, when a nucleotide sequence is the query and you want to search a protein database. The query is translated into the 6 possible frames and is then aligned to the query. This is called BLASTx.
+**When do we need to use BLAST?**
+- Discovering new genes or proteins: Imagine that you have sequenced a gene that is associated with drug resistance in a helminth. You know part of the DNA sequence, but you do not know which gene it belongs to. You can use WormBase ParaSite's BLAST to see if any genes correspond to your sequence!
+- Discovering variants of genes or proteins: Imagine you have identified a new protein of helminth which is similar but not identical to any of the  known proteins for this species. You might have found a new isoform of the encoding gene.
+- Identifying orthologs and paralogs: You can run BLAST using a protein/gene of a species to find its paralogues or its orthologues in other species.
+
+**BLAST in WormBase ParaSite**
+
+The BLAST tool is accessible:
+- From the WormBase ParaSite homepage, select BLAST from the tool bar, or the BLAST icon. 
+![](figures/BLAST_2.png)
+- You can also BLAST any existing sequence in WormBase ParaSite from the sequence page of a WBPS gene/transcript/protein using the "BLAST this sequence" button. 
+![](figures/BLAST_3.png)
+
+Both options will take you to WormBase ParaSite's BLAST tool page:
+![](figures/BLAST_4.png)
+- The query sequence should be entered into the "Sequence data" dialog box. Make sure the correct sequence type is selected (Protein/DNA)
+- Selecting the species to search against. By selecting custom species list, a pop-up box will appear. Their you can search and select the genomes you would like to perform BLAST search against.
+- You can also use the round radio buttons if you would like to perform a search agaist all species, nematodes, platyhelmiths, or against a custom species list.
+- Make sure to select the right database type to search against (DNA/Protein database and their types)
+- The rest of the options include scoring filtering and specific alignment parameters. 
+- It is highly recommended to also add a description for your BLAST search so it will be easily discoverable later.
+
+**How to evaluate Blast results?**
+   
+Metrics used in the results table:
+- **Score**: The bit score gives an indication of how good the alignment is; the higher the score, the better
+the alignment. In general terms, this score is calculated from a formula that takes into account
+the alignment of similar or identical residues, as well as any gaps introduced to align the
+sequences.
+- **E-value**: The E-value gives an indication of the statistical significance of a given pairwise alignment
+and reflects the size of the database and the scoring system used. The lower the E-value, the
+more significant the hit. A sequence alignment that has an E-value of 0.05 means that this
+similarity has a 5 in 100 (1 in 20) chance of occurring by chance alone.
+- **%ID or percent identity**: Percent identity is telling you how many residues in your query are an identical match to the hit. Closely related sequences will have a much higher % identity.
 
 [↥ **Back to top**](#top)
 
+---
 ### BLAST exercise <a name="blast_exercise"></a>
 
 Use WormBase ParaSite BLAST to find out the identity of this sequence, and which species it belongs to. Does it have any close hits in other genomes? Try BLASTing against both cDNA and a genomic DNA databases. What kind of sequence is this?
@@ -85,39 +142,47 @@ TTTTTATGTGAAA
 
 [↥ **Back to top**](#top)
 
+---
 ### The genome browser <a name="genome_browser"></a>
 
-A genome browser is a tool that allows you to visualise a genome assembly and its features, together with experimental data aligned to the genome. Genome browsers have many use cases: you may want to visualising a gene model in its genomic context, or to assess the correctness of the model. They are also used for visualising functional genomics data, such as the results of ChIP-Seq and RNA-Seq experiments.
+A genome browser is a tool that allows you to visualise a genome assembly and its features, together with experimental data aligned to the genome.
+
+Genome browsers have many use cases:
+- You may want to visualising a gene model in its genomic context, or to assess the correctness of the model.
+- They are also used for visualising functional genomics data, such as the results of ChIP-Seq and RNA-Seq experiments.
 
 There are several commonly used genome browsers in bioinformatics, each with different features. Examples include:
 
-* The Integrative Genomics Viewer (IGV) - this software can be downloaded and installed locally to work with local data without internet access.
-* The UCSC Genome Browser - this browser hosts selected vertebrate species and some model organism (and closely related) species.
-* Ensembl - this can be used to browse a large catalog of genomes across the tree of life. WormBase ParaSite has an instance of the Ensembl browser built in.
-* Artemis/ Artemis Comparison Tool (ACT) - similar to IGV, this can also run locally without the internet. It can also be used to edit (i.e. change) gene models (to correct errors). ACT is a tool for visualising synteny (regions of similarity) between sequences.
-* JBrowse - this is the genome browser that we’ll be using today. WormBase ParaSite has an instance of JBrowse for every genome that it hosts. The Apollo project is a well known extension of JBrowse, which, like Artemis, can be used to edit gene models.
+* Ensembl - this can be used to browse a large catalog of genomes across the tree of life. WormBase ParaSite has an instance of the Ensembl browser built in, [the one we explored in Module 1](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/manuals/module_1_WBP1/module_1_WBP1.md#genome_browser). 
+* The [Integrative Genomics Viewer (IGV)](https://igv.org/) - this software can be downloaded and installed locally to work with local data without internet access (mainly used for variation data).
+* The [UCSC Genome Browser](https://genome.ucsc.edu/) - this browser hosts selected vertebrate species and some model organism (and closely related) species.
+* [Artemis/Artemis Comparison Tool (ACT)](https://www.sanger.ac.uk/tool/artemis-comparison-tool-act/) - similar to IGV, this can also run locally without the internet. It can also be used to edit (i.e. change) gene models (to correct errors). ACT is a tool for visualising synteny (regions of similarity) between sequences.
+* [JBrowse 1](https://jbrowse.org/jbrowse1.html) - this is the genome browser that we’ll be using today. WormBase ParaSite has an instance of JBrowse for every genome that it hosts. The Apollo project is a well known extension of JBrowse, which, like Artemis, can be used to edit gene models.
+  * And it's newer version: [Jbrowse 2](https://jbrowse.org/jb2/) 
 
 #### Using JBrowse: basic functionality
 
-In this example we’ll introduce the basic functionality of JBrowse, and demonstrate how to use the various tracks.
+In this example we’ll introduce the basic functionality of WormBase ParaSite's JBrowse 1, and demonstrate how to use the various tracks.
 
-* Navigate to the _S. mansoni_ genome page and select the “Genome Browser (JBrowse)” icon.
+1. Navigate to the _S. mansoni_ genome page and select the “Genome Browser (JBrowse)” icon.
 
 ![](figures/jbrowse_1.png)
 
-In the genome browser, each scaffold is represented from its 5-prime end to its 3-prime end (relative to the forward strand). You can navigate to different scaffolds using the drop down menu in the middle of the screen, or by typing coordinates into the text box. Different types of data aligned to the genome are represented as tracks. When you first open JBrowse, one track will be on by default: the reference gene set.
+- Each scaffold is represented from its 5-prime end to its 3-prime end (relative to the forward strand).
+- You can navigate to different scaffolds using the drop down menu in the middle of the screen, or by typing coordinates into the text box.
+- Different types of data aligned to the genome are represented as tracks. When you first open JBrowse, one track will be on by default: the reference gene set.
 
 For this example, we’ll consider that you’re interested in the gene Smp_312440.
 
-* Start by typing the identifier into the search box and clicking “Go” to navigate to the gene.
-* Zoom in by clicking the large magnifying glass with a “+” symbol until the reference sequence resolves.
+2. Start by typing the identifier into the search box and clicking “Go” to navigate to the gene. 
+3. Zoom in by clicking the large magnifying glass with a “+” symbol until the reference sequence resolves.
 
 ![](figures/jbrowse_2.png)
 
 Here, you can see the forward and reverse DNA strands, together with the six possible translational reading frames (3 forward and 3 reverse).
 
-* Zoom out again so that you have the whole gene model in your field of view.
-* To extract sequence information about the gene, click the gene model such that a dialogue box pops up.
+4. Zoom out again so that you have the whole gene model in your field of view.
+5. To extract sequence information about the gene, click the gene model such that a dialogue box pops up.
 
 ![](figures/jbrowse_3.png)
 
@@ -125,7 +190,7 @@ Scrolling down the content of the box, you can extract genomic or cDNA sequence,
 
 Alternatively, you may wish to extract the genomic sequence of a whole region:
 
-* Click the arrow next to the “Reference sequence” track label in the top left of the screen, select “Save track data”, then download the sequence as a FASTA
+6. Click the arrow next to the “Reference sequence” track label in the top left of the screen, select “Save track data”, then download the sequence as a FASTA
 file.
 
 ![](figures/jbrowse_4.png)
@@ -134,59 +199,61 @@ file.
 
 We can also use JBrowse to view other types of data aligned to the genome. 
 
-* Click the “select tracks” button in the top left of the screen.
+7. Click the “select tracks” button in the top left of the screen.
 
 ![](figures/jbrowse_5.png)
 
 For most species, in addition to the gene model (“Genome Annotation”) track, there are two additional main types of track:
 
-1. Repeat regions tracks - repetitive regions of the genome are annotated as part of WormBase ParaSite’s production process.
+- Repeat regions tracks - repetitive regions of the genome are annotated as part of WormBase ParaSite’s production process. 
+- RNASeq tracks - WormBase ParaSite has a process of finding and aligning RNASeq data in the sequencing archives for our species of interest. These can be useful, for example, for checking that a gene model is well supported by expression data, or seeing in which life stages, or under which conditions, a gene of interest is transcribed. 
+  - For species with a lot of publicly available RNA-Seq data, such as _S. mansoni_, the easiest way to explore the samples that are available is by using the facets on the left hand side. The samples are organised by their metadata.
 
-2. RNASeq tracks - WormBase ParaSite has a process of finding and aligning RNASeq data in the sequencing archives for our species of interest. These can be useful, for example, for checking that a gene model is well supported by expression data, or seeing in which life stages, or under which conditions, a gene of interest is transcribed.
+Let’s say you want to see in which life stages Smp_312440 is expressed:
 
-For species with a lot of publicly available data, such as _S. mansoni_, the easiest way to explore the samples that are available is by using the facets on the left hand side. When sequencing experiments are submitted to the archives, submitters are asked to provide metadata on the samples (that is, to describe the samples in a detailed and structured way). This data is used to classify the samples in JBrowse.
-
-Let’s say you want to see in which life stages Smp_312440 is expressed.
-
-* Click the “developmental stage” facet 
-* Select a few of the available libraries (in the example below we've selected 3h schistosomules and miracidia) and click “back to browser”.
+8. Click the “developmental stage” facet 
+9. Select a few of the available libraries (in the example below we've selected 3h schistosomules and miracidia) and click “back to browser”.
 
 ![](figures/jbrowse_6.png)
 
-Each track represents a different sequencing library, and shows the number of reads that have been aligned at each position. By mousing over the histogram, you can see the exact number of aligned reads at each base. We can see that a lot of the tracks show biological replicates of the same condition. We can use combination tracks to combine replicate tracks “on the fly”, so we use up less space on the screen.
+- Each track represents a different sequencing library, and shows the number of reads that have been aligned at each position. 
+- By mousing over the histogram, you can see the exact number of aligned reads at each base. 
+- We can see that a lot of the tracks show biological replicates of the same condition.- We can use combination tracks to combine replicate tracks “on the fly”, so we use up less space on the screen.
 
-* In the main menu at the top of the page, select “Track” and “Add combination track”.
-
-A new empty track should appear. You can then drag and drop existing tracks in to combine them. When you add additional tracks, a dialogue box should appear for you to select the type of operation to use to combine them. For this example, we’ll choose “addition”: you’ll now see the total number of reads across both selected libraries that aligned at each region. Note that different set operations can be performed, including subtraction, multiplication and division; these might make sense depending on the tracks that are being combined and the information that you’re interested in.
+**You can combine tracks together**:
+10. In the main menu at the top of the page, select “Track” and “Add combination track”. 
+    - A new empty track should appear. You can then drag and drop existing tracks in to combine them.
 
 ![](figures/jbrowse_7.png)
 
-As well as seeing that Smp_312440 is expressed in these conditions, we can use the coverage histograms to assess the quality of the gene model. Most parasitic worm genomes are annotated with automated pipelines. Whilst annotation algorithms can often be very accurate, they are not infallible. Most of the gene models that you look at in WormBase ParaSite will not have been checked by a human curator, so it is wise not to take them as “truth" unless you verify that they agree with any evidence that is available.
+After you add few tracks by using the "addition" method, you’ll see the total number of reads across both selected libraries that aligned at each region. 
 
 ![](figures/jbrowse_8.png)
 
+Note that different set operations can be performed, including subtraction, multiplication and division; these might make sense depending on the tracks that are being combined and the information that you’re interested in.
+
+As well as seeing that Smp_312440 is expressed in these conditions, we can use the coverage histograms to assess the quality of the gene model: Most parasitic worm genomes are annotated with automated pipelines. Whilst annotation algorithms can often be very accurate, they are not infallible. **Most of the gene models that you look at in WormBase ParaSite will not have been checked by a human curator, so it is wise not to take them as “truth" unless you verify that they agree with any evidence that is available.**
+
 In this case we can see that each of the exons in the gene model have got good RNASeq coverage, with no additional exons suggested by the RNASeq data.
-
-#### Motif searching
-
-It might be useful to have a quick, visual way of showing where certain motifs (short, defined DNA sequences) are found in the reference sequence. JBrowse offers a quick and flexible way to do this. We’ll demonstrate this by generating a track for the TATA box sequence (a sequence found in the promoter region of many eukaryotic genes). The consensus TATA sequence is TATA[A/T]A[A/T] (where [A/T] indicates that either A or T could be present at that position).
-
-* In JBrowse, select “Track” from the main menu bar, followed by “Add sequence search track”.
-* Type the motif that we’re searching for in the dialogue box, in this format: TATA[AT]A[AT], and tick “Treat as regular expression”. This means that the [AT] section of the motif will be interpreted as a regular expression (ie, the base in this position can be either A or T). Click “Search”.
-
-![](figures/jbrowse_9.png)
-
-Going back to the main JBrowse window, a new track has appeared with all instances of the motif marked. Zooming in to the 5-prime end of Smp_312440, we can see that one of these is well positioned to be our TATA box.
 
 #### Visualising your own data
 
-As well as looking at publicly available data, you can use WormBase ParaSite JBrowse to visualise your own data. We’ll demonstrate how to do this using a BAM file that we have provided for you. BAM is a type of sequence file, in this case of RNA sequencing data. BAM files are binary (i.e., compressed and not human readable) versions of SAM files. SAM files are tab-delimited text files; each line in a SAM file represents a sequencing read, and (optionally) a description of how that read is aligned to a reference sequence.
+As well as looking at publicly available data, you can use WormBase ParaSite JBrowse to visualise your own data.
 
-In the module 3 data directory you should find a file named somules_isoseq_sorted.bam. This is a binary file, so trying to read it as it is won’t be very informative. samtools is a useful software package for manipulating SAM and BAM files. We’ll use a samtools command to convert the BAM file to a SAM file so we can have a look at how it’s structured. Move to the module 3 data directory and type the following into your terminal:
+We’ll demonstrate how to do this using a BAM file that we have provided for you.
+
+- **BAM** File: a type of sequence file, in this case of RNA sequencing data. BAM files are binary (i.e., compressed and not human readable) versions of SAM files.
+- **SAM** File: a tab-delimited text file; each line in a SAM file represents a sequencing read, and (optionally) a description of how that read is aligned to a reference sequence.
+
+In the module 3 data directory you should find a file named SRR3223448.bam. As a BAM file, this file is binary, so trying to read it as it is won’t be very informative. To read it we should first convert it into the SAM file format (non-binary, human-readable). We can do that with samtools:
+- [Samtools](http://www.htslib.org/doc/samtools.html) is a useful software package for manipulating SAM and BAM files.
+- We will use a samtools command to convert the BAM file to a SAM file so we can have a look at how it’s structured. Move to the module 3 data directory and type the following into your terminal:
 
 
-    samtools view -h somules_isoseq_sorted.bam | less
+    samtools view -h SRR3223448.bam | less
 
+<details closed>
+<summary>Click here to read more about the SAM file format</summary>
 The SAM file starts with a header section. All header lines begin with a ‘@’ character.
 
 ![](figures/jbrowse_10.png)
@@ -203,59 +270,89 @@ Before we can visualise the file in JBrowse, we need to create an index. An inde
 
 BAM index files should have exactly the same name as their corresponding BAM file, with the addition of a .bai suffix. We can index our BAM file using samtools. Type:
 
-    samtools index somules_isoseq_sorted.bam
+    samtools index SRR3223448.bam
     
-You should now see a file called somules_isoseq_sorted.bam.bai in your working directory. We can now load the file into WormBase ParaSite JBrowse.
+You should now see a file called SRR3223448.bam.bai in your working directory. We can now load the file into WormBase ParaSite JBrowse.
 
 ![](figures/jbrowse_12.png)
+</details>
+<br>
 
-To add the BAM track, select the “Track” menu option in the top left of the screen. Selecting “Open track file or URL” will open a dialogue box giving you an option to view a file that is either on your file system, or accessible via a URL. Select both the BAM file and the index file. JBrowse guesses the file type from the name, but we have an option to correct it if it gets it wrong. We can see that it’s right this time. Click “Open”.
+We can only add an indexed BAM file to Jbrowse (BAM file accompanied by a file with the same name with the addition of a .bai suffix). The BAM file in the directory is already indexed (You should see a file called SRR3223448.bam.bai in your working directory.)
 
-Now we can see the IsoSeq reads aligned to the genome. Notice that IsoSeq data is stranded- this means that the library preparation protocol preserved information on which end of the RNA molecule was 5-prime and which end was 3-prime, so we can infer which strand of DNA it was transcribed from. This information is encoded in the BAM file, and JBrowse colours the reads accordingly: reads aligning to the forward strand are pink, and reads aligning to the reverse strand are purple.
+11. To add the BAM track to our Jbrowse instance:
+    - select the “Track” menu option in the top left of the screen.
+    - Selecting “Open track file or URL” will open a dialogue box giving you an option to view a file that is either on your file system, or accessible via a URL.
+    - Select both the BAM file and the index file. JBrowse guesses the file type from the name, but we have an option to correct it if it gets it wrong. We can see that it’s right this time.
+    - Click “Open”.
+
+Now we can see the reads aligned to the genome. Notice that this RNA-Seq data is stranded- this means that the library preparation protocol preserved information on which end of the RNA molecule was 5-prime and which end was 3-prime, so we can infer which strand of DNA it was transcribed from. This information is encoded in the BAM file, and JBrowse colours the reads accordingly:
+- reads aligning to the forward strand are $\textcolor{pink}{\textsf{pink}}$
+- and reads aligning to the reverse strand are $\textcolor{purple}{\textsf{purple}}$
 
 [↥ **Back to top**](#top)
 
-
+---
 ### VEP <a name="vep"></a>
 
-### $\textcolor{red}{\textsf{DG: We could add a section about the VEP->AlphaFold functionality which will have been implemented by the course day hopefully}}$
+The final WormBase ParaSite tool that we will look at today is the Variant Effect Predictor, or VEP.
 
-The final WormBase ParaSite tool that we will look at today is the Variant Effect Predictor, or VEP. A common approach to understanding the genetic basis of phenotypic differences is to identify genetic variants that are overrepresented in some populations of individuals. For example, you might sequence two populations of worm: one that is susceptible to a drug and one that is resistant to the drug. You could then identify genomic positions where each of these populations differs from the reference genome. VEP is a tool that allows you to predict what the consequences of these variants are: whether they fall within or near genes, and whether they result in a change to the amino acid sequence of a protein.
+A common approach to understanding the genetic basis of phenotypic differences is to identify genetic variants that are overrepresented in some populations of individuals.
 
-The standard file format for storing variation data is the [Variant Call Format (VCF)](https://samtools.github.io/hts-specs/VCFv4.2.pdf); this is another tab-delimited text format. Later in the course, you’ll see how to make one of these files.  In the meantime, for some helminth genomes, these files have already been shared by other researchers. Today you’ll be using an available VCF file for Strongyloides ratti. 
+For example, you might sequence two populations of worm: one that is susceptible to a drug and one that is resistant to the drug. You could then identify genomic positions where each of these populations differs from the reference genome.
+
+VEP is a tool that allows you to predict what the consequences of these variants are: whether they fall within or near genes, and whether they result in a change to the amino acid sequence of a protein.
+
+The standard file format for storing variation data is the [Variant Call Format (VCF)](https://samtools.github.io/hts-specs/VCFv4.2.pdf); this is another tab-delimited text format. Later in the course, you’ll see how to make one of these files. In the meantime, for some helminth genomes, these files have already been shared by other researchers. Today you’ll be using an available VCF file for _Strongyloides ratti_. 
 
 First, we'll download a VCF file from the European Variation Archive (EVA).   Then will upload it to WormBase ParaSite
 
-* Go to the EVA
-(you can find it by searching for EBI EVA)
-* Select "Variant Browser" tab
-You can download complete studies from the "Study Browser" tab but today we are using the Variant Browser to download a much smaller file corresponding to a 250 kb region of the genome.
+1. Go to the [European Variation Archive (EVA)](https://www.ebi.ac.uk/eva/).
+2. Select the "Variant Browser" tab.
+
+You can download complete studies from the "Study Browser" tab but today we are using the "Variant Browser" to download a much smaller file corresponding to a 250 kb region of the genome.
 
 ![](figures/eva_1.png)
 
-* Download the first 250kb of S. ratti chromosome 2
+3. Download the first 250kb of S. ratti chromosome 2 and place it inside the "Module_3_WormBaseParaSite_2" directory. 
 
-have a look at the file to see how it is structured (you'll have to scroll down beyond the headers to see the data lines)
+Move to the "Module_3_WormBaseParaSite_2" directory and have a look at the file to see how it is structured:
 
 ````
 # look at the contents
 less sratti*.vcf
 ````
+You'll have to scroll down beyond the headers (lines starting with ##) to see the data lines. The actual data lines looks like:
+
 ![](figures/vep_1.png)
 
-* From the WormBase ParaSite homepage, select “Tools” from the toolbar.
-* From the “Tools” page, select Variant Effect Predictor
+4. From the WormBase ParaSite homepage, select “Tools” from the toolbar.
+5. From the “Tools” page, select Variant Effect Predictor
+6. To submit a VEP job, just select the correct species (_Strongyloides ratti_), upload the VCF file we just downloaded and click “Run”.
 
 ![](figures/vep_2.png)
 
-* To submit a VEP job, just select the correct species (_Strongyloides ratti_), upload your VCF file and click “Run”.
+7. Once you have clicked "Run", your input will be checked and submitted to the VEP as a job. All jobs associated with your session or account are shown in the "Recent Tickets" table. You may submit multiple jobs simultaneously.
+
+8. Navigate to the results page:
 
 ![](figures/vep_3.png)
 
-The pie charts give a summary of the consequences of the variants found in the file. Variants with coding consequences are found in the protein-coding sequence of genes, whilst variants with non-coding consequences are in intergenic regions or non-coding regions of genes. These variants could still be functionally important; for example, variants in non-coding regions near genes can have effects on expression dynamics.
+The results are presented in pie-charts and an interactive table:
+- Pie Charts: The pie charts give a summary of the consequences of the variants found in the file. Variants with coding consequences are found in the protein-coding sequence of genes, whilst variants with non-coding consequences are in intergenic regions or non-coding regions of genes. These variants could still be functionally important; for example, variants in non-coding regions near genes can have effects on expression dynamics.
+- Results Table: The results table shows one row per transcript and variant. By default all of the columns are shown; to temporarily hide columns, click the blue "Show/hide columns" button and select or deselect the columns you wish to view. The columns you select will be recalled when viewing other jobs.
 
-You can explore the results interactively on the webpage.  For instance, by filtering for variant that cause (select "consequence") changes to amino acids (select "missense_variant").  Alternatively, you can download and search through the file directly.
+9. You can explore the results interactively on the webpage using the Results Preview filter panel at the centre. Use this panel and filter for variant that cause (select "consequence") changes to amino acids (select "missense_variant").  
 
+You can actually visualise the affected Amino acid by the "missense_variant" on the protein's 3D AlphaFold model ([We talked about these in our previous WBP module](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/manuals/module_1_WBP1/module_1_WBP1.md#af)).
+
+To do this:
+
+10. Go to the "Protein matches" column of the results table. If the "Protein matches" column has not been switched on you can do so by using the "Show/hide columns" button at the top left of the table". If the protein affected by the "missense_variant" has an AlphaFold protein model available, then you should see an "AlphaFold model" button in the "Protein matches" column. Click it.
+
+![](figures/vep_4.png)
+
+11. Explore the 3D protein model. You can  Click the "Focus" button underneath the variant information to zoom-in to the affected residue.
 
 [↥ **Back to top**](#top)
 
