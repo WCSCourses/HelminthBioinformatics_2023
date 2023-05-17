@@ -346,6 +346,7 @@ cat single_sample.sorted.flagstats
 
 ```
 
+
 Here, we can see how many reads have mapped, and if they are "properly paired". Why might that be important? 
 
 As we have mapped the reads to a single, small reference sequence (due to space and time), it looks like these reads 
@@ -953,6 +954,11 @@ tree_plot
 
 ![](figures/figure6.13.PNG)  
 **Figure.** Analysis of pairwise distance using a tree
+
+
+#### 12.1. Questions:
+- How do the samples cluster on the tree?
+- Are the PCAs easier or harder to interpret than the tree? Why?
 
 ---
 
