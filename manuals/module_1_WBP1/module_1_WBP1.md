@@ -484,7 +484,7 @@ BioMart lets us generate two types of output: data tables, and sequence (FASTA) 
 ---
 #### BioMart exercise <a name="biomart_exercise"></a>
 
-Using the following _S. ratti_  gene **names** (note: names, not stable IDs) to answer questions 1-5:
+Use the following _S. ratti_  gene **names** (note: names, not stable IDs) and use BioMart to answer questions 1-5:
 
 ```
 SRAE_1000001600
@@ -499,11 +499,12 @@ SRAE_1000002400
 SRAE_1000002500
 ```
 
-1. Their WormBase gene IDs and UniProtKB/TrEMBL IDs.
-2. The InterPro domains that they have been annotated with (InterPro short description). [Q: why do some of the output rows appear multiple times?]
-3. The gene stable IDs of their _Strongyloides stercoralis_ orthologues. [Q: which gene has more than one _S. stercoralis_ orthologue?].
-4. The names of any GO terms associated with the genes. 
-5. A FASTA file of their peptide sequences.
+Use the list of genes above and generate an output with:
+1. their WormBase gene IDs and UniProtKB/TrEMBL IDs. 
+2. the InterPro domains that they have been annotated with (InterPro short description). [Q: why do some of the output rows appear multiple times?]
+3. the gene stable IDs of their _Strongyloides stercoralis_ orthologues. [Q: which gene has more than one _S. stercoralis_ orthologue?]. 
+4. the names of any GO terms associated with the genes.
+5. FASTA file of their peptide sequences.
 
 ---
 Use the following _S. mansoni_ gene stable IDs to answer questions 6-9:
