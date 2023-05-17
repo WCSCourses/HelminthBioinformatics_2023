@@ -1,7 +1,3 @@
----
-title: null
----
-
 # Genetic Variation
 
 Steve Doyle, 2023
@@ -221,7 +217,7 @@ That is outside of the scope of this workshop, but please talk to the instructor
 Fortunately, we have access to a high-quality reference genome for *Haemonchus contortus*, which we can download from [WormBase ParaSite](https://parasite.wormbase.org/Haemonchus_contortus_prjeb506/Info/Index/). 
 From this reference genome, we need to extract the mitochondrial genome, which will be the focus of our analyses.
 
-#### 3.1 Questions:
+#### 3.1. Questions:
 - Looking at the WormBase ParaSite website for *Haemonchus contortus* - how big is the genome? how many genes are present?
 - There is a second *Haemonchus contortus* genome resource also present - how do the two genomes compare?
 
@@ -349,6 +345,7 @@ samtools flagstats single_sample.tmp.sorted.bam > single_sample.sorted.flagstats
 cat single_sample.sorted.flagstats
 
 ```
+
 
 Here, we can see how many reads have mapped, and if they are "properly paired". Why might that be important? 
 
@@ -620,8 +617,8 @@ vcftools --gzvcf all_samples.vcf.gz --maf 0.05 --min-alleles 2 --max-alleles 2 -
 <br>
 
 
-## 9. Visualing SNP data using WormBase ParaSite and Artemis <a name="snps_vis"></a>
-### 9.1 Analysing your SNPs in WormBase ParaSite
+## 9. Visualising SNP data using WormBase ParaSite and Artemis <a name="snps_vis"></a>
+### 9.1. Analysing your SNPs in WormBase ParaSite
 One aspect of characteriing genetic variants is to ask - are any of our variants in genes, and if so, do they have a functional consequence?
 There are many ways a variant can have a functional consequence on a gene, some more easy to predict than others. This is perhaps beyond the scope of this workshop. However, we can easily determine if there are putative changes to the coding sequences using WormBase ParaSite's "Variant Effect Predictor". 
 
@@ -633,7 +630,7 @@ Perform the following to explore variant effects in your dataset:
 - select "Run" and wait for the job to finish (it shouldn't take too long) - you should see a small green "Done" when completed.
 - once finished, select "View results", and explore the output
 
-#### 9.2 Questions:
+#### 9.2. Questions:
 - what proportion of SNPs are in coding regions vs non-coding regions? Why would this happen?
 - what proporiton of variants are a "synonymous_variant" and what proportion are "missense_variants"? What effect to these variants have on the coding sequence?
 - find a gene with a missense variant - what is the amino acid change, and is it likely to have an effect on the protein? (use the following table to help you: [table](https://en.wikipedia.org/wiki/File:ProteinogenicAminoAcids.svg)) 
@@ -642,7 +639,7 @@ Perform the following to explore variant effects in your dataset:
 
 <br>
 
-### 9.3 Visualising SNPs in Artemis
+### 9.3. Visualising SNPs in Artemis
 
 Lets have a quick look in Artemis to see what our new data looks like. 
 
@@ -679,14 +676,14 @@ as tools to visualise your data in ifferent ways, written specifically in R that
 the similar ideas apply. We will point out some of these differences as we go to try not to confuse you too much. R can be run on directly on the command line, or alternatively, using Rstudio, which 
 provides a convenient user interface that combines a scripting window, a command line window, a plotting window, and a directory window. 
 
-### 10.1 Setting up R and loading R libraries
+### 10.1. Setting up R and loading R libraries
 ```bash
 # In the unix shell, lets prepare your data
 cd ~/Module_6_Genetic_Variation/R_analysis
 cp ../multi_sample_analysis/all_samples.filtered.recode.vcf .
 cp ../sample_metadata.txt .
 
-# Once you have completed this, open Rstudio. Note that there is a script that you use called "walk_through_genetic_diversity.R" to help you out.
+# Once you have completed this, open Rstudio.
 
 # Alternatively, you can load R on the command line simply by typing :
 
@@ -704,7 +701,7 @@ R
 ```
 
 
-### 10.2 Import and prepare your data for analysis
+### 10.2. Import and prepare your data for analysis
 ```R
 # R relies on packages or libraries that we need to load. They have previously been installed 
 # for you, but you will need to call on them each time to start R. Try load the following:
@@ -758,6 +755,16 @@ vcf.gl@pop
 <br>
 
 ## 11. Principal component analysis of genetic diversity <a name="pca"></a>
+
+Principal components analysis, PCA, is a statistical method used to reduce the complexity of multi-dimensional datasets to aid with visualisation and interpretation. It works by transforming the data into a new, simpler coordinate system which explains variance in the dataset. These transformations results in an ordering in your data, called a principle component (PC), and these PC are subsequently ranked by the amount of variance that can be explained, ie. the first PC will explain the most variance in your data. We can compare PCs in a scatter plot, ie, PC1 vs PC2, to help explore, analyse, and identify patterns in these otherwise complex data. 
+
+PCA is commonly used in population genetics to identify structure in the distribution of genetic variation. Most commonly, it is used to identify patterns in genetic variation between samples, and compare this to features of samples such as population of origin. PCA is not specifically used for genetics - it can be used to explore patterns in any multivariate datasets. If you have metadata associated with a sample set, you can use PCA to ientify which parameters of your metadata influence the variance of the data. In the case of population genetics, it might be country or origin, but it could be other biological parameters (eg, host, temperature, altitude, etc) or technical factors (eg. sequnecing run, collection date, levels of contamination) that might be biasing your sample. 
+
+As a general note to remember, visualising your data can be a powerful way to identify patterns in data. PCA is a good way to do this.
+
+Here, we will perfrom a PCA of your genetic variants, and try to see if there is any clustering of samples by the country of origin.
+
+
 ```R
 # load some required libraries for this section
 library(vcfR)
@@ -857,7 +864,7 @@ plot12 + plot34
 ```
 
 
-#### 11.1 Questions: 
+#### 11.1. Questions: 
 - How do these plots compare? 
 - What is the relative contribution of variance in the PC3/PC4 plot compared to the PC1/PC2 plot?
 
@@ -887,15 +894,15 @@ plot12 + plot12.2
 In our new plot, we have added an ellipse that describes how the individual samples per country are 
 distributed in the plot. We have also added country labels, which are positioned on the plot using the 
 mean PC values we calculated earlier. We expect that if all samples within a country are genetically 
-similar, we should see a small ellipse. However, if samples a not genetically similar, we will see a 
-large ellipse. 
+similar, we should see a small ellipse. However, if samples are not genetically similar to each other, 
+we will see a large ellipse. 
 
 ![](figures/figure6.12.PNG)  
 **Figure.** Viewing your PCA analysis
 
 Compare the two plots, and try to identify similarities and differences
 
-#### 11.2 Questions:
+#### 11.2. Questions:
 - Looking at the ellipses specifically, can you see any countries that have a different distribution than the others, and describe this difference?
 
 
@@ -947,6 +954,11 @@ tree_plot
 
 ![](figures/figure6.13.PNG)  
 **Figure.** Analysis of pairwise distance using a tree
+
+
+#### 12.1. Questions:
+- How do the samples cluster on the tree?
+- Are the PCAs easier or harder to interpret than the tree? Why?
 
 ---
 

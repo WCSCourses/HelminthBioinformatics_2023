@@ -1,14 +1,4 @@
----
-title: 'Project'
-author: ""
-date: "4th May 2023"
-output:
- prettydoc::html_pretty:
-  theme: leonids
-  highlight: github
-    
-
----
+# Project 
 
 Congratulation!! You have reached the final day of the course. This is where you will gather the skills you have learnt and practice them on a new problem. Exchange the knowledge, tips and solutions with your coursemates, and ask your instructors if you get stuck.  
 
