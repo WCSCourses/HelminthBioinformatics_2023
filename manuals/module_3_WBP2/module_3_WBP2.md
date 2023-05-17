@@ -249,8 +249,9 @@ In the module 3 data directory you should find a file named SRR3223448.bam. As a
 - [Samtools](http://www.htslib.org/doc/samtools.html) is a useful software package for manipulating SAM and BAM files.
 - We will use a samtools command to convert the BAM file to a SAM file so we can have a look at how it’s structured. Move to the module 3 data directory and type the following into your terminal:
 
-
-    samtools view -h SRR3223448.bam | less
+```bash
+samtools view -h SRR3223448.bam | less
+```
 
 <details closed>
 <summary>Click here to read more about the SAM file format</summary>
@@ -270,8 +271,10 @@ Before we can visualise the file in JBrowse, we need to create an index. An inde
 
 BAM index files should have exactly the same name as their corresponding BAM file, with the addition of a .bai suffix. We can index our BAM file using samtools. Type:
 
-    samtools index SRR3223448.bam
-    
+```bash
+samtools index SRR3223448.bam
+```
+
 You should now see a file called SRR3223448.bam.bai in your working directory. We can now load the file into WormBase ParaSite JBrowse.
 
 ![](figures/jbrowse_12.png)
@@ -321,10 +324,11 @@ You can download complete studies from the "Study Browser" tab but today we are 
 
 4. Move to the "Module_3_WormBaseParaSite_2" directory and have a look at the file to see how it is structured:
 
-````
+```bash
 # look at the contents
 less sratti*.vcf
-````
+```
+
 You'll have to scroll down beyond the headers (lines starting with ##) to see the data lines. The actual data lines looks like:
 
 ![](figures/vep_1.png)
@@ -377,7 +381,9 @@ Download the VEP results from the example above as a “VEP file”. Use this fi
 
 Hint: to view the VCF in JBrowse you first need to compress and index it. Do:
 
-    bgzip file.vcf && tabix -p vcf file.vcf.gz
+```bash
+bgzip file.vcf && tabix -p vcf file.vcf.gz
+```
 
 [↥ **Back to top**](#top)
 
@@ -421,20 +427,20 @@ The files come in three flavours:
 #### Walk through examples
 
 1. First of all, move to the module's specific directory:
-```
+```bash
 cd ~/Module_3_WormBaseParaSite_2
 ```
 
 ```wget``` is a handy utility for retrieving online files including the ones from the FTP. The following will pull down the _Necator americanus_ GFF3 file into your working directory:
 
-```
+```bash
 wget http://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/current/species/necator_americanus/PRJNA72135/necator_americanus.PRJNA72135.WBPS18.annotations.gff3.gz
 
 ```
 
 Unzip the file and have a look at the contents:
 
-```
+```bash
 gzip -d necator_americanus.PRJNA72135.WBPS18.annotations.gff3.gz
 less necator_americanus.PRJNA72135.WBPS18.annotations.gff3
 ```
@@ -443,19 +449,19 @@ Using the commands that you learned yesterday, we can manipulate these files to 
 
 To extract the names all of the gene features on scaffold "KI657457":
 
-```
+```bash
 grep -v "#"  necator_americanus.PRJNA72135.WBPS18.annotations.gff3  | awk '$3~/gene/ && $1~/KI657457/ {print}'  | grep -o "Name=[^;]\+" | sed -e 's/Name=//' 
 ```
 
 Count how many genes each scaffold is annotated with:
 
-```
+```bash
 grep -v "#"  necator_americanus.PRJNA72135.WBPS18.annotations.gff3  | awk '$3~/gene/{print}'  | cut -f 1 | sort | uniq -c
 ```
 
 Similarly, using the protein FASTA file:
 
-```
+```bash
 # download the file
 wget https://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/current/species/necator_americanus/PRJNA72135/necator_americanus.PRJNA72135.WBPS18.protein.fa.gz
 
@@ -471,7 +477,7 @@ sed -n -e "/NAME_00165/,/^>/p" necator_americanus.PRJNA72135.WBPS18.protein.fa |
 
 And a more complicated ```awk``` to extract scaffold lengths in a genome FASTA file:
 
-```
+```bash
 # download the file
 wget  https://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/current/species/necator_americanus/PRJNA72135/necator_americanus.PRJNA72135.WBPS18.genomic.fa.gz
 
@@ -501,7 +507,7 @@ Tweak the above examples to answer these questions from the files that you've ju
 1. Which _N. americanus_ scaffold has the most genes? 
 2. Write a loop to extract the sequences of all of these proteins:
 
-```
+```bash
 NAME_00333
 NAME_00215
 NAME_00169
@@ -550,7 +556,7 @@ We offer examples on how to use these in several different programming languages
 
 4. We’re interested in Meloidogyne sp., so replaced “Brugia” (in the WBPS example) with “Meloidogyne”.
 
-```
+```bash
 curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?' -H 'Content-type:application/json'
 ```
 
@@ -560,13 +566,13 @@ You will see a lot of text! This is the data that we requested, in JSON format.
 
 5. To format the response more nicely, pipe the output into another command line tool, ```jq```. ```jq``` allows us to manipulate JSON data on the command line (see the manual for more information on its usage: https://stedolan.github.io/jq/manual/).
 
-```
+```bash
 curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?' -H 'Content-type:application/json'  | jq '.'
 ```
 
 You should see the data now formatted like this:
 
-```
+```bash
 [
   {
     "base_count": "258067405",
@@ -602,14 +608,14 @@ You should see the data now formatted like this:
 JSON-formatted data consists of key-value pairs. A series of key-value pairs separated by commas and enclosed in curly brackets is a JSON object. Here, we have a JSON object for each _Meloidogyne sp._ assembly. The JSON objects are in a list (an array), which is enclosed by square brackets.
 
 6. Extract the name of each genome using jq from the output above:
-```
+```bash
 curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?' -H'Content-type:application/json' | jq -r '.[] | .name'
 ```
 Here, '.[]' returns each element of the array (each assembly) one at a time, and '.name' extracts the value of the 'name' key for each of these elements.
 
 You should see:
 
-```
+```bash
 meloidogyne_arenaria_prjeb8714
 meloidogyne_arenaria_prjna340324
 meloidogyne_arenaria_prjna438575
@@ -627,7 +633,7 @@ meloidogyne_javanica_prjna340324
 
 6. Put the list of species names in a file in your working directory:
      
-```
+```bash
 curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?' -H 'Content-type:application/json'  | jq -r '.[] | .name' > species.txt
 ```
 
@@ -637,7 +643,7 @@ curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?'
 
 8. We will need to replace the species name in the URL, and make a separate request for each species. We can write a small loop in bash, reading from our species file, to achieve this:
 
-```
+```bash
 while read species; do 
    curl -sL "https://parasite.wormbase.org/rest/info/quality/$species?" -H 'Content-type:application/json' 
 done < species.txt
@@ -645,7 +651,7 @@ done < species.txt
 
 9. Again, we need to format the JSON nicely to make the output more readable:
 
-```
+```bash
 while read species; do 
    curl -sL "https://parasite.wormbase.org/rest/info/quality/$species?" -H 'Content-type:application/json' | jq '.' 
 done < species.txt
@@ -653,7 +659,7 @@ done < species.txt
 
 10. We’ll now produce a file with just the percentages of complete BUSCO assembly and BUSCO annotation genes for each species:
 
-```
+```bash
 while read species; do 
    completeness_score=$(curl -sL "https://parasite.wormbase.org/rest/info/quality/$species?" -H 'Content-type:application/json' | jq -r '.busco_assembly.complete,
 .busco_annotation.complete' )  
@@ -663,7 +669,7 @@ done < species.txt
 
 11. Finally, sort that file by BUSCO annotation score:
 
-```
+```bash
 sort -n -r -k3,3 assembly_completeness.txt
 
 meloidogyne_arenaria_prjeb8714 65.1 76.5
@@ -691,11 +697,11 @@ Adapt the commands that you used above to retrieve the following information fro
 2. Retrieve the protein sequence of the guinea worm transcript DME_0000938001-mRNA-1.
 3. Write a small program, `get_sequence_for_transcript.sh`, that takes any transcript ID as an argument and returns its protein sequence. For example, running
 
-```
+```bash
 ./get_sequence_for_transcript.sh DME_0000938001-mRNA-1
 ```    
 should print:
-```
+```bash
 MAKHNAVGIDLGTTYSC...
 ```
 (Hint: shell scripts put arguments from the command line into special variables, named $1, $2 etc )
@@ -704,7 +710,7 @@ MAKHNAVGIDLGTTYSC...
 
 5. Write a program, `retrieve_genes_in_region.sh` which takes species, scaffold, start and end coordinates as arguments and can return the above for any given region. For example, calling
 
-```
+```bash
 ./retrieve_genes_in_region.sh ascaris_suum_prjna62057 AgB01 5284000 5836000
 ```
 should print the same result as question 4.
@@ -740,7 +746,8 @@ Several files are available for download. These are:
 
 
 3. Download the full results files for the "Schistosoma mansoni transcriptomics at different life stages" "24-hour-schistosomule-vs-cercariae" experiment by clicking "Full result files for 3 contrasts (zipped) and place it into the "Module_3_WormBaseParaSite_2" directory.
-```
+
+```bash
 cd ~/Module_3_WormBaseParaSite_2
 
 # Extract the compressed directory
@@ -756,11 +763,13 @@ grep -v "^#" 24-hour-schistosomule-vs-cercariae.tsv | less
 Use some of the commands you learned yesterday to extract the following information from the "24-hour-schistosomule-vs-cercariae.tsv" file:
 
 4. Extract the top 5 most significantly regulated genes (hint: the final column, "padj", gives the adjusted p value. A smaller adjusted p value = more significant).
-```
+
+```bash
 grep -v "^#" 24-hour-schistosomule-vs-cercariae.tsv | grep -v "^gene_id" | sort -g -k 7,7 | awk -F'\t' '$7 != "NA"' | head -n 5
 ```
+
 5. Of the genes with an adjusted p-value that is less than 0.05, which is (a) most highly upregulated in the 24h schistosomules v the cercariae (b) most strongly upregulated in the cercariae v the 24h schistosomules?
-```
+```bash
 # upregulated in the 24h schistosomules means tha Log2FoldChange (column 3) should be a positive number
 grep -v "^#" 24-hour-schistosomule-vs-cercariae.tsv | grep -v "^gene_id" | awk -F'\t' '$7 != "NA" && $7 < 0.05 && $3 > 0' | sort -r -g -k 3,3 | head -n 10
 
