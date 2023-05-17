@@ -1102,7 +1102,7 @@ We now have an overview of genetic variation within globally distributed isolate
 
 Have a look at the following animation, showing shipping routes in the 1700s. Compare these routes to the sampling locations and genetic similarity between countries. Are there overlapping patterns?
 
-[Shipping animation](shipping_vid_AdobeExpress.gif)
+
 
 <img src="figures/shipping_vid_AdobeExpress.gif" width="600" height="300"/>
 
