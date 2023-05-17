@@ -1105,7 +1105,7 @@ Have a look at the following animation, showing shipping routes in the 1700s. Co
 [movie](figures/shipping_vid_AdobeExpress.gif)
 
 
-<img src="figures/shipping_vid_AdobeExpress.gif" width="1000" height="500"/>
+<img src="figures/shipping_vid_AdobeExpress.gif" width="800" height="500"/>
 
 ---
 
