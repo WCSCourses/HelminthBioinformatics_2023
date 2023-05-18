@@ -1096,6 +1096,16 @@ If you have time, try explore plotting the allele frequency of other SNPs in PC1
 ![](figures/figure6.18.PNG)  
 **Figure.** World map with SNP frequency per sampling location
 
+
+
+We now have an overview of genetic variation within globally distributed isolates of Haemonchus contortus. What has led to these patterns of genetic variation? A deeper dive into these data, and importantly, analysis of the nuclear genome which was performed with a significantly larger number of variants, can be found in the [paper](https://doi.org/10.1038/s41467-019-12695-4) that most of these samples were first described. However, we beleive the patterns of diversity reflect a combination of old diversity in the species, originating in Africa and then subsequenctly spreading, and modern movement of parasites around the world. How would a parasite like Haemonchus spread rapidly? As a parasite of sheep, the would have been transported far and wide as humans moved livestock around the world. 
+
+Have a look at the following animation, showing shipping routes in the 1700s. Compare these routes to the sampling locations and genetic similarity between countries. Are there overlapping patterns?
+
+
+
+<img src="figures/shipping_vid_AdobeExpress.gif" width="600" height="300"/>
+
 ---
 
 [↥ **Back to top**](#top)
