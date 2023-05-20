@@ -381,7 +381,8 @@ plotPCA(rld, intgroup = c("condition"))
 ```
 
 You should get something similar to this. 
-![](figures/pca.png)
+![](figures/PCA.png)
+
 **Figure 7.** PCA plot
 
 Save the plot to PDF file using `dev.copy()` function. `dev` mean device, and this refers to the plotting space in your RStudio, as well as a new "device" that is opened as a new file on your computer. Once the plotting to a new "device" is done, we must do `dev.off()` to close the device so that the plot can be viewed. 
@@ -451,7 +452,8 @@ ylab(paste0("PC2: ", percentVar[2], "% variance")) +
 theme(text = element_text(size = 15))
 ```
 
-![](figures/ggplotpca.png)
+![](figures/fig-8_PCAshape_color.png)
+
 **Figure 8.** PCA plot produced by ggplot2
 
 ---
@@ -486,7 +488,8 @@ pheatmap(sampleDistMatrix, clustering_distance_rows = sampleDist, clustering_dis
 ```
 
 This should output a plot similar to one below
-![](figures/sampleheatmap.png)
+![](figures/fig-9_heatmap_blue.png)
+
 **Figure 9.** Sample heatmap
 
 ```R
@@ -521,7 +524,8 @@ The result table contains several columns, of which the most relevant are:
 - Column 2: log2FoldChange, in this table below, of D35 / D06
 - Column 6: padj, adjusted p-value, p-value corrected for multiple testing
 
-![](figures/deseqres.png)
+![](figures/fig-10_result_table.png)
+
 **Figure 10.** Example of DESeq2 result table
 
 ### Log2 fold change
@@ -588,7 +592,8 @@ plotMA(res_D13D06, ylim = c(-13,8), main = "log2 fold changes day-13 VS day-6 S.
 abline(h = c(-1,1))
 ```
 
-![](figures/maPlot.png)
+![](figures/fig-11_MAplot.png)
+
 **Figure 11.** MA plot
 
 **Volcano plot**
@@ -613,7 +618,8 @@ ylab(expression(paste('-', log[10],' adjusted p-value'))) +
 ggtitle("D13 VS D06")
 ```
 
-![](figures/volcano.png)
+![](figures/fig-12_volcano.png)
+
 **Figure 12.** Volcano plot
 
 **Individual plot for a gene**
@@ -632,7 +638,8 @@ scale_y_continuous(trans = "log10") +
 ggtitle("Smp_022450.2") 
 ```
 
-![](figures/genePlot.png)
+![](figures/fig-13_individualgeneplot.png)
+
 **Figure 13.** Gene plot
 
 **Gene heatmap**
@@ -659,7 +666,8 @@ rld_res_D13D06_top20_genes <- assay(rld)[which(rownames(assay(rld)) %in% res_D13
 pheatmap(rld_res_D13D06_top20_genes)
 ```
 
-![](figures/geneheatmap1.png)
+![](figures/fig-14_pheatmap-default.png)
+
 **Figure 14.** Heatmap - default setting
 
 The default plot look quite messy. The rows are annotated with gene IDs, and their writing overlap due to limited space. The column annotations are also long and contain excess information. 
@@ -685,7 +693,8 @@ fontsize = 10,
 main = "Top 20 DE genes: day-13 / day-6")
 ```
 
-![](figures/geneheatmap2.png)
+![](figures/fig-15_pheatmap-custom.png)
+
 **Figure 15.** Heatmap - customised
 
 ---
@@ -744,7 +753,8 @@ topGO_D13D06_upinD13  <- run_topGO_R(ref = "/<path to data>/Module_7_Transcripto
 topGO_D13D06_upinD13[,1:7]
 ```
 
-![](figures/topGOres.png)  
+![](figures/fig-16_topGO-table.png)  
+
 **Figure 16.** Example of topGO result
 
 ---
