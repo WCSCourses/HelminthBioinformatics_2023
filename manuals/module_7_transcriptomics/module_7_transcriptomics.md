@@ -381,7 +381,7 @@ plotPCA(rld, intgroup = c("condition"))
 ```
 
 You should get something similar to this. 
-![](figures/PCA.png)
+![](figures/fig-7_PCA.png)
 
 **Figure 7.** PCA plot
 
