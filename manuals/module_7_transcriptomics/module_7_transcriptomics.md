@@ -138,14 +138,14 @@ Use the following command on your Terminal window.
 
 ```bash 
 # Go to the location of the reference genome
-cd /<path/to/data>/Module_7_Transcriptomics/References_v5/
+cd /<path/to/data>/Module_7_Transcriptomics/References_v10/
 
 # Unzip the reference genome file
-gunzip Sm_v5_genome.fa.gz
+gunzip Sm_v10_genome.fa.gz
 
 # Index reference genome so that it can be read by HISAT2
 # The template for indexing command is hisat2-build <reference genome in .fa> <prefix for the index file>
-hisat2-build Sm_v5_genome.fa Sm_v5_genome.hisat2idx
+hisat2-build Sm_v10_genome.fa Sm_v10_genome.hisat2idx
 
 # ...Wait for the indexing step... This will take about 5-10 minutes...
 
@@ -162,11 +162,11 @@ As mentioned before, the RNA-seq data for our experiment have been mapped for yo
 Try `hisat2 --help` to find out what the additional arguments mean.
 ```bash
 # For RNA-seq that come from single-end sequencing
-hisat2 --max-intronlen 40000 -x ../References_v5/Sm_v5_genome.hisat2idx -q ../RNAseq_data/Sm_SE.fastq -S Sm_SE.sam
+hisat2 --max-intronlen 40000 -x ../References_v10/Sm_v5_genome.hisat2idx -q ../RNAseq_data/Sm_SE.fastq -S Sm_SE.sam
 
 # For RNA-seq that come from paired-end sequencing
 # How does the command differ from the one above  for single-end data? 
-hisat2 --max-intronlen 40000 -x ../References_v5/Sm_v5_genome.hisat2idx -1 ../RNAseq_data/Sm_PE_1.fastq -2 ../RNAseq_data/Sm_PE_2.fastq -S Sm_PE.sam
+hisat2 --max-intronlen 40000 -x ../References_v10/Sm_v10_genome.hisat2idx -1 ../RNAseq_data/Sm_PE_1.fastq -2 ../RNAseq_data/Sm_PE_2.fastq -S Sm_PE.sam
 ```
 
 The **alignment rate** will be shown on the screen. What do you think about the alignment rate of this mapping? 
@@ -207,48 +207,53 @@ The file that contains annotated information of a genome is known as GFF (Genera
 ![](figures/gtf.png)
 **Figure 5.** Example of a GTF file
 
-Use HTSeq-count to calculate the number of reads mapped to each gene
-See https://htseq.readthedocs.io/en/release_0.11.1/count.html or do `htseq-count --help` to see meaning of these options. The manual and `--help` option can also be useful if you encounter an error message.
+Use featureCounts in Subread/Rsubreadpackages to calculate the number of reads mapped to each gene
+See https://subread.sourceforge.net/featureCounts.html or do `featureCounts --help` to see meaning of these options. The manual and `--help` option can also be useful if you encounter an error message.
 
 ```bash
 # First, unzip the GTF file so that it can be read by htseq-count
-# Go to Reference_v5 directory which is where the file is kept
-cd ../References_v5/
-ls  # you should see a file called Sm_v5_canonical_geneset.gtf.gz
-gunzip Sm_v5_canonical_geneset.gtf.gz
-ls  # now the file Sm_v5_canonical_geneset.gtf.gz should become Sm_v5_canonical_geneset.gtf
+# Go to Reference_v10 directory which is where the file is kept
+cd ../References_v10/
+ls  # you should see a file called Sm_v10_canonical_geneset.gtf.gz
+gunzip Sm_v10_canonical_geneset.gtf.gz
+ls  # now the file Sm_v10_canonical_geneset.gtf.gz should become Sm_v10_canonical_geneset.gtf
 
 # Go back to Mapping directory
 cd ../Mapping/
 
-# Run htseq-count
-# htseq-count <various options> <sorted BAM file> <GTF or GFF file with gene annotation>
+# Run featureCounts
+# featureCounts <various options> <sorted BAM file> <GTF or GFF file with gene annotation>
 # For Sm_PE_sorted.bam file
 # The > means 'take the screen output to this file'
-htseq-count -a 30 -t CDS -i gene_id -s yes -m union Sm_PE_sorted.bam ../References_v5/Sm_v5_canonical_geneset.gtf > Sm_PE_htseqcount.txt
+featureCounts -p -B -t 'CDS' -g 'Parent' -T 1 -a ../References_v10/Sm_v10_canonical_geneset.gtf -o Sm_PE_featureCounts.txt Sm_PE_sorted.bam
+
 
 # Now try it yourself for the Sm_SE_sorted.bam file
 ?????
 
-# Explore one of the HTSeq-count output files
+# Explore one of the featureCounts output files
 # Use up-down arrows to move long the files, or press the spacebar or D to move down a page, press B to move up a page
 less Sm_PE_htseqcount.txt
+
+# Cut only column 'GeneID' and readcounts
+cut -f1,7 Sm_PE_featureCounts.txt | cut -d':' -f2 > Sm_PE_Counts.txt
+
 ```
 
-Output from HTSeq-count contain `STDOUT` (standard out; telling progress and key steps while the tool is running) and `STDERR` (standard error; error or warning messages) followed by the number of reads that mapped to each gene. We only need the read count information for downstream analyses. 
+Output from featureCounts contain `STDOUT` (standard out; telling progress and key steps while the tool is running) and `STDERR` (standard error; error or warning messages) followed by the number of reads that mapped to each gene. We only need the read count information for downstream analyses. 
 
 ```bash
 # Create a directory called “final_counts” to keep count files
 mkdir final_counts
 
-# Filter HTSeq-count output files into a new file, keeping just the lines with gene IDs (Smp for S. mansoni) and their read counts 
-grep "^Smp" Sm_PE_htseqcount.txt
+# Filter featureCounts output files into a new file, keeping just the lines with gene IDs (Smp for S. mansoni) and their read counts 
+grep "^Smp" Sm_PE_Counts.txt
 
 # That output way too much stuff on the screen, try `head` command to output just the first 10 lines
-grep "^Smp" Sm_PE_htseqcount.txt | head 
+grep "^Smp" Sm_PE_Counts.txt | head 
 
 # What we want here is to grep lines that start with Smp from a file, then sort the grep output, write this sorted output to a new file
-grep "^Smp" Sm_PE_htseqcount.txt | sort > final_counts/Sm_PE_htseqcount.final
+grep "^Smp" Sm_PE_Counts.txt | sort > final_counts/Sm_PE_featureCounts.final
 
 # Now try it yourself for the Sm_SE_sorted.bam file
 ?????
@@ -256,7 +261,7 @@ grep "^Smp" Sm_PE_htseqcount.txt | sort > final_counts/Sm_PE_htseqcount.final
 
 We should now have files containing the number of reads mapped to each gene within each demo samples. Next step, we will import read count data into R and run differential expression analysis. 
 
-We mapped and performed read counting for two example samples so far, the real samples have been done for you and are in a directory called  `v5counts`.
+We mapped and performed read counting for two example samples so far, the real samples have been done for you and are in a directory called  `v10counts`.
 
 ---
 [↥ **Back to top**](#top)
