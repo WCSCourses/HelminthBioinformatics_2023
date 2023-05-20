@@ -162,7 +162,7 @@ As mentioned before, the RNA-seq data for our experiment have been mapped for yo
 Try `hisat2 --help` to find out what the additional arguments mean.
 ```bash
 # For RNA-seq that come from single-end sequencing
-hisat2 --max-intronlen 40000 -x ../References_v10/Sm_v5_genome.hisat2idx -q ../RNAseq_data/Sm_SE.fastq -S Sm_SE.sam
+hisat2 --max-intronlen 40000 -x ../References_v10/Sm_v10_genome.hisat2idx -q ../RNAseq_data/Sm_SE.fastq -S Sm_SE.sam
 
 # For RNA-seq that come from paired-end sequencing
 # How does the command differ from the one above  for single-end data? 
@@ -324,16 +324,16 @@ We will tell R where the read count data are kept, and then create a table with 
 
 ```R
 # Tell the location of the read count files
-# Create a datadir object to keep the path to the directory v5counts in your module 7 files
-datadir <- "/<path/to/data>/v5counts/" 
+# Create a datadir object to keep the path to the directory v10counts in your module 7 files
+datadir <- "/<path/to/data>/v10counts/" 
 
 # list files in this directory, output as an R vector
 list.files(datadir)   # this should list 22 files
 sampleFiles <- list.files(datadir)    # this save that 22 file names into a new R object		
 
 # Create sample names
-# split the name at “_v5.counts” and keep the resulting output in a new vector
-name <- unlist(strsplit(sampleFiles, split = "_v5.counts", perl = TRUE))
+# split the name at “_v10.counts” and keep the resulting output in a new vector
+name <- unlist(strsplit(sampleFiles, split = "_v10.counts", perl = TRUE))
 name
 
 # Create metadata information - match with sample names
@@ -752,7 +752,7 @@ length(D13D06_upinD13)
 # - reference GO annotation (GO terms associated with each gene)
 # - list of genes to test for GO enrichment
 # - threshold for calling “significant” enrichment
-topGO_D13D06_upinD13  <- run_topGO_R(ref = "/<path to data>/Module_7_Transcriptomics/References_v5/Sm_v5_GOref_topGO.txt", genelist = D13D06_upinD13, thres = 0.05)
+topGO_D13D06_upinD13  <- run_topGO_R(ref = "/<path to data>/Module_7_Transcriptomics/References_v10/Sm_v10_GOref_topGO.txt", genelist = D13D06_upinD13, thres = 0.05)
 
 # Check topGO result. Column 1 to 7 are standard topGO output; column 8 give a list of input genes with that GO term. We won’t look at that at the moment. 
 topGO_D13D06_upinD13[,1:7]
