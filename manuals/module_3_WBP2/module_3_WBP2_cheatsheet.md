@@ -47,6 +47,9 @@ awk -F'\t' 'NR==1 {for (i=1; i<=NF; i++) if ($i == "Consequence") {col=i; break}
 # One way to list them is:
 grep "\tSRAE_2000005500.1\t" sratti.vep.txt
 
+#OR
+awk '$5=="SRAE_2000005500.1"' sratti.vep | grep HIGH 
+
 # Another more specific solution by looking for "SRAE_2000005500.1" in the Feature column:
 awk -F'\t' 'NR==1 { for (i=1; i<=NF; i++) if ($i == "Feature") {col=i; break} } $col=="SRAE_2000005500.1"' sratti.vep.txt
 
