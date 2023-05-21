@@ -190,7 +190,7 @@ There is an alternative interactive Genome Browser in WormBase ParaSite that can
 
 As well as gene pages, WormBase ParaSite has a page for each transcript that a gene produces. In this case, only one transcript isoform has been annotated.
 
-6. On the gene page, click the transcript ID in the transcipt table to navigate to the transcript page.
+6. On the gene page, click the "Show transcript table" button to show the trancript table. Then click the transcript ID in the transcipt table to navigate to the transcript page.
 
 ![](figures/figure_3.5.png)
 
