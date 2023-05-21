@@ -28,15 +28,20 @@ grep -v "^#" sratti_*.vcf | wc -l| wc -l
 
 2. What are the different types of consequence that are found in the file, and how often does each occur?
 ```
+Lots of ways of doing it...
+e.g
+
+# remove first line with grep.  extract column 7 with unix cut command, then sort, collapse to unique instances and count
+% grep -v '^#' sratti.vep | cut -f 7 | sort | uniq -c
+
+Can also be done with awk:
+
 # Print a unique list of all the values under the "Consequence" column of the file:
 awk -F'\t' 'NR==1 {for (i=1; i<=NF; i++) if ($i == "Consequence") {col=i; break}} NR>1 {print $col}' sratti.vep.txt | sort | uniq
 
 # Count each consequence's occurence and sort them in ascending order
 awk -F'\t' 'NR==1 {for (i=1; i<=NF; i++) if ($i == "Consequence") {col=i; break}} NR>1 {print $col}' sratti.vep.txt | sort | uniq -c | sort
 
-Alternatively
-# remove firsat line with grep.  extract column 7 with cut, sort, uniq and count
-% grep -v # sratti.vep | cut -f 7 | sort | uniq -c
 ```
 3. List all of the variants found in SRAE_2000005500.1.  Which variant or variants show the greatest impact?
 ```
