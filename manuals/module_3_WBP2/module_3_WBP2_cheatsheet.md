@@ -33,6 +33,10 @@ awk -F'\t' 'NR==1 {for (i=1; i<=NF; i++) if ($i == "Consequence") {col=i; break}
 
 # Count each consequence's occurence and sort them in ascending order
 awk -F'\t' 'NR==1 {for (i=1; i<=NF; i++) if ($i == "Consequence") {col=i; break}} NR>1 {print $col}' sratti.vep.txt | sort | uniq -c | sort
+
+Alternatively
+# remove firsat line with grep.  extract column 7 with cut, sort, uniq and count
+% grep -v # sratti.vep | cut -f 7 | sort | uniq -c
 ```
 3. List all of the variants found in SRAE_2000005500.1.  Which variant or variants show the greatest impact?
 ```
