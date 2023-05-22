@@ -190,7 +190,7 @@ There is an alternative interactive Genome Browser in WormBase ParaSite that can
 
 As well as gene pages, WormBase ParaSite has a page for each transcript that a gene produces. In this case, only one transcript isoform has been annotated.
 
-6. On the gene page, click the transcript ID in the transcipt table to navigate to the transcript page.
+6. On the gene page, click the "Show transcript table" button to show the trancript table. Then click the transcript ID in the transcipt table to navigate to the transcript page.
 
 ![](figures/figure_3.5.png)
 
@@ -407,7 +407,8 @@ Go to the gene page for the _Trichuris muris_ gene TMUE_2000008757 and retrieve 
 7. Which Pfam domains is the protein predicted to have? Which of these is responsible for its DNA binding activity?
 8. Download the protein alignment of TMUE_2000008757 and its _C. elegans_ orthologue. Is there any published literature on the _C. elegans_ orthologue?
    <details closed><summary>Hint</summary>Follow the link to the WormBase ParaSite page for the _C. elegans_ orthologue and look in the “Literature” tab.</details>
-
+9. Are there any phenotypes associated with this _T. muris_ gene according to the gene page? Which one(s)? Where are these gene-phenotype associations inferred from?
+    <details closed><summary>Hint</summary>Go back to the TMUE_2000008757 gene page and look in the "Phenotypes" tab.</details>
 [↥ **Back to top**](#top)
 
 ---
@@ -484,7 +485,7 @@ BioMart lets us generate two types of output: data tables, and sequence (FASTA) 
 ---
 #### BioMart exercise <a name="biomart_exercise"></a>
 
-Use the following _S. ratti_  gene **names** (note: names, not stable IDs) and use BioMart to answer questions 1-5:
+Use the following _S. ratti_  gene **names** (note: names, not stable IDs) and use BioMart to answer questions 1-5.
 
 ```
 SRAE_1000001600
@@ -548,6 +549,8 @@ Smp_000370
 9. Retrieve (a) a FASTA file with the CDS sequence of each transcript encoded by these genes. Make sure that the transcript stable ID is in the header; and (b) a FASTA file containing the CDS sequence plus 100 nt downstream of the stop codon of each of those transcripts. In the header, include the transcript stable ID and the name of the scaffold that the transcript is on.
 
 ---
+#### Extra BioMart queetions (only if you have time!)
+
 10. Generate a table containing all of the protein coding genes on _Brugia malayi_ scaffold Bm_007. The table should have their gene stable IDs and start and end coordinates.
 11. From this list, export a list of the gene IDs of the genes that have orthologues in _Brugia pahangi_.
 12. Perform a new query and map the Gene IDs of the _Brugia pahangi_ genes identified in question 9 to their UniProt IDs.

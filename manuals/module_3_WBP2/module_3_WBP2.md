@@ -21,11 +21,12 @@ output:
       * [EXERCISE](#vep_exercise)
 3. [Accessing WormBase ParaSite data programmatically](#programmatic_access)
     * [Working with sequence and annotation files](#files)
-      * [EXERCISE](#files_exercise)
     * [The REST API](#api)
-      * [EXERCISE](#api_exercise)
+      * [EXERCISE](#api_exercises)
 4. [The WormBase ParaSite Expression browser](#expression_data)
       * [EXERCISE](#expression_exercise)
+5. [Gene-set enrichment analysis](#gene-set)
+      * [EXERCISE](#gene-set_exercises)
 
 ## Overview and Aims <a name="aims"></a>
 
@@ -35,6 +36,7 @@ We will start by looking at three commonly-used tools in WBPS:
 - BLAST
 - JBrowse (a genome browser)
 - Variant Effect Predictor (VEP)
+- g:Profiler
 
 We will then go on to apply some of the command line skills that you were introduced to in module 2 to explore WormBase ParaSite data programmatically.
 
@@ -298,7 +300,7 @@ Now we can see the reads aligned to the genome. Notice that this RNA-Seq data is
 ---
 ### VEP <a name="vep"></a>
 
-The final WormBase ParaSite tool that we will look at today is the Variant Effect Predictor, or VEP.
+Another WormBase ParaSite tool that we will look at today is the Variant Effect Predictor, or VEP.
 
 A common approach to understanding the genetic basis of phenotypic differences is to identify genetic variants that are overrepresented in some populations of individuals.
 
@@ -319,7 +321,7 @@ You can download complete studies from the "Study Browser" tab but today we are 
 
 3. Download the first 250kb of S. ratti chromosome 2 and place it inside the "Module_3_WormBaseParaSite_2" directory:
   - Select "Rat threadworm / S_ratti_ED321" from the Organism/Assembly drop-down menu.
-  - Filter by: Chromosomal Location - Region: SRAE_chr2:1-2500000.
+  - Filter by: Chromosomal Location - Region: SRAE_chr2:1-2500000 and then click "Search".
   - Click "Export as VCF" and place the downloaded file inside the "Module_3_WormBaseParaSite_2" directory.
 
 4. Move to the "Module_3_WormBaseParaSite_2" directory and have a look at the file to see how it is structured:
@@ -373,7 +375,7 @@ Download the VEP results from the example above as a “VEP file”. Use this fi
 
 2. What are the different types of consequence that are found in the file, and how often does each occur?
 
-3. List all of the variants found in SRAE_2000005500.1.  Which variant or variants how the greatest impact?
+3. List all of the variants found in SRAE_2000005500.1.  Which variant or variants show the greatest impact?
 
 4. Create a list of genes where a missense variant is found.  
 
@@ -499,28 +501,7 @@ awk '/^>/ {
 }
 END {print seqlen}'  necator_americanus.PRJNA72135.WBPS18.genomic.fa
 ```
-
-### Exercises  <a name="files_exercise"></a>
-
-Tweak the above examples to answer these questions from the files that you've just downloaded:
-
-1. Which _N. americanus_ scaffold has the most genes? 
-2. Write a loop to extract the sequences of all of these proteins:
-
-```bash
-NAME_00333
-NAME_00215
-NAME_00169
-NAME_00417
-NAME_00018
-NAME_00028
-NAME_00893
-NAME_00782
-NAME_00092
-NAME_00891
-NAME_00638
-NAME_00025
-```
+[↥ **Back to top**](#top)
 
 ### The REST API <a name="api"></a>
 
@@ -688,8 +669,10 @@ meloidogyne_floridensis_prjeb6016 29.7 43.9
 ```
 We can see that _M. arenaria_ is the assembly with the highest BUSCO Annotation score.
 
+[↥ **Back to top**](#top)
+
 ---
-#### API exercises
+#### API exercises <a name="api_exercises"></a> 
 
 Adapt the commands that you used above to retrieve the following information from the WormBase ParaSite API. Note that you’ll need to use different endpoints: browse the site to see which ones to use.
 
@@ -778,7 +761,10 @@ grep -v "^#" 24-hour-schistosomule-vs-cercariae.tsv | grep -v "^gene_id" | awk -
 grep -v "^#" 24-hour-schistosomule-vs-cercariae.tsv | grep -v "^gene_id" | awk -F'\t' '$7 != "NA" && $7 < 0.05 && $3 < 0' | sort -g -k 3,3 | head -n 10
 ```
 
-## Performing Gene-set enrichment analysis
+[↥ **Back to top**](#top)
+
+---
+## Performing Gene-set enrichment analysis <a name="gene-set"></a> 
 
 Gene set enrichment analysis (GSEA) (also called functional enrichment analysis or pathway enrichment analysis) is a method to identify classes of genes or proteins that are over-represented in a large set of genes or proteins, and may have an association with disease phenotypes.
 
@@ -799,12 +785,23 @@ For example, we can take the list of genes we identified as significantly upregu
 
 Instead of manually trying to identify which genes in your list of differentially expressed genes have similar biological processes, cellular component and molecular functions, the GO enrichment analysis does it for you. More specifically, it clusters the genes into gene ontologies group, performs statistical analysis and shows you the most significantly overepressented ontologies!
 
+So basically a GO enrichment analysis takes a list of gene identifiers like this:
+
+<img src="figures/gprofiler_1.png" width="600">
+
+and organises them to Gene Ontology terms (GO):
+
+<img src="figures/gprofiler_2.png" width="600">
+<br><br>
 WormBase ParaSite offers a tool that performs this kind of analysis: g:Profiler that can be accessed from the "Tools" page:
 
 - Go to WormBase ParaSite (https://parasite.wormbase.org/). Click "Tools" at the top menu. Click "g:Profiler" in the tools table.
 <img width="1440" alt="Screenshot 2022-11-22 at 17 29 02" src="https://user-images.githubusercontent.com/33452269/203386793-b5f8080f-c53f-4cba-9023-876982684f83.png">
 
-### Gene-set enrichment analysis exercise
+[↥ **Back to top**](#top)
+
+---
+### Gene-set enrichment analysis exercise <a name="gene-set_exercises"></a> 
 
 Use the 24-hour-schistosomule-vs-cercariae.tsv from the previous section and print a list of genes with an adjusted p-value that is less than 0.05, which are most strongly upregulated in the cercariae v the 24h schistosomules.
 
@@ -815,9 +812,11 @@ Use the 24-hour-schistosomule-vs-cercariae.tsv from the previous section and pri
 3. Expand the stats by using the ">>" in the header of the GO:CC result table. Try to interpret the T, Q, TnQ and U metrics. What do they represent?
     <details closed>
     <summary>Help!</summary>
-    You can read more here: https://biit.cs.ut.ee/gprofiler/page/docs
-    T - Term Size: How many S. mansoni genes are in general associated with this term.
-    Q - Query Size: The number of genes in our gene list (the one we run the analysis for). In our case this number should theoretically be 40, however it is 14, why?
-    TnQ - Overlap Size: How many genes from our list are associated with this term.
-    U - Total number of S. mansoni genes.
+    You can read more here: https://biit.cs.ut.ee/gprofiler/page/docs<br>
+   * T - Term Size: How many S. mansoni genes are in general associated with this term.<br>
+   * Q - Query Size: The number of genes in our gene list (the one we run the analysis for). In our case this number should theoretically be 40, however it is 14, why?<br>
+   * TnQ - Overlap Size: How many genes from our list are associated with this term.<br>
+   * U - Total number of S. mansoni genes.<br>
     </details>
+
+[↥ **Back to top**](#top)
