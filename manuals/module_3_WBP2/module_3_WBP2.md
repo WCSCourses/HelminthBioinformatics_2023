@@ -32,10 +32,11 @@ output:
 
 In this module, we return to WormBase ParaSite.
 
-We will start by looking at three commonly-used tools in WBPS:
+We will start by looking at commonly-used tools in WBPS:
 - BLAST
 - JBrowse (a genome browser)
 - Variant Effect Predictor (VEP)
+- Gene expression platform
 - g:Profiler
 
 We will then go on to apply some of the command line skills that you were introduced to in module 2 to explore WormBase ParaSite data programmatically.
@@ -63,19 +64,11 @@ BLAST uses three steps:
    - The extension step will continue until the overall score drops below a given value. At this point, the extension step is dropped and the alignment is recorded with its score.
    - The results are then presented as a list of alignments with associated scores. The alignments with the highest scores are most likely to be true matches or homologues of the query sequence.
 
-**Types of BLAST search**
-
-There are different flavours of the BLAST programme depending on whether the query is a nucleotide or a protein sequence and also depending on the nature (nucleotide or protein) of the database we are searching in.
-![](https://thebiologynotes.com/wp-content/uploads/2022/07/Basic-Local-Alignment-Search-Tool-BLAST.jpg) 
-- BLASTn: If the query is a nucleotide sequence and we are searching for matches in a nucleotide database, the program to use is BLASTn.
-- BLASTp: If the query is a protein sequence and we are looking for matches in a protein database, the programme to use is BLASTp. 
-- tBLASTn: If the query and the database are different, for example, if you want to query a protein sequence to find the best matches in a nucleotide database, BLAST can translate all the entries in the nucleotide database into protein sequences (each sequence can be translated into the 6 possible frames) You can then use the resulting "translated database" as the subject for the search. This flavour of BLAST is called tBLASTn.
-- BLASTx: In the reverse scenario, when a nucleotide sequence is the query and you want to search a protein database. The query is translated into the 6 possible frames and is then aligned to the query. This is called BLASTx.
 
 **When do we need to use BLAST?**
-- Discovering new genes or proteins: Imagine that you have sequenced a gene that is associated with drug resistance in a helminth. You know part of the DNA sequence, but you do not know which gene it belongs to. You can use WormBase ParaSite's BLAST to see if any genes correspond to your sequence!
-- Discovering variants of genes or proteins: Imagine you have identified a new protein of helminth which is similar but not identical to any of the  known proteins for this species. You might have found a new isoform of the encoding gene.
-- Identifying orthologs and paralogs: You can run BLAST using a protein/gene of a species to find its paralogues or its orthologues in other species.
+- **Discovering new genes or proteins**: Imagine that you have sequenced a gene that is associated with drug resistance in a helminth. You know part of the DNA sequence, but you do not know which gene it belongs to. You can use WormBase ParaSite's BLAST to see if any genes correspond to your sequence!
+- **Discovering variants of genes or proteins**: Imagine you have identified a new protein of helminth which is similar but not identical to any of the  known proteins for this species. You might have found a new isoform of the encoding gene.
+- **Identifying orthologs and paralogs**: You can run BLAST using a protein/gene of a species to find its paralogues or its orthologues in other species.
 
 **BLAST in WormBase ParaSite**
 
@@ -87,23 +80,13 @@ The BLAST tool is accessible:
 
 Both options will take you to WormBase ParaSite's BLAST tool page:
 ![](figures/BLAST_4.png)
-- The query sequence should be entered into the "Sequence data" dialog box. Make sure the correct sequence type is selected (Protein/DNA)
-- Selecting the species to search against. By selecting custom species list, a pop-up box will appear. Their you can search and select the genomes you would like to perform BLAST search against.
-- You can also use the round radio buttons if you would like to perform a search agaist all species, nematodes, platyhelmiths, or against a custom species list.
-- Make sure to select the right database type to search against (DNA/Protein database and their types)
-- The rest of the options include scoring filtering and specific alignment parameters. 
-- It is highly recommended to also add a description for your BLAST search so it will be easily discoverable later.
 
 **How to evaluate Blast results?**
    
 Metrics used in the results table:
 - **Score**: The bit score gives an indication of how good the alignment is; the higher the score, the better
-the alignment. In general terms, this score is calculated from a formula that takes into account
-the alignment of similar or identical residues, as well as any gaps introduced to align the
-sequences.
-- **E-value**: The E-value gives an indication of the statistical significance of a given pairwise alignment
-and reflects the size of the database and the scoring system used. The lower the E-value, the
-more significant the hit. A sequence alignment that has an E-value of 0.05 means that this
+the alignment.
+- **E-value**: The E-value gives an indication of the statistical significance of each alignment. A sequence alignment that has an E-value of 0.05 means that this
 similarity has a 5 in 100 (1 in 20) chance of occurring by chance alone.
 - **%ID or percent identity**: Percent identity is telling you how many residues in your query are an identical match to the hit. Closely related sequences will have a much higher % identity.
 
@@ -111,8 +94,6 @@ similarity has a 5 in 100 (1 in 20) chance of occurring by chance alone.
 
 ---
 ### BLAST exercise <a name="blast_exercise"></a>
-
-Use WormBase ParaSite BLAST to find out the identity of this sequence, and which species it belongs to. Does it have any close hits in other genomes? Try BLASTing against both cDNA and a genomic DNA databases. What kind of sequence is this?
 
 ```
 TTTGCAGATGCTTCTCCCTTCAAACTTGACGACGTCAACATTAATGACGTCATCATCAGA
@@ -141,6 +122,9 @@ AGCCCAACGAATTGCCAATGCCATATCTTTAACAACTTTTATGGTTTCTTGTTTGTTTTT
 TTTTATTTATTTTATTGTAATGTTTGATTCTCGGTGAAAAATTTGTGTAAAATAAATTAT
 TTTTTATGTGAAA
 ```
+- Use WormBase ParaSite BLAST to find out the identity of this sequence, and which species it belongs to.
+- Does it have any close hits in other genomes?
+- BONUS question: Try BLASTing against both cDNA and a genomic DNA databases. What kind of sequence is this?
 
 [↥ **Back to top**](#top)
 
@@ -149,18 +133,13 @@ TTTTTATGTGAAA
 
 A genome browser is a tool that allows you to visualise a genome assembly and its features, together with experimental data aligned to the genome.
 
-Genome browsers have many use cases:
-- You may want to visualising a gene model in its genomic context, or to assess the correctness of the model.
-- They are also used for visualising functional genomics data, such as the results of ChIP-Seq and RNA-Seq experiments.
+There are several commonly used genome browsers in bioinformatics, each with different features. In WormBase ParaSite we have two:
 
-There are several commonly used genome browsers in bioinformatics, each with different features. Examples include:
+* Ensembl - this can be used to browse a large catalog of genomes across the tree of life. WormBase ParaSite has an instance of the Ensembl browser built in, and [we explored it in Module 1](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/manuals/module_1_WBP1/module_1_WBP1.md#genome_browser). 
 
-* Ensembl - this can be used to browse a large catalog of genomes across the tree of life. WormBase ParaSite has an instance of the Ensembl browser built in, [the one we explored in Module 1](https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/manuals/module_1_WBP1/module_1_WBP1.md#genome_browser). 
-* The [Integrative Genomics Viewer (IGV)](https://igv.org/) - this software can be downloaded and installed locally to work with local data without internet access (mainly used for variation data).
-* The [UCSC Genome Browser](https://genome.ucsc.edu/) - this browser hosts selected vertebrate species and some model organism (and closely related) species.
-* [Artemis/Artemis Comparison Tool (ACT)](https://www.sanger.ac.uk/tool/artemis-comparison-tool-act/) - similar to IGV, this can also run locally without the internet. It can also be used to edit (i.e. change) gene models (to correct errors). ACT is a tool for visualising synteny (regions of similarity) between sequences.
 * [JBrowse 1](https://jbrowse.org/jbrowse1.html) - this is the genome browser that we’ll be using today. WormBase ParaSite has an instance of JBrowse for every genome that it hosts. The Apollo project is a well known extension of JBrowse, which, like Artemis, can be used to edit gene models.
-  * And it's newer version: [Jbrowse 2](https://jbrowse.org/jb2/) 
+
+There are many other genome browsers for different needs out there. Feel free to explore them at your own time:n[Integrative Genomics Viewer (IGV)](https://igv.org/),[UCSC Genome Browser](https://genome.ucsc.edu/),[Artemis/Artemis Comparison Tool (ACT)](https://www.sanger.ac.uk/tool/artemis-comparison-tool-act/) and the new version of Jbrowse: [Jbrowse 2](https://jbrowse.org/jb2/) 
 
 #### Using JBrowse: basic functionality
 
@@ -222,32 +201,19 @@ Let’s say you want to see in which life stages Smp_312440 is expressed:
 - By mousing over the histogram, you can see the exact number of aligned reads at each base. 
 - We can see that a lot of the tracks show biological replicates of the same condition.- We can use combination tracks to combine replicate tracks “on the fly”, so we use up less space on the screen.
 
-**You can combine tracks together**:
-10. In the main menu at the top of the page, select “Track” and “Add combination track”. 
-    - A new empty track should appear. You can then drag and drop existing tracks in to combine them.
-
-![](figures/jbrowse_7.png)
-
-After you add few tracks by using the "addition" method, you’ll see the total number of reads across both selected libraries that aligned at each region. 
-
-![](figures/jbrowse_8.png)
-
-Note that different set operations can be performed, including subtraction, multiplication and division; these might make sense depending on the tracks that are being combined and the information that you’re interested in.
-
-As well as seeing that Smp_312440 is expressed in these conditions, we can use the coverage histograms to assess the quality of the gene model: Most parasitic worm genomes are annotated with automated pipelines. Whilst annotation algorithms can often be very accurate, they are not infallible. **Most of the gene models that you look at in WormBase ParaSite will not have been checked by a human curator, so it is wise not to take them as “truth" unless you verify that they agree with any evidence that is available.**
-
-In this case we can see that each of the exons in the gene model have got good RNASeq coverage, with no additional exons suggested by the RNASeq data.
-
 #### Visualising your own data
 
 As well as looking at publicly available data, you can use WormBase ParaSite JBrowse to visualise your own data.
 
 We’ll demonstrate how to do this using a BAM file that we have provided for you.
 
-- **BAM** File: a type of sequence file, in this case of RNA sequencing data. BAM files are binary (i.e., compressed and not human readable) versions of SAM files.
-- **SAM** File: a tab-delimited text file; each line in a SAM file represents a sequencing read, and (optionally) a description of how that read is aligned to a reference sequence.
+**BAM file?**
+A BAM file is a type of file format used in genomics to store DNA sequencing data in a compressed and indexed manner.
 
-In the module 3 data directory you should find a file named SRR3223448.bam. As a BAM file, this file is binary, so trying to read it as it is won’t be very informative. To read it we should first convert it into the SAM file format (non-binary, human-readable). We can do that with samtools:
+In the module 3 data directory you should find a file named SRR3223448.bam. 
+
+As a BAM file, this file is binary, so trying to read it as it is won’t be very informative. To read it we should first convert it into the SAM file format (non-binary, human-readable). We can do that with samtools:
+
 - [Samtools](http://www.htslib.org/doc/samtools.html) is a useful software package for manipulating SAM and BAM files.
 - We will use a samtools command to convert the BAM file to a SAM file so we can have a look at how it’s structured. Move to the module 3 data directory and type the following into your terminal:
 
@@ -256,7 +222,7 @@ samtools view -h SRR3223448.bam | less
 ```
 
 <details closed>
-<summary>Click here to read more about the SAM file format</summary>
+<summary> <- Click here to read more about the BAM and SAM file formats at your own time.</summary>
 The SAM file starts with a header section. All header lines begin with a ‘@’ character.
 
 ![](figures/jbrowse_10.png)
@@ -449,6 +415,8 @@ less necator_americanus.PRJNA72135.WBPS18.annotations.gff3
 
 Using the commands that you learned yesterday, we can manipulate these files to extract all sorts of information. Break down the following commands to understand what each section is doing:
 
+You can see that we'll be using the ```awk``` command a lot. The ```awk``` command is a powerful text processing tool commonly used in Unix and Linux environments. It allows you to manipulate and analyze structured data, such as text files or output from other commands, based on patterns and actions defined by you.
+
 To extract the names all of the gene features on scaffold "KI657457":
 
 ```bash
@@ -541,7 +509,10 @@ We offer examples on how to use these in several different programming languages
 curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?' -H 'Content-type:application/json'
 ```
 
-Note: we’ve also added the L (full name: --location) flag to the curl command, and changed “rest-15” to “rest” in the URL. “rest-18” refers to the 15th release of WormBase ParaSite; by removing the version number the request is automatically redirected to the most recent release. The L flag tells curl to allow this redirection.
+Note: 
+* we’ve also added the L (full name: --location) flag to the curl command, and changed “rest-18” to “rest” in the URL. “rest-18” refers to the 18th release of WormBase ParaSite; by removing the version number the request is automatically redirected to the most recent release.
+The L flag tells curl to allow this redirection.
+* The -s option is used silence or suppress the progress meter and error messages during the request.
 
 You will see a lot of text! This is the data that we requested, in JSON format.
 
@@ -705,7 +676,13 @@ Feel free to expand or tweak your programs if you have time!
 ---
 ## The WormBase ParaSite Expression browser <a name="expression_data"></a>
 
-Earlier in this section, we looked at a gene in JBrowse and used RNAseq tracks to see in which life stages it was expressed. What if you were interested in transcriptional differences between life stages, but didn't have a specific gene in mind? You might want to retrieve **all** of the _S. mansoni_ genes that are differentially expressed between 2 life cycle stages. WormBase ParaSite has collated RNAseq data from publicly available studies and analysed it against our genomes and annotations. This means that if somebody has already conducted a study to compare the conditions that you're interested in, you can look up pre-calculated differentially expressed genes. 
+Earlier in this section, we looked at a gene in JBrowse and used RNAseq tracks to see in which life stages it was expressed. What if you were interested in transcriptional differences between life stages, but didn't have a specific gene in mind?
+
+You might want to retrieve **all** of the _S. mansoni_ genes that are differentially expressed between 2 life cycle stages. 
+
+WormBase ParaSite has collated RNAseq data from publicly available studies and analysed it against our genomes and annotations.
+
+This means that if somebody has already conducted a study to compare the conditions that you're interested in, you can look up pre-calculated differentially expressed genes. 
 
 1. Navigate back to the _S. mansoni_ genome landing page, and select "Gene expression"
 
