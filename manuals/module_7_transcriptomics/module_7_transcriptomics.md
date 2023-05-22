@@ -138,14 +138,14 @@ Use the following command on your Terminal window.
 
 ```bash 
 # Go to the location of the reference genome
-cd /<path/to/data>/Module_7_Transcriptomics/References_v5/
+cd /<path/to/data>/Module_7_Transcriptomics/References_v10/
 
 # Unzip the reference genome file
-gunzip Sm_v5_genome.fa.gz
+gunzip Sm_v10_genome.fa.gz
 
 # Index reference genome so that it can be read by HISAT2
 # The template for indexing command is hisat2-build <reference genome in .fa> <prefix for the index file>
-hisat2-build Sm_v5_genome.fa Sm_v5_genome.hisat2idx
+hisat2-build Sm_v10_genome.fa Sm_v10_genome.hisat2idx
 
 # ...Wait for the indexing step... This will take about 5-10 minutes...
 
@@ -162,11 +162,11 @@ As mentioned before, the RNA-seq data for our experiment have been mapped for yo
 Try `hisat2 --help` to find out what the additional arguments mean.
 ```bash
 # For RNA-seq that come from single-end sequencing
-hisat2 --max-intronlen 40000 -x ../References_v5/Sm_v5_genome.hisat2idx -q ../RNAseq_data/Sm_SE.fastq -S Sm_SE.sam
+hisat2 --max-intronlen 40000 -x ../References_v10/Sm_v10_genome.hisat2idx -q ../RNAseq_data/Sm_SE.fastq -S Sm_SE.sam
 
 # For RNA-seq that come from paired-end sequencing
 # How does the command differ from the one above  for single-end data? 
-hisat2 --max-intronlen 40000 -x ../References_v5/Sm_v5_genome.hisat2idx -1 ../RNAseq_data/Sm_PE_1.fastq -2 ../RNAseq_data/Sm_PE_2.fastq -S Sm_PE.sam
+hisat2 --max-intronlen 40000 -x ../References_v10/Sm_v10_genome.hisat2idx -1 ../RNAseq_data/Sm_PE_1.fastq -2 ../RNAseq_data/Sm_PE_2.fastq -S Sm_PE.sam
 ```
 
 The **alignment rate** will be shown on the screen. What do you think about the alignment rate of this mapping? 
@@ -207,48 +207,53 @@ The file that contains annotated information of a genome is known as GFF (Genera
 ![](figures/gtf.png)
 **Figure 5.** Example of a GTF file
 
-Use HTSeq-count to calculate the number of reads mapped to each gene
-See https://htseq.readthedocs.io/en/release_0.11.1/count.html or do `htseq-count --help` to see meaning of these options. The manual and `--help` option can also be useful if you encounter an error message.
+Use featureCounts in Subread/Rsubreadpackages to calculate the number of reads mapped to each gene
+See https://subread.sourceforge.net/featureCounts.html or do `featureCounts --help` to see meaning of these options. The manual and `--help` option can also be useful if you encounter an error message.
 
 ```bash
 # First, unzip the GTF file so that it can be read by htseq-count
-# Go to Reference_v5 directory which is where the file is kept
-cd ../References_v5/
-ls  # you should see a file called Sm_v5_canonical_geneset.gtf.gz
-gunzip Sm_v5_canonical_geneset.gtf.gz
-ls  # now the file Sm_v5_canonical_geneset.gtf.gz should become Sm_v5_canonical_geneset.gtf
+# Go to Reference_v10 directory which is where the file is kept
+cd ../References_v10/
+ls  # you should see a file called Sm_v10_canonical_geneset.gtf.gz
+gunzip Sm_v10_canonical_geneset.gtf.gz
+ls  # now the file Sm_v10_canonical_geneset.gtf.gz should become Sm_v10_canonical_geneset.gtf
 
 # Go back to Mapping directory
 cd ../Mapping/
 
-# Run htseq-count
-# htseq-count <various options> <sorted BAM file> <GTF or GFF file with gene annotation>
+# Run featureCounts
+# featureCounts <various options> <sorted BAM file> <GTF or GFF file with gene annotation>
 # For Sm_PE_sorted.bam file
 # The > means 'take the screen output to this file'
-htseq-count -a 30 -t CDS -i gene_id -s yes -m union Sm_PE_sorted.bam ../References_v5/Sm_v5_canonical_geneset.gtf > Sm_PE_htseqcount.txt
+featureCounts -p -B -t 'CDS' -g 'Parent' -T 1 -a ../References_v10/Sm_v10_canonical_geneset.gtf -o Sm_PE_featureCounts.txt Sm_PE_sorted.bam
+
 
 # Now try it yourself for the Sm_SE_sorted.bam file
 ?????
 
-# Explore one of the HTSeq-count output files
+# Explore one of the featureCounts output files
 # Use up-down arrows to move long the files, or press the spacebar or D to move down a page, press B to move up a page
 less Sm_PE_htseqcount.txt
+
+# Cut only column 'GeneID' and readcounts
+cut -f1,7 Sm_PE_featureCounts.txt | cut -d':' -f2 > Sm_PE_Counts.txt
+
 ```
 
-Output from HTSeq-count contain `STDOUT` (standard out; telling progress and key steps while the tool is running) and `STDERR` (standard error; error or warning messages) followed by the number of reads that mapped to each gene. We only need the read count information for downstream analyses. 
+Output from featureCounts contain `STDOUT` (standard out; telling progress and key steps while the tool is running) and `STDERR` (standard error; error or warning messages) followed by the number of reads that mapped to each gene. We only need the read count information for downstream analyses. 
 
 ```bash
 # Create a directory called “final_counts” to keep count files
 mkdir final_counts
 
-# Filter HTSeq-count output files into a new file, keeping just the lines with gene IDs (Smp for S. mansoni) and their read counts 
-grep "^Smp" Sm_PE_htseqcount.txt
+# Filter featureCounts output files into a new file, keeping just the lines with gene IDs (Smp for S. mansoni) and their read counts 
+grep "^Smp" Sm_PE_Counts.txt
 
 # That output way too much stuff on the screen, try `head` command to output just the first 10 lines
-grep "^Smp" Sm_PE_htseqcount.txt | head 
+grep "^Smp" Sm_PE_Counts.txt | head 
 
 # What we want here is to grep lines that start with Smp from a file, then sort the grep output, write this sorted output to a new file
-grep "^Smp" Sm_PE_htseqcount.txt | sort > final_counts/Sm_PE_htseqcount.final
+grep "^Smp" Sm_PE_Counts.txt | sort > final_counts/Sm_PE_featureCounts.final
 
 # Now try it yourself for the Sm_SE_sorted.bam file
 ?????
@@ -256,7 +261,7 @@ grep "^Smp" Sm_PE_htseqcount.txt | sort > final_counts/Sm_PE_htseqcount.final
 
 We should now have files containing the number of reads mapped to each gene within each demo samples. Next step, we will import read count data into R and run differential expression analysis. 
 
-We mapped and performed read counting for two example samples so far, the real samples have been done for you and are in a directory called  `v5counts`.
+We mapped and performed read counting for two example samples so far, the real samples have been done for you and are in a directory called  `v10counts`.
 
 ---
 [↥ **Back to top**](#top)
@@ -319,16 +324,16 @@ We will tell R where the read count data are kept, and then create a table with 
 
 ```R
 # Tell the location of the read count files
-# Create a datadir object to keep the path to the directory v5counts in your module 7 files
-datadir <- "/<path/to/data>/v5counts/" 
+# Create a datadir object to keep the path to the directory v10counts in your module 7 files
+datadir <- "/<path/to/data>/v10counts/" 
 
 # list files in this directory, output as an R vector
 list.files(datadir)   # this should list 22 files
 sampleFiles <- list.files(datadir)    # this save that 22 file names into a new R object		
 
 # Create sample names
-# split the name at “_v5.counts” and keep the resulting output in a new vector
-name <- unlist(strsplit(sampleFiles, split = "_v5.counts", perl = TRUE))
+# split the name at “_v10.counts” and keep the resulting output in a new vector
+name <- unlist(strsplit(sampleFiles, split = "_v10.counts", perl = TRUE))
 name
 
 # Create metadata information - match with sample names
@@ -381,7 +386,8 @@ plotPCA(rld, intgroup = c("condition"))
 ```
 
 You should get something similar to this. 
-![](figures/pca.png)
+![](figures/fig-7_PCA.png)
+
 **Figure 7.** PCA plot
 
 Save the plot to PDF file using `dev.copy()` function. `dev` mean device, and this refers to the plotting space in your RStudio, as well as a new "device" that is opened as a new file on your computer. Once the plotting to a new "device" is done, we must do `dev.off()` to close the device so that the plot can be viewed. 
@@ -451,7 +457,8 @@ ylab(paste0("PC2: ", percentVar[2], "% variance")) +
 theme(text = element_text(size = 15))
 ```
 
-![](figures/ggplotpca.png)
+![](figures/fig-8_PCAshape_color.png)
+
 **Figure 8.** PCA plot produced by ggplot2
 
 ---
@@ -486,7 +493,8 @@ pheatmap(sampleDistMatrix, clustering_distance_rows = sampleDist, clustering_dis
 ```
 
 This should output a plot similar to one below
-![](figures/sampleheatmap.png)
+![](figures/fig-9_heatmap_blue.png)
+
 **Figure 9.** Sample heatmap
 
 ```R
@@ -521,7 +529,8 @@ The result table contains several columns, of which the most relevant are:
 - Column 2: log2FoldChange, in this table below, of D35 / D06
 - Column 6: padj, adjusted p-value, p-value corrected for multiple testing
 
-![](figures/deseqres.png)
+![](figures/fig-10_result_table.png)
+
 **Figure 10.** Example of DESeq2 result table
 
 ### Log2 fold change
@@ -588,7 +597,8 @@ plotMA(res_D13D06, ylim = c(-13,8), main = "log2 fold changes day-13 VS day-6 S.
 abline(h = c(-1,1))
 ```
 
-![](figures/maPlot.png)
+![](figures/fig-11_MAplot.png)
+
 **Figure 11.** MA plot
 
 **Volcano plot**
@@ -613,7 +623,8 @@ ylab(expression(paste('-', log[10],' adjusted p-value'))) +
 ggtitle("D13 VS D06")
 ```
 
-![](figures/volcano.png)
+![](figures/fig-12_volcano.png)
+
 **Figure 12.** Volcano plot
 
 **Individual plot for a gene**
@@ -632,7 +643,8 @@ scale_y_continuous(trans = "log10") +
 ggtitle("Smp_022450.2") 
 ```
 
-![](figures/genePlot.png)
+![](figures/fig-13_individualgeneplot.png)
+
 **Figure 13.** Gene plot
 
 **Gene heatmap**
@@ -659,7 +671,8 @@ rld_res_D13D06_top20_genes <- assay(rld)[which(rownames(assay(rld)) %in% res_D13
 pheatmap(rld_res_D13D06_top20_genes)
 ```
 
-![](figures/geneheatmap1.png)
+![](figures/fig-14_pheatmap-default.png)
+
 **Figure 14.** Heatmap - default setting
 
 The default plot look quite messy. The rows are annotated with gene IDs, and their writing overlap due to limited space. The column annotations are also long and contain excess information. 
@@ -685,7 +698,8 @@ fontsize = 10,
 main = "Top 20 DE genes: day-13 / day-6")
 ```
 
-![](figures/geneheatmap2.png)
+![](figures/fig-15_pheatmap-custom.png)
+
 **Figure 15.** Heatmap - customised
 
 ---
@@ -738,13 +752,14 @@ length(D13D06_upinD13)
 # - reference GO annotation (GO terms associated with each gene)
 # - list of genes to test for GO enrichment
 # - threshold for calling “significant” enrichment
-topGO_D13D06_upinD13  <- run_topGO_R(ref = "/<path to data>/Module_7_Transcriptomics/References_v5/Sm_v5_GOref_topGO.txt", genelist = D13D06_upinD13, thres = 0.05)
+topGO_D13D06_upinD13  <- run_topGO_R(ref = "/<path to data>/Module_7_Transcriptomics/References_v10/Sm_v10_GOref_topGO.txt", genelist = D13D06_upinD13, thres = 0.05)
 
 # Check topGO result. Column 1 to 7 are standard topGO output; column 8 give a list of input genes with that GO term. We won’t look at that at the moment. 
 topGO_D13D06_upinD13[,1:7]
 ```
 
-![](figures/topGOres.png)  
+![](figures/fig-16_topGO-table.png)  
+
 **Figure 16.** Example of topGO result
 
 ---
