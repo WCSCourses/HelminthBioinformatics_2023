@@ -13,16 +13,16 @@ output:
 
 ## Table of contents
 1. [Overview and Aims](#aims)
-2. [Tools](#tools)
+2. [Accessing WormBase ParaSite data programmatically](#programmatic_access)
+    * [Working with sequence and annotation files](#files)
+    * [The REST API](#api)
+      * [EXERCISE](#api_exercises)
+3. [Tools](#tools)
     * [BLAST](#blast)
       * [EXERCISE](#blast_exercise)
     * [The genome browser](#genome_browser)
     * [VEP](#vep)
       * [EXERCISE](#vep_exercise)
-3. [Accessing WormBase ParaSite data programmatically](#programmatic_access)
-    * [Working with sequence and annotation files](#files)
-    * [The REST API](#api)
-      * [EXERCISE](#api_exercises)
 4. [The WormBase ParaSite Expression browser](#expression_data)
       * [EXERCISE](#expression_exercise)
 5. [Gene-set enrichment analysis](#gene-set)
@@ -42,6 +42,335 @@ We will start by looking at commonly-used tools in WBPS:
 We will then go on to apply some of the command line skills that you were introduced to in module 2 to explore WormBase ParaSite data programmatically.
 
 Finally, the module ends with a Bonus section introducing our Expression browser.
+
+
+## Accessing WormBase ParaSite data programmatically <a name="programmatic_access"></a>
+
+So far we've seen how you can interact with WormBase ParaSite data via a web browser, and how to query data in bulk using BioMart.
+
+In section we'll look at ways that you can interact with the same data but from the command line- first by downloading and processing files, and second via our REST API.
+
+We'll use some of the tools that you were introduced to in module 2 to do this.
+<br>
+<br>
+### Working with sequence and annotation files <a name="files"></a>
+
+For some analysis tasks you will need to download large data files. For example, if running software to align sequencing reads to the genome you'll need a genome FASTA file (we met this format earlier). If you want to see which genes your reads overlap, we'll need a [GFF](https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md) or [GTF](https://mblab.wustl.edu/GTF22.html) file. Sometimes, extracting data from a file is just the quickest way to get the information you need. Such files are accessible on WormBase ParaSite in two ways:
+
+1. On each genome landing page, in the Downloads section
+2. Via our structured FTP site, which you can access here: http://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/current/species/
+
+![](figures/files_1.png)
+
+Note first of all that all of the files are compressed (gzipped) to save space. You can tell by the ".gz" file extension. 
+
+The files come in three flavours:
+
+- **FASTA files**<br>FASTA files have a ".fa" extension. We met this format in module 1. They are sequence files, with a header line (denoted by ">") followed by a nucleotide or amino acid sequence on the next line. We provide three types of annotation FASTA file - proteins, CDS sequences and full length mRNA sequences. We also provide genome FASTA files: these may be soft-masked, hard-masked or not masked at all. Masking is the process of marking up repetitive or low complexity sequences in the genome: "hard-masking" means replacing these bases with Ns, whereas "soft-masking" means making them lower-case. Many bioinformatics software packages are designed to work with soft-masked genomes.
+
+- **Annotation files**<br>Annotation files have information about genomic features, such as genes. They come in two common formats, GFF (general feature format) and GTF (general transfer format), with the extenions ".gff3" and ".gtf" respectively. The full specification is available elsewhere (http://gmod.org/wiki/GFF3), but in short: each line describes a single feature, and related features can be linked together in a parent/child hierarchy. For example, an exon feature's parent might be an mRNA feature, and that mRNA's parent will be a gene feature:
+  ```
+  KI657455        WormBase_imported       gene    25      387     .       -       .       ID=gene:NECAME_00001;Name=NECAME_00001;biotype=protein_coding
+  KI657455        WormBase_imported       mRNA    25      387     .       -       .       ID=transcript:NECAME_00001;Parent=gene:NECAME_00001;Name=NECAME_00001
+  KI657455        WormBase_imported       exon    362     387     .       -       .       ID=exon:NECAME_00001.1;Parent=transcript:NECAME_00001
+  KI657455        WormBase_imported       exon    25      277     .       -       .       ID=exon:NECAME_00001.2;Parent=transcript:NECAME_00001
+  KI657455        WormBase_imported       CDS     362     387     .       -       0       ID=cds:NECAME_00001;Parent=transcript:NECAME_00001
+  KI657455        WormBase_imported       CDS     25      277     .       -       1       ID=cds:NECAME_00001;Parent=transcript:NECAME_00001
+  ```
+
+- **Ortholog/paralog files**<br>Finally, we provide a TSV (tab-separated variable) file for each genome containing calculated ortholog and paralog relationships for all genes in the genome.
+
+#### Walk through examples
+
+1. First of all, move to the module's specific directory:
+```bash
+cd ~/Module_3_WormBaseParaSite_2
+```
+
+```wget``` is a handy utility for retrieving online files including the ones from the FTP. The following will pull down the _Necator americanus_ GFF3 file into your working directory:
+
+```bash
+wget http://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/current/species/necator_americanus/PRJNA72135/necator_americanus.PRJNA72135.WBPS18.annotations.gff3.gz
+
+```
+
+Unzip the file and have a look at the contents:
+
+```bash
+gzip -d necator_americanus.PRJNA72135.WBPS18.annotations.gff3.gz
+less necator_americanus.PRJNA72135.WBPS18.annotations.gff3
+```
+
+Using the commands that you learned yesterday, we can manipulate these files to extract all sorts of information. Break down the following commands to understand what each section is doing:
+
+You can see that we'll be using the ```awk``` command a lot. The ```awk``` command is a powerful text processing tool commonly used in Unix and Linux environments. It allows you to manipulate and analyze structured data, such as text files or output from other commands, based on patterns and actions defined by you.
+
+To extract the names all of the gene features on scaffold "KI657457":
+
+```bash
+
+# There are various ways to achieve this
+
+# One is:
+grep "^KI657457" necator_americanus.PRJNA72135.WBPS18.annotations.gff3 | grep "\tgene\t" | cut -f9 | grep -o "Name=[^;]\+" | sed -e 's/Name=//'
+
+# Another more specific one is:
+grep -v "#"  necator_americanus.PRJNA72135.WBPS18.annotations.gff3  | awk '$3~/gene/ && $1~/KI657457/ {print}'  | grep -o "Name=[^;]\+" | sed -e 's/Name=//' 
+```
+
+Count how many genes each scaffold is annotated with:
+
+```bash
+# One way to do it:
+grep "\tgene\t" necator_americanus.PRJNA72135.WBPS18.annotations.gff3 | cut -f1 | sort | uniq -c
+
+# Another way:
+grep -v "#"  necator_americanus.PRJNA72135.WBPS18.annotations.gff3  | awk '$3~/gene/{print}'  | cut -f 1 | sort | uniq -c
+```
+
+Similarly, using the protein FASTA file:
+
+```bash
+# download the file
+wget https://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/current/species/necator_americanus/PRJNA72135/necator_americanus.PRJNA72135.WBPS18.protein.fa.gz
+
+# unzip 
+gzip -d necator_americanus.PRJNA72135.WBPS18.protein.fa.gz
+
+# count the number of proteins
+grep -c "^>" necator_americanus.PRJNA72135.WBPS18.protein.fa
+
+# extract the sequence of NECAME_00165
+sed -n -e "/NAME_00165/,/^>/p" necator_americanus.PRJNA72135.WBPS18.protein.fa | sed -e '$d'
+```
+
+And a more complicated ```awk``` to extract scaffold lengths in a genome FASTA file:
+
+```bash
+# download the file
+wget  https://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/current/species/necator_americanus/PRJNA72135/necator_americanus.PRJNA72135.WBPS18.genomic.fa.gz
+
+# unzip 
+gzip -d necator_americanus.PRJNA72135.WBPS18.genomic.fa.gz
+
+# count the lengths
+awk '/^>/ { 
+  if (seqlen) {while 
+    print seqlen
+  }
+  split($1, header, " ")
+  print header[1]
+  seqlen = 0
+  next
+}
+{
+  seqlen += length($0)
+}
+END {print seqlen}'  necator_americanus.PRJNA72135.WBPS18.genomic.fa
+```
+[↥ **Back to top**](#top)
+
+### The REST API <a name="api"></a>
+
+The other way to query WormBase ParaSite data is via the REST API (Application Programming Interface). An API is just another way to retrieve data from a server, but this time via scripts or commands. You make a request to the server, but rather than returning a webpage, it returns the data in a structured format. We offer data in JSON (JavaScript Object Notation) and XML (Extensible Markup Language), which are both commonly used formats for data exchange. They are structured, so good for writing programs to interpret and manipulate them, but also human readable.
+
+There are a few situations where accessing WormBase ParaSite data via the API might be the better choice over BioMart or the website:
+
+1. For queries that you’re likely to have to run multiple times (for example, with different datasets, or against different genomes)
+
+2. For queries that plug into a larger pipeline, it might be convenient to retrieve the data in an easily computer-processable format
+
+3. Some types of data are not available in BioMart (such as CEGMA and BUSCO scores), and can only be accessed via the website or the API
+
+In an earlier exercise, you used the assembly statistics widget on the genome page to compare _Brugia sp._ genome assemblies. In this example, we’ll do the same for the _Meloidogyne sp._ assemblies, using the API.
+
+1. From the WormBase ParaSite home page, select “REST API” from the toolbar.
+
+![](figures/rest_1.png)
+
+This page details the available REST endpoints: endpoints are URLs that accept API requests, and return data. Read the descriptions of the different resources to see the types of data that you can retrieve from the WormBase ParaSite API.
+
+We want to retrieve the CEGMA and BUSCO scores of all of the _Meloidogyne sp._ assemblies in WormBase ParaSite. We’ll break the problem down into two steps: first, we’ll use the API to retrieve the names of all the _Meloidogyne sp._ assemblies that are available, then we’ll use those names to specify which assemblies we want to retrieve the CEGMA and BUSCO scores for.
+
+2. Scroll down to the “Information” section and select the taxonomy endpoint
+
+![](figures/rest_2.png)
+
+3. Scroll down to look at the example request
+
+![](figures/rest_3.png)
+
+We offer examples on how to use these in several different programming languages - feel free to stick to the language you know best. Here, we’ll demonstrate how to use the command line tool curl. Open a terminal and copy or type the ```curl``` command below.
+
+4. We’re interested in Meloidogyne sp., so replaced “Brugia” (in the WBPS example) with “Meloidogyne”.
+
+```bash
+curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?' -H 'Content-type:application/json'
+```
+
+Note: 
+* we’ve also added the L (full name: --location) flag to the curl command, and changed “rest-18” to “rest” in the URL. “rest-18” refers to the 18th release of WormBase ParaSite; by removing the version number the request is automatically redirected to the most recent release.
+The L flag tells curl to allow this redirection.
+* The -s option is used silence or suppress the progress meter and error messages during the request.
+
+You will see a lot of text! This is the data that we requested, in JSON format.
+
+5. To format the response more nicely, pipe the output into another command line tool, ```jq```. ```jq``` allows us to manipulate JSON data on the command line (see the manual for more information on its usage: https://stedolan.github.io/jq/manual/).
+
+```bash
+curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?' -H 'Content-type:application/json'  | jq '.'
+```
+
+You should see the data now formatted like this:
+
+```bash
+[
+  {
+    "base_count": "258067405",
+    "is_reference": "0",
+    "division": "EnsemblParasite",
+    "has_peptide_compara": "0",
+    "assembly_accession": "GCA_900003985.1",
+    "assembly_level": "scaffold",
+    "genebuild": "2018-05-WormBase",
+    "organism_id": "86",
+    "serotype": null,
+    "has_pan_compara": "0",
+    "assembly_ucsc": null,
+    "has_variations": "0",
+    "name": "meloidogyne_arenaria_prjeb8714",
+    "has_other_alignments": "1",
+    "assembly_name": "ASM90000398v1",
+    "has_synteny": "0",
+    "display_name": "Meloidogyne arenaria (PRJEB8714)",
+    "url_name": "Meloidogyne_arenaria_prjeb8714",
+    "taxonomy_id": "6304",
+    "scientific_name": "Meloidogyne arenaria",
+    "assembly_id": "86",
+    "strain": null,
+    "assembly_default": "ASM90000398v1",
+    "has_genome_alignments": "0",
+    "species_taxonomy_id": "6304",
+    "data_release_id": "1"
+  },
+
+```
+
+JSON-formatted data consists of key-value pairs. A series of key-value pairs separated by commas and enclosed in curly brackets is a JSON object. Here, we have a JSON object for each _Meloidogyne sp._ assembly. The JSON objects are in a list (an array), which is enclosed by square brackets.
+
+6. Extract the name of each genome using jq from the output above:
+```bash
+curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?' -H'Content-type:application/json' | jq -r '.[] | .name'
+```
+Here, '.[]' returns each element of the array (each assembly) one at a time, and '.name' extracts the value of the 'name' key for each of these elements.
+
+You should see:
+
+```bash
+meloidogyne_arenaria_prjeb8714
+meloidogyne_arenaria_prjna340324
+meloidogyne_arenaria_prjna438575
+meloidogyne_chitwoodi_race1prjna666745
+meloidogyne_enterolobii_prjna340324
+meloidogyne_floridensis_prjeb6016
+meloidogyne_floridensis_prjna340324
+meloidogyne_graminicola_prjna411966
+meloidogyne_hapla_prjna29083
+meloidogyne_incognita_prjeb8714
+meloidogyne_incognita_prjna340324
+meloidogyne_javanica_prjeb8714
+meloidogyne_javanica_prjna340324
+```
+
+6. Put the list of species names in a file in your working directory:
+     
+```bash
+curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?' -H 'Content-type:application/json'  | jq -r '.[] | .name' > species.txt
+```
+
+7. The next endpoint that we need is the quality endpoint. Find it on the WormBase ParaSite API endpoint page and have a look at the example.0
+
+![](figures/rest_4.png)
+
+8. We will need to replace the species name in the URL, and make a separate request for each species. We can write a small loop in bash, reading from our species file, to achieve this:
+
+```bash
+while read species; do 
+   curl -sL "https://parasite.wormbase.org/rest/info/quality/$species?" -H 'Content-type:application/json' 
+done < species.txt
+```
+
+9. Again, we need to format the JSON nicely to make the output more readable:
+
+```bash
+while read species; do 
+   curl -sL "https://parasite.wormbase.org/rest/info/quality/$species?" -H 'Content-type:application/json' | jq '.' 
+done < species.txt
+```
+
+10. We’ll now produce a file with just the percentages of complete BUSCO assembly and BUSCO annotation genes for each species:
+
+```bash
+while read species; do 
+   completeness_score=$(curl -sL "https://parasite.wormbase.org/rest/info/quality/$species?" -H 'Content-type:application/json' | jq -r '.busco_assembly.complete,
+.busco_annotation.complete' )  
+   echo $species $completeness_score >> assembly_completeness.txt
+done < species.txt
+```
+
+11. Finally, sort that file by BUSCO annotation score:
+
+```bash
+sort -n -r -k3,3 assembly_completeness.txt
+
+meloidogyne_arenaria_prjeb8714 65.1 76.5
+meloidogyne_javanica_prjeb8714 61.1 75.5
+meloidogyne_incognita_prjeb8714 61.8 75.4
+meloidogyne_arenaria_prjna438575 57.9 74.4
+meloidogyne_hapla_prjna29083 60.1 59.8
+meloidogyne_graminicola_prjna411966 40.7 58.9
+meloidogyne_javanica_prjna340324 57.7 57.8
+meloidogyne_arenaria_prjna340324 55.7 54.9
+meloidogyne_incognita_prjna340324 52.6 54.4
+meloidogyne_enterolobii_prjna340324 49.7 54.1
+meloidogyne_floridensis_prjna340324 49.9 46.5
+meloidogyne_chitwoodi_race1prjna666745 57.8 45.9
+meloidogyne_floridensis_prjeb6016 29.7 43.9
+```
+We can see that _M. arenaria_ is the assembly with the highest BUSCO Annotation score.
+
+[↥ **Back to top**](#top)
+
+---
+#### API exercises <a name="api_exercises"></a> 
+
+Adapt the commands that you used above to retrieve the following information from the WormBase ParaSite API. Note that you’ll need to use different endpoints: browse the site to see which ones to use.
+
+1. List the _Meloidogyne sp._ assemblies by size, smallest to largest.
+2. Retrieve the protein sequence of the guinea worm transcript DME_0000938001-mRNA-1.
+3. Write a small program, `get_sequence_for_transcript.sh`, that takes any transcript ID as an argument and returns its protein sequence. For example, running
+
+```bash
+./get_sequence_for_transcript.sh DME_0000938001-mRNA-1
+```    
+should print:
+```bash
+MAKHNAVGIDLGTTYSC...
+```
+(Hint: shell scripts put arguments from the command line into special variables, named $1, $2 etc )
+
+4. Retrieve a GFF file of all of the genes located on the AgB01 scaffold of the Ascaris suum PRJNA62057 assembly, between the following coordinates: 5284000 to 5836000.
+
+5. Write a program, `retrieve_genes_in_region.sh` which takes species, scaffold, start and end coordinates as arguments and can return the above for any given region. For example, calling
+
+```bash
+./retrieve_genes_in_region.sh ascaris_suum_prjna62057 AgB01 5284000 5836000
+```
+should print the same result as question 4.
+
+Feel free to expand or tweak your programs if you have time!
+
+[↥ **Back to top**](#top)
 
 ---
 ## Tools <a name="tools"></a>
@@ -352,324 +681,6 @@ Hint: to view the VCF in JBrowse you first need to compress and index it. Do:
 ```bash
 bgzip file.vcf && tabix -p vcf file.vcf.gz
 ```
-
-[↥ **Back to top**](#top)
-
----
-## Accessing WormBase ParaSite data programmatically <a name="programmatic_access"></a>
-
-So far we've seen how you can interact with WormBase ParaSite data via a web browser, and how to query data in bulk using BioMart.
-
-In this final section we'll look at ways that you can interact with the same data but from the command line- first by downloading and processing files, and second via our REST API.
-
-We'll use some of the tools that you were introduced to in module 2 to do this.
-<br>
-<br>
-### Working with sequence and annotation files <a name="files"></a>
-
-For some analysis tasks you will need to download large data files. For example, if running software to align sequencing reads to the genome you'll need a genome FASTA file (we met this format earlier). If you want to see which genes your reads overlap, we'll need a [GFF](https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md) or [GTF](https://mblab.wustl.edu/GTF22.html) file. Sometimes, extracting data from a file is just the quickest way to get the information you need. Such files are accessible on WormBase ParaSite in two ways:
-
-1. On each genome landing page, in the Downloads section
-2. Via our structured FTP site, which you can access here: http://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/current/species/
-
-![](figures/files_1.png)
-
-Note first of all that all of the files are compressed (gzipped) to save space. You can tell by the ".gz" file extension. 
-
-The files come in three flavours:
-
-- **FASTA files**<br>FASTA files have a ".fa" extension. We met this format in module 1. They are sequence files, with a header line (denoted by ">") followed by a nucleotide or amino acid sequence on the next line. We provide three types of annotation FASTA file - proteins, CDS sequences and full length mRNA sequences. We also provide genome FASTA files: these may be soft-masked, hard-masked or not masked at all. Masking is the process of marking up repetitive or low complexity sequences in the genome: "hard-masking" means replacing these bases with Ns, whereas "soft-masking" means making them lower-case. Many bioinformatics software packages are designed to work with soft-masked genomes.
-
-- **Annotation files**<br>Annotation files have information about genomic features, such as genes. They come in two common formats, GFF (general feature format) and GTF (general transfer format), with the extenions ".gff3" and ".gtf" respectively. The full specification is available elsewhere (http://gmod.org/wiki/GFF3), but in short: each line describes a single feature, and related features can be linked together in a parent/child hierarchy. For example, an exon feature's parent might be an mRNA feature, and that mRNA's parent will be a gene feature:
-  ```
-  KI657455        WormBase_imported       gene    25      387     .       -       .       ID=gene:NECAME_00001;Name=NECAME_00001;biotype=protein_coding
-  KI657455        WormBase_imported       mRNA    25      387     .       -       .       ID=transcript:NECAME_00001;Parent=gene:NECAME_00001;Name=NECAME_00001
-  KI657455        WormBase_imported       exon    362     387     .       -       .       ID=exon:NECAME_00001.1;Parent=transcript:NECAME_00001
-  KI657455        WormBase_imported       exon    25      277     .       -       .       ID=exon:NECAME_00001.2;Parent=transcript:NECAME_00001
-  KI657455        WormBase_imported       CDS     362     387     .       -       0       ID=cds:NECAME_00001;Parent=transcript:NECAME_00001
-  KI657455        WormBase_imported       CDS     25      277     .       -       1       ID=cds:NECAME_00001;Parent=transcript:NECAME_00001
-  ```
-
-- **Ortholog/paralog files**<br>Finally, we provide a TSV (tab-separated variable) file for each genome containing calculated ortholog and paralog relationships for all genes in the genome.
-
-#### Walk through examples
-
-1. First of all, move to the module's specific directory:
-```bash
-cd ~/Module_3_WormBaseParaSite_2
-```
-
-```wget``` is a handy utility for retrieving online files including the ones from the FTP. The following will pull down the _Necator americanus_ GFF3 file into your working directory:
-
-```bash
-wget http://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/current/species/necator_americanus/PRJNA72135/necator_americanus.PRJNA72135.WBPS18.annotations.gff3.gz
-
-```
-
-Unzip the file and have a look at the contents:
-
-```bash
-gzip -d necator_americanus.PRJNA72135.WBPS18.annotations.gff3.gz
-less necator_americanus.PRJNA72135.WBPS18.annotations.gff3
-```
-
-Using the commands that you learned yesterday, we can manipulate these files to extract all sorts of information. Break down the following commands to understand what each section is doing:
-
-You can see that we'll be using the ```awk``` command a lot. The ```awk``` command is a powerful text processing tool commonly used in Unix and Linux environments. It allows you to manipulate and analyze structured data, such as text files or output from other commands, based on patterns and actions defined by you.
-
-To extract the names all of the gene features on scaffold "KI657457":
-
-```bash
-grep -v "#"  necator_americanus.PRJNA72135.WBPS18.annotations.gff3  | awk '$3~/gene/ && $1~/KI657457/ {print}'  | grep -o "Name=[^;]\+" | sed -e 's/Name=//' 
-```
-
-Count how many genes each scaffold is annotated with:
-
-```bash
-grep -v "#"  necator_americanus.PRJNA72135.WBPS18.annotations.gff3  | awk '$3~/gene/{print}'  | cut -f 1 | sort | uniq -c
-```
-
-Similarly, using the protein FASTA file:
-
-```bash
-# download the file
-wget https://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/current/species/necator_americanus/PRJNA72135/necator_americanus.PRJNA72135.WBPS18.protein.fa.gz
-
-# unzip 
-gzip -d necator_americanus.PRJNA72135.WBPS18.protein.fa.gz
-
-# count the number of proteins
-grep -c "^>" necator_americanus.PRJNA72135.WBPS18.protein.fa
-
-# extract the sequence of NECAME_00165
-sed -n -e "/NAME_00165/,/^>/p" necator_americanus.PRJNA72135.WBPS18.protein.fa | sed -e '$d'
-```
-
-And a more complicated ```awk``` to extract scaffold lengths in a genome FASTA file:
-
-```bash
-# download the file
-wget  https://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/current/species/necator_americanus/PRJNA72135/necator_americanus.PRJNA72135.WBPS18.genomic.fa.gz
-
-# unzip 
-gzip -d necator_americanus.PRJNA72135.WBPS18.genomic.fa.gz
-
-# count the lengths
-awk '/^>/ { 
-  if (seqlen) {while 
-    print seqlen
-  }
-  split($1, header, " ")
-  print header[1]
-  seqlen = 0
-  next
-}
-{
-  seqlen += length($0)
-}
-END {print seqlen}'  necator_americanus.PRJNA72135.WBPS18.genomic.fa
-```
-[↥ **Back to top**](#top)
-
-### The REST API <a name="api"></a>
-
-The other way to query WormBase ParaSite data is via the REST API (Application Programming Interface). An API is just another way to retrieve data from a server, but this time via scripts or commands. You make a request to the server, but rather than returning a webpage, it returns the data in a structured format. We offer data in JSON (JavaScript Object Notation) and XML (Extensible Markup Language), which are both commonly used formats for data exchange. They are structured, so good for writing programs to interpret and manipulate them, but also human readable.
-
-There are a few situations where accessing WormBase ParaSite data via the API might be the better choice over BioMart or the website:
-
-1. For queries that you’re likely to have to run multiple times (for example, with different datasets, or against different genomes)
-
-2. For queries that plug into a larger pipeline, it might be convenient to retrieve the data in an easily computer-processable format
-
-3. Some types of data are not available in BioMart (such as CEGMA and BUSCO scores), and can only be accessed via the website or the API
-
-In an earlier exercise, you used the assembly statistics widget on the genome page to compare _Brugia sp._ genome assemblies. In this example, we’ll do the same for the _Meloidogyne sp._ assemblies, using the API.
-
-1. From the WormBase ParaSite home page, select “REST API” from the toolbar.
-
-![](figures/rest_1.png)
-
-This page details the available REST endpoints: endpoints are URLs that accept API requests, and return data. Read the descriptions of the different resources to see the types of data that you can retrieve from the WormBase ParaSite API.
-
-We want to retrieve the CEGMA and BUSCO scores of all of the _Meloidogyne sp._ assemblies in WormBase ParaSite. We’ll break the problem down into two steps: first, we’ll use the API to retrieve the names of all the _Meloidogyne sp._ assemblies that are available, then we’ll use those names to specify which assemblies we want to retrieve the CEGMA and BUSCO scores for.
-
-2. Scroll down to the “Information” section and select the taxonomy endpoint
-
-![](figures/rest_2.png)
-
-3. Scroll down to look at the example request
-
-![](figures/rest_3.png)
-
-We offer examples on how to use these in several different programming languages - feel free to stick to the language you know best. Here, we’ll demonstrate how to use the command line tool curl. Open a terminal and copy or type the ```curl``` command below.
-
-4. We’re interested in Meloidogyne sp., so replaced “Brugia” (in the WBPS example) with “Meloidogyne”.
-
-```bash
-curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?' -H 'Content-type:application/json'
-```
-
-Note: 
-* we’ve also added the L (full name: --location) flag to the curl command, and changed “rest-18” to “rest” in the URL. “rest-18” refers to the 18th release of WormBase ParaSite; by removing the version number the request is automatically redirected to the most recent release.
-The L flag tells curl to allow this redirection.
-* The -s option is used silence or suppress the progress meter and error messages during the request.
-
-You will see a lot of text! This is the data that we requested, in JSON format.
-
-5. To format the response more nicely, pipe the output into another command line tool, ```jq```. ```jq``` allows us to manipulate JSON data on the command line (see the manual for more information on its usage: https://stedolan.github.io/jq/manual/).
-
-```bash
-curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?' -H 'Content-type:application/json'  | jq '.'
-```
-
-You should see the data now formatted like this:
-
-```bash
-[
-  {
-    "base_count": "258067405",
-    "is_reference": "0",
-    "division": "EnsemblParasite",
-    "has_peptide_compara": "0",
-    "assembly_accession": "GCA_900003985.1",
-    "assembly_level": "scaffold",
-    "genebuild": "2018-05-WormBase",
-    "organism_id": "86",
-    "serotype": null,
-    "has_pan_compara": "0",
-    "assembly_ucsc": null,
-    "has_variations": "0",
-    "name": "meloidogyne_arenaria_prjeb8714",
-    "has_other_alignments": "1",
-    "assembly_name": "ASM90000398v1",
-    "has_synteny": "0",
-    "display_name": "Meloidogyne arenaria (PRJEB8714)",
-    "url_name": "Meloidogyne_arenaria_prjeb8714",
-    "taxonomy_id": "6304",
-    "scientific_name": "Meloidogyne arenaria",
-    "assembly_id": "86",
-    "strain": null,
-    "assembly_default": "ASM90000398v1",
-    "has_genome_alignments": "0",
-    "species_taxonomy_id": "6304",
-    "data_release_id": "1"
-  },
-
-```
-
-JSON-formatted data consists of key-value pairs. A series of key-value pairs separated by commas and enclosed in curly brackets is a JSON object. Here, we have a JSON object for each _Meloidogyne sp._ assembly. The JSON objects are in a list (an array), which is enclosed by square brackets.
-
-6. Extract the name of each genome using jq from the output above:
-```bash
-curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?' -H'Content-type:application/json' | jq -r '.[] | .name'
-```
-Here, '.[]' returns each element of the array (each assembly) one at a time, and '.name' extracts the value of the 'name' key for each of these elements.
-
-You should see:
-
-```bash
-meloidogyne_arenaria_prjeb8714
-meloidogyne_arenaria_prjna340324
-meloidogyne_arenaria_prjna438575
-meloidogyne_chitwoodi_race1prjna666745
-meloidogyne_enterolobii_prjna340324
-meloidogyne_floridensis_prjeb6016
-meloidogyne_floridensis_prjna340324
-meloidogyne_graminicola_prjna411966
-meloidogyne_hapla_prjna29083
-meloidogyne_incognita_prjeb8714
-meloidogyne_incognita_prjna340324
-meloidogyne_javanica_prjeb8714
-meloidogyne_javanica_prjna340324
-```
-
-6. Put the list of species names in a file in your working directory:
-     
-```bash
-curl -sL 'https://parasite.wormbase.org/rest/info/genomes/taxonomy/Meloidogyne?' -H 'Content-type:application/json'  | jq -r '.[] | .name' > species.txt
-```
-
-7. The next endpoint that we need is the quality endpoint. Find it on the WormBase ParaSite API endpoint page and have a look at the example.0
-
-![](figures/rest_4.png)
-
-8. We will need to replace the species name in the URL, and make a separate request for each species. We can write a small loop in bash, reading from our species file, to achieve this:
-
-```bash
-while read species; do 
-   curl -sL "https://parasite.wormbase.org/rest/info/quality/$species?" -H 'Content-type:application/json' 
-done < species.txt
-```
-
-9. Again, we need to format the JSON nicely to make the output more readable:
-
-```bash
-while read species; do 
-   curl -sL "https://parasite.wormbase.org/rest/info/quality/$species?" -H 'Content-type:application/json' | jq '.' 
-done < species.txt
-```
-
-10. We’ll now produce a file with just the percentages of complete BUSCO assembly and BUSCO annotation genes for each species:
-
-```bash
-while read species; do 
-   completeness_score=$(curl -sL "https://parasite.wormbase.org/rest/info/quality/$species?" -H 'Content-type:application/json' | jq -r '.busco_assembly.complete,
-.busco_annotation.complete' )  
-   echo $species $completeness_score >> assembly_completeness.txt
-done < species.txt
-```
-
-11. Finally, sort that file by BUSCO annotation score:
-
-```bash
-sort -n -r -k3,3 assembly_completeness.txt
-
-meloidogyne_arenaria_prjeb8714 65.1 76.5
-meloidogyne_javanica_prjeb8714 61.1 75.5
-meloidogyne_incognita_prjeb8714 61.8 75.4
-meloidogyne_arenaria_prjna438575 57.9 74.4
-meloidogyne_hapla_prjna29083 60.1 59.8
-meloidogyne_graminicola_prjna411966 40.7 58.9
-meloidogyne_javanica_prjna340324 57.7 57.8
-meloidogyne_arenaria_prjna340324 55.7 54.9
-meloidogyne_incognita_prjna340324 52.6 54.4
-meloidogyne_enterolobii_prjna340324 49.7 54.1
-meloidogyne_floridensis_prjna340324 49.9 46.5
-meloidogyne_chitwoodi_race1prjna666745 57.8 45.9
-meloidogyne_floridensis_prjeb6016 29.7 43.9
-```
-We can see that _M. arenaria_ is the assembly with the highest BUSCO Annotation score.
-
-[↥ **Back to top**](#top)
-
----
-#### API exercises <a name="api_exercises"></a> 
-
-Adapt the commands that you used above to retrieve the following information from the WormBase ParaSite API. Note that you’ll need to use different endpoints: browse the site to see which ones to use.
-
-1. List the _Meloidogyne sp._ assemblies by size, smallest to largest.
-2. Retrieve the protein sequence of the guinea worm transcript DME_0000938001-mRNA-1.
-3. Write a small program, `get_sequence_for_transcript.sh`, that takes any transcript ID as an argument and returns its protein sequence. For example, running
-
-```bash
-./get_sequence_for_transcript.sh DME_0000938001-mRNA-1
-```    
-should print:
-```bash
-MAKHNAVGIDLGTTYSC...
-```
-(Hint: shell scripts put arguments from the command line into special variables, named $1, $2 etc )
-
-4. Retrieve a GFF file of all of the genes located on the AgB01 scaffold of the Ascaris suum PRJNA62057 assembly, between the following coordinates: 5284000 to 5836000.
-
-5. Write a program, `retrieve_genes_in_region.sh` which takes species, scaffold, start and end coordinates as arguments and can return the above for any given region. For example, calling
-
-```bash
-./retrieve_genes_in_region.sh ascaris_suum_prjna62057 AgB01 5284000 5836000
-```
-should print the same result as question 4.
-
-Feel free to expand or tweak your programs if you have time!
 
 [↥ **Back to top**](#top)
 
