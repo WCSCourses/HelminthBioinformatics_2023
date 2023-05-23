@@ -138,7 +138,7 @@ Use the following command on your Terminal window.
 
 ```bash 
 # Go to the location of the reference genome
-cd /home/manager/Module_7_Transcriptomics/References_v10/
+cd /<path/to/data>/Module_7_Transcriptomics/References_v10/
 
 # Index reference genome so that it can be read by HISAT2
 # The template for indexing command is hisat2-build <reference genome in .fa> <prefix for the index file>
@@ -289,7 +289,7 @@ Let's get your R workspace set up
 # Set up work directory
 # setwd command set working directory for the current R session. After running this line, if we import or export files without defining a specific directory, R will assume the current working directory as your destination.
 # the path to your data is considered a "string" or "character" in R, so we need to put it inside a quotation mark
-setwd("/home/manager/Module_7_Transcriptomics/")
+setwd("/<path/to/data>/Module_7_Transcriptomics/")
 
 # To keep our filing system tidy, let's create a new directory to keep outputs from R analysis
 dir.create("R_analysis")
