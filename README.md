@@ -68,7 +68,8 @@ We are fortunate to be supported by [DataCamp](https://datacamp.com), who are pr
 - https://wcscourses.github.io/HelminthBioinformatics_2023/
 
 **Module 1 - WormBase Parasite 1**  
-     - [Introductory presentation](presentations/Module_1_WBP_1)  
+     - [Introductory presentation](presentations/Module_1_WBP_1/Module_1_WBP_1.pptx)
+     - [Presentation on Genome Assemblies](presentations/genome_assembly_and_differences_between_genomes.pptx)
      - [Online manual](manuals/module_1_WBP1/module_1_WBP1.md)  
 
 **Module 2 - Introduction to Linux**  
@@ -77,7 +78,7 @@ We are fortunate to be supported by [DataCamp](https://datacamp.com), who are pr
 
 
 **Module 3 - WormBase Parasite 2**  
-     - [Introductory presentation](presentations/Module_3_WBP_2)  
+     - [Introductory presentation](presentations/Module_3_WBP_2/Module_3_WBP_2.pptx)  
      - [Online manual](manuals/module_3_WBP2/module_3_WBP2.md)   
 
 
