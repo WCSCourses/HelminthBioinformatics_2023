@@ -76,36 +76,42 @@ We are fortunate to be supported by [DataCamp](https://datacamp.com), who are pr
 
 **Module 2 - Introduction to Linux**  
      - [Introductory presentation](presentations/HelminthBioinformatics2023_Intro-to-Linux.pptx)  
-     - [Online manual](manuals/module_2_linux_scripting/module_linux_scripting.md)
+     - [Online manual](manuals/module_2_linux_scripting/module_linux_scripting.md)  
+     - [Survey](https://forms.gle/KpYADq6sH7KR1bcM9)
 
 
 **Module 3 - WormBase Parasite 2**  
      - [Introductory presentation](presentations/Module_3_WBP_2/Module_3_WBP_2.pptx)  
      - [Online manual](manuals/module_3_WBP2/module_3_WBP2.md)<br>
      - [Exercise answers](manuals/module_3_WBP2/module_3_WBP2_cheatsheet.md)
-
+     - [Survey](https://forms.gle/UYutr1gwuTFb1cVn9v)
 
 
 **Module 4 - Project Introduction and Planning**  
      - [Introductory presentation](presentations/)  
      - [Online manual](manuals/module_4_project_intro/module_4_project_introduction.md)  
+     - [Survey]()
 
 
 **Module 5 - Introduction to R and RStudio**  
      - [Online manual](manuals/module_5_R/module_5_R_and_Rstudio.v2.html)  
+     - [Survey](https://forms.gle/BC6GpGWBDLF7UA1EA)
 
 
 **Module 6 - Genome Variation**  
      - [Introductory presentation](presentations/HelminthBioinformatics2023_GeneticVariation.pptx)  
      - [Online manual](manuals/module_6_genome_variation/module_6_genome_variation.md)  
+     - [Survey](https://forms.gle/LHEXCpvdbz7s7f5h8)
 
 
 **Module 7 - Transcriptomics**    
      - [Online manual](manuals/module_7_transcriptomics/module_7_transcriptomics.md)  
+     - [Survey](https://forms.gle/Wh9PujRCcTSN6hLj9)
 
 
 **Module 8 - Project**  
      - [Online manual](manuals/module_8_project/module_8_project.md)  
+     - [Survey](https://forms.gle/EKE237naeUysSUQt7)
 
 
 **Appendix**  
