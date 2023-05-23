@@ -83,7 +83,7 @@ We are fortunate to be supported by [DataCamp](https://datacamp.com), who are pr
 **Module 3 - WormBase Parasite 2**  
      - [Introductory presentation](presentations/Module_3_WBP_2/Module_3_WBP_2.pptx)  
      - [Online manual](manuals/module_3_WBP2/module_3_WBP2.md)<br>
-     - [Exercise answers](manuals/module_3_WBP2/module_3_WBP2_cheatsheet.md)
+     - [Exercise answers](manuals/module_3_WBP2/module_3_WBP2_cheatsheet.md)  
      - [Survey](https://forms.gle/UYutr1gwuTFb1cVn9v)
 
 
