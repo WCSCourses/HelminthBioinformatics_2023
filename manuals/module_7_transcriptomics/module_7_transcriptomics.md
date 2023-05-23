@@ -206,7 +206,7 @@ Use featureCounts in Subread/Rsubreadpackages to calculate the number of reads m
 See https://subread.sourceforge.net/featureCounts.html or do `featureCounts --help` to see meaning of these options. The manual and `--help` option can also be useful if you encounter an error message.
 
 ```bash
-# First, unzip the GTF file so that it can be read by htseq-count
+# First, unzip the GTF file so that it can be read by featureCounts
 # Go to Reference_v10 directory which is where the file is kept
 cd ../References_v10/
 
@@ -223,8 +223,7 @@ cd ../Mapping/
 # The > means 'take the screen output to this file'
 featureCounts -p -B -t 'CDS' -g 'Parent' -T 1 -a ../References_v10/schistosoma_mansoni.PRJEA36577.WBPS18.annotations_longestisoform.gff3 -o ERR3489994_featureCounts.txt ERR3489994_sorted.bam
 
-
-# Now try it yourself for the Sm_SE_sorted.bam file
+# Now try it yourself for the ERR3489994_sorted.bam file
 ?????
 
 # Explore one of the featureCounts output files
@@ -251,7 +250,7 @@ grep "^Smp" ERR3489994_Counts.txt | head
 # What we want here is to grep lines that start with Smp from a file, then sort the grep output, write this sorted output to a new file
 grep "^Smp" ERR3489994_Counts.txt | sort > final_counts/ERR3489994_featureCounts.final
 
-# Now try it yourself for the Sm_SE_sorted.bam file
+# Now try it yourself for the ERR3489994_Counts.txt file
 ?????
 ```
 
@@ -310,7 +309,7 @@ library(RColorBrewer) 	# for a wider range of plot colours
 ```
 
 ### About DESeq2
-This is an R package for performing differential expression analysis (PMID: 25516281). It can take read count data in various forms, one of those is read count tables from HTSeq-count. The tool provides simple command lines for formatting read count data, normalization, exploring variances between samples, and performing differential expression analysis. It is one of the tools widely used for RNA-seq data analysis and it also provide detailed manual which help make it more user-friendly (http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)
+This is an R package for performing differential expression analysis (PMID: 25516281). It can take read count data in various forms, one of those is read count tables from featureCounts. The tool provides simple command lines for formatting read count data, normalization, exploring variances between samples, and performing differential expression analysis. It is one of the tools widely used for RNA-seq data analysis and it also provide detailed manual which help make it more user-friendly (http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)
 
 ### Alternative softwares
 In addition to `DESeq2`, there are a variety of programs for detecting differentially expressed genes from tables of RNA-seq read counts. Some of these tools work in R, while some require Unix interface. Examples of these tools include EdgeR (PMID: 19910308), BaySeq (PMID: 20698981), Cuffdiff (PMID: 23222703), Sleuth PMID: 28581496 (an accompanying tool for read count data from Kallisto).
