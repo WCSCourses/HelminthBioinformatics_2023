@@ -287,7 +287,7 @@ You can download complete studies from the "Study Browser" tab but today we are 
 
 3. Download the first 250kb of S. ratti chromosome 2 and place it inside the "Module_3_WormBaseParaSite_2" directory:
   - Select "Rat threadworm / S_ratti_ED321" from the Organism/Assembly drop-down menu.
-  - Filter by: Chromosomal Location - Region: SRAE_chr2:1-2500000 and then click "Search".
+  - Filter by: Chromosomal Location - Region: SRAE_chr2:1-250000 and then click "Search".
   - Click "Export as VCF" and place the downloaded file inside the "Module_3_WormBaseParaSite_2" directory.
 
 4. Move to the "Module_3_WormBaseParaSite_2" directory and have a look at the file to see how it is structured:
