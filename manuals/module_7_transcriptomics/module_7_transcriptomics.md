@@ -174,13 +174,11 @@ We will convert SAM file to BAM file, a binary sibling which take less space on 
 ```bash
 # Convert SAM to BAM using samtools
 samtools view -bS -o ERR3489994.bam ERR3489994.sam
-samtools view -bS -o ERR3489994.bam ERR3489994.sam
 
 # See the file size differences between the SAM and BAM files
 ls -lth
 
 # Sort BAM file
-samtools sort -n -O BAM -o ERR3489994_sorted.bam ERR3489994.bam
 samtools sort -n -O BAM -o ERR3489994_sorted.bam ERR3489994.bam
 ```
 ---
@@ -211,6 +209,7 @@ See https://subread.sourceforge.net/featureCounts.html or do `featureCounts --he
 # First, unzip the GTF file so that it can be read by htseq-count
 # Go to Reference_v10 directory which is where the file is kept
 cd ../References_v10/
+
 ls  # you should see a file called schistosoma_mansoni.PRJEA36577.WBPS18.annotations_longestisoform.gff3
 gunzip Sm_v10_canonical_geneset.gtf.gz
 ls  # now the file Sm_v10_canonical_geneset.gtf.gz should become Sm_v10_canonical_geneset.gtf
