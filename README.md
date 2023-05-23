@@ -69,7 +69,8 @@ We are fortunate to be supported by [DataCamp](https://datacamp.com), who are pr
 
 **Module 1 - WormBase Parasite 1**  
      - [Introductory presentation](presentations/)  
-     - [Online manual](manuals/module_1_WBP1/module_1_WBP1.md)  
+     - [Online manual](manuals/module_1_WBP1/module_1_WBP1.md)
+     - [Survey](https://docs.google.com/forms/d/e/1FAIpQLSdn501trqgWFMHDqHFjGt5fvZYVOzR3Ne0-aqJSIr-osbCTgA/viewform?usp=sf_link)  
 
 **Module 2 - Introduction to Linux**  
      - [Introductory presentation](presentations/HelminthBioinformatics2023_Intro-to-Linux.pptx)  
