@@ -71,7 +71,7 @@ We are fortunate to be supported by [DataCamp](https://datacamp.com), who are pr
      - [Introductory presentation](presentations/Module_1_WBP_1/Module_1_WBP_1.pptx)<br>
      - [Presentation on Genome Assemblies](presentations/module_1_WBP1/genome_assembly_and_differences_between_genomes.pptx)<br>
      - [Online manual](manuals/module_1_WBP1/module_1_WBP1.md)<br>
-     - [Exercise answers](manuals/module_1_WBP1/module_1_WBP1_cheatsheet.md)
+     - [Exercise answers](manuals/module_1_WBP1/module_1_WBP1_cheatsheet.md)  
      - [Survey](https://forms.gle/XboQ2iynCeKpghNH9)
 
 **Module 2 - Introduction to Linux**  
