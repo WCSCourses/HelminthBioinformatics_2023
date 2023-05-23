@@ -138,14 +138,11 @@ Use the following command on your Terminal window.
 
 ```bash 
 # Go to the location of the reference genome
-cd /<path/to/data>/Module_7_Transcriptomics/References_v10/
-
-# Unzip the reference genome file
-gunzip Sm_v10_genome.fa.gz
+cd /home/manager/Module_7_Transcriptomics/References_v10/
 
 # Index reference genome so that it can be read by HISAT2
 # The template for indexing command is hisat2-build <reference genome in .fa> <prefix for the index file>
-hisat2-build Sm_v10_genome.fa Sm_v10_genome.hisat2idx
+hisat2-build schistosoma_mansoni.PRJEA36577.WBPS18.genomic.fa schistosoma_mansoni.PRJEA36577.WBPS18.genomic.hisat2idx
 
 # ...Wait for the indexing step... This will take about 5-10 minutes...
 
@@ -162,11 +159,11 @@ As mentioned before, the RNA-seq data for our experiment have been mapped for yo
 Try `hisat2 --help` to find out what the additional arguments mean.
 ```bash
 # For RNA-seq that come from single-end sequencing
-hisat2 --max-intronlen 40000 -x ../References_v10/Sm_v10_genome.hisat2idx -q ../RNAseq_data/Sm_SE.fastq -S Sm_SE.sam
+hisat2 --max-intronlen 40000 -x ../References_v10/schistosoma_mansoni.PRJEA36577.WBPS18.genomic.hisat2idx -q ../RNAseq_rawdata/ERR3489994_1_sample.fastq -S ERR3489994.sam
 
 # For RNA-seq that come from paired-end sequencing
 # How does the command differ from the one above  for single-end data? 
-hisat2 --max-intronlen 40000 -x ../References_v10/Sm_v10_genome.hisat2idx -1 ../RNAseq_data/Sm_PE_1.fastq -2 ../RNAseq_data/Sm_PE_2.fastq -S Sm_PE.sam
+hisat2 --max-intronlen 40000 -x ../References_v10/schistosoma_mansoni.PRJEA36577.WBPS18.genomic.hisat2idx -1 ../RNAseq_rawdata/ERR3489994_1_sample.fastq -2 ../RNAseq_rawdata/ERR3489994_2_sample.fastq -S ERR3489994.sam
 ```
 
 The **alignment rate** will be shown on the screen. What do you think about the alignment rate of this mapping? 
@@ -176,15 +173,15 @@ The mapping output a SAM file which contain information of the mapping location 
 We will convert SAM file to BAM file, a binary sibling which take less space on a disk and allow faster processing time for the next step (sorting).
 ```bash
 # Convert SAM to BAM using samtools
-samtools view -bS -o Sm_SE.bam Sm_SE.sam
-samtools view -bS -o Sm_PE.bam Sm_PE.sam
+samtools view -bS -o ERR3489994.bam ERR3489994.sam
+samtools view -bS -o ERR3489994.bam ERR3489994.sam
 
 # See the file size differences between the SAM and BAM files
 ls -lth
 
 # Sort BAM file
-samtools sort -n -O BAM -o Sm_SE_sorted.bam Sm_SE.bam
-samtools sort -n -O BAM -o Sm_PE_sorted.bam Sm_PE.bam
+samtools sort -n -O BAM -o ERR3489994_sorted.bam ERR3489994.bam
+samtools sort -n -O BAM -o ERR3489994_sorted.bam ERR3489994.bam
 ```
 ---
 ### Exercise 7.1
@@ -214,7 +211,7 @@ See https://subread.sourceforge.net/featureCounts.html or do `featureCounts --he
 # First, unzip the GTF file so that it can be read by htseq-count
 # Go to Reference_v10 directory which is where the file is kept
 cd ../References_v10/
-ls  # you should see a file called Sm_v10_canonical_geneset.gtf.gz
+ls  # you should see a file called schistosoma_mansoni.PRJEA36577.WBPS18.annotations_longestisoform.gff3
 gunzip Sm_v10_canonical_geneset.gtf.gz
 ls  # now the file Sm_v10_canonical_geneset.gtf.gz should become Sm_v10_canonical_geneset.gtf
 
@@ -223,9 +220,9 @@ cd ../Mapping/
 
 # Run featureCounts
 # featureCounts <various options> <sorted BAM file> <GTF or GFF file with gene annotation>
-# For Sm_PE_sorted.bam file
+# For ERR3489994_sorted.bam file
 # The > means 'take the screen output to this file'
-featureCounts -p -B -t 'CDS' -g 'Parent' -T 1 -a ../References_v10/Sm_v10_canonical_geneset.gtf -o Sm_PE_featureCounts.txt Sm_PE_sorted.bam
+featureCounts -p -B -t 'CDS' -g 'Parent' -T 1 -a ../References_v10/schistosoma_mansoni.PRJEA36577.WBPS18.annotations_longestisoform.gff3 -o ERR3489994_featureCounts.txt ERR3489994_sorted.bam
 
 
 # Now try it yourself for the Sm_SE_sorted.bam file
@@ -233,10 +230,10 @@ featureCounts -p -B -t 'CDS' -g 'Parent' -T 1 -a ../References_v10/Sm_v10_canoni
 
 # Explore one of the featureCounts output files
 # Use up-down arrows to move long the files, or press the spacebar or D to move down a page, press B to move up a page
-less Sm_PE_htseqcount.txt
+less ERR3489994_featureCounts.txt
 
 # Cut only column 'GeneID' and readcounts
-cut -f1,7 Sm_PE_featureCounts.txt | cut -d':' -f2 > Sm_PE_Counts.txt
+cut -f1,7 ERR3489994_featureCounts.txt | cut -d':' -f2 > ERR3489994_Counts.txt
 
 ```
 
@@ -247,13 +244,13 @@ Output from featureCounts contain `STDOUT` (standard out; telling progress and k
 mkdir final_counts
 
 # Filter featureCounts output files into a new file, keeping just the lines with gene IDs (Smp for S. mansoni) and their read counts 
-grep "^Smp" Sm_PE_Counts.txt
+grep "^Smp" ERR3489994_Counts.txt
 
 # That output way too much stuff on the screen, try `head` command to output just the first 10 lines
-grep "^Smp" Sm_PE_Counts.txt | head 
+grep "^Smp" ERR3489994_Counts.txt | head 
 
 # What we want here is to grep lines that start with Smp from a file, then sort the grep output, write this sorted output to a new file
-grep "^Smp" Sm_PE_Counts.txt | sort > final_counts/Sm_PE_featureCounts.final
+grep "^Smp" ERR3489994_Counts.txt | sort > final_counts/ERR3489994_featureCounts.final
 
 # Now try it yourself for the Sm_SE_sorted.bam file
 ?????
@@ -294,7 +291,7 @@ Let's get your R workspace set up
 # Set up work directory
 # setwd command set working directory for the current R session. After running this line, if we import or export files without defining a specific directory, R will assume the current working directory as your destination.
 # the path to your data is considered a "string" or "character" in R, so we need to put it inside a quotation mark
-setwd("/<path/to/data>/Module_7_Transcriptomics/")
+setwd("/home/manager/Module_7_Transcriptomics/")
 
 # To keep our filing system tidy, let's create a new directory to keep outputs from R analysis
 dir.create("R_analysis")
@@ -325,7 +322,7 @@ We will tell R where the read count data are kept, and then create a table with 
 ```R
 # Tell the location of the read count files
 # Create a datadir object to keep the path to the directory v10counts in your module 7 files
-datadir <- "/<path/to/data>/v10counts/" 
+datadir <- "/home/manager/Module_7_Transcriptomics/RNAseq_featureCounts/" 
 
 # list files in this directory, output as an R vector
 list.files(datadir)   # this should list 22 files
