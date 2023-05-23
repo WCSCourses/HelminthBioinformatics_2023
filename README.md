@@ -68,18 +68,21 @@ We are fortunate to be supported by [DataCamp](https://datacamp.com), who are pr
 - https://wcscourses.github.io/HelminthBioinformatics_2023/
 
 **Module 1 - WormBase Parasite 1**  
-     - [Introductory presentation](presentations/)  
-     - [Online manual](manuals/module_1_WBP1/module_1_WBP1.md)
-     - [Survey](https://docs.google.com/forms/d/e/1FAIpQLSdn501trqgWFMHDqHFjGt5fvZYVOzR3Ne0-aqJSIr-osbCTgA/viewform?usp=sf_link)  
+     - [Introductory presentation](presentations/Module_1_WBP_1/Module_1_WBP_1.pptx)<br>
+     - [Presentation on Genome Assemblies](presentations/module_1_WBP1/genome_assembly_and_differences_between_genomes.pptx)<br>
+     - [Online manual](manuals/module_1_WBP1/module_1_WBP1.md)<br>
+     - [Exercise answers](manuals/module_1_WBP1/module_1_WBP1_cheatsheet.md)
 
 **Module 2 - Introduction to Linux**  
      - [Introductory presentation](presentations/HelminthBioinformatics2023_Intro-to-Linux.pptx)  
-     - [Online manual](manuals/module_2_linux_scripting/module_linux_scripting.md)  
+     - [Online manual](manuals/module_2_linux_scripting/module_linux_scripting.md)
 
 
 **Module 3 - WormBase Parasite 2**  
-     - [Introductory presentation](presentations/)  
-     - [Online manual](manuals/module_3_WBP2/module_3_WBP2.md)   
+     - [Introductory presentation](presentations/Module_3_WBP_2/Module_3_WBP_2.pptx)  
+     - [Online manual](manuals/module_3_WBP2/module_3_WBP2.md)<br>
+     - [Exercise answers](manuals/module_3_WBP2/module_3_WBP2_cheatsheet.md)
+
 
 
 **Module 4 - Project Introduction and Planning**  
