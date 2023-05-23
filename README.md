@@ -87,7 +87,6 @@ We are fortunate to be supported by [DataCamp](https://datacamp.com), who are pr
 
 
 **Module 5 - Introduction to R and RStudio**  
-     - [Introductory presentation](presentations/)  
      - [Online manual](manuals/module_5_R/module_5_R_and_Rstudio.v2.html)  
 
 
