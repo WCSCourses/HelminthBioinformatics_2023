@@ -320,7 +320,7 @@ We will tell R where the read count data are kept, and then create a table with 
 ```R
 # Tell the location of the read count files
 # Create a datadir object to keep the path to the directory v10counts in your module 7 files
-datadir <- "/home/manager/Module_7_Transcriptomics/RNAseq_featureCounts/" 
+datadir <- "/<path/to/data>/Module_7_Transcriptomics/RNAseq_featureCounts/" 
 
 # list files in this directory, output as an R vector
 list.files(datadir)   # this should list 22 files
