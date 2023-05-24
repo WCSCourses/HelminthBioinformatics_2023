@@ -68,44 +68,54 @@ We are fortunate to be supported by [DataCamp](https://datacamp.com), who are pr
 - https://wcscourses.github.io/HelminthBioinformatics_2023/
 
 **Module 1 - WormBase Parasite 1**  
-     - [Introductory presentation](presentations/)  
-     - [Online manual](manuals/module_1_WBP1/module_1_WBP1.md)  
-     - [Manual PDF version](manuals/)  
+     - [Introductory presentation](presentations/Module_1_WBP_1/Module_1_WBP_1.pptx)<br>
+     - [Presentation on Genome Assemblies](presentations/module_1_WBP1/genome_assembly_and_differences_between_genomes.pptx)<br>
+     - [Online manual](manuals/module_1_WBP1/module_1_WBP1.md)<br>
+     - [Exercise answers](manuals/module_1_WBP1/module_1_WBP1_cheatsheet.md)  
+     - [Survey](https://forms.gle/XboQ2iynCeKpghNH9)
 
 **Module 2 - Introduction to Linux**  
-     - [Introductory presentation](presentations/)  
+     - [Introductory presentation](presentations/HelminthBioinformatics2023_Intro-to-Linux.pptx)  
      - [Online manual](manuals/module_2_linux_scripting/module_linux_scripting.md)  
-     - [Manual PDF version](manuals/)  
+     - [Survey](https://forms.gle/KpYADq6sH7KR1bcM9)
+
 
 **Module 3 - WormBase Parasite 2**  
-     - [Introductory presentation](presentations/)  
-     - [Online manual](manuals/module_3_WBP2/module_3_WBP2.md)   
-     - [Manual PDF version](manuals/)  
+     - [Introductory presentation](presentations/Module_3_WBP_2/Module_3_WBP_2.pptx)  
+     - [Online manual](manuals/module_3_WBP2/module_3_WBP2.md)<br>
+     - [Exercise answers](manuals/module_3_WBP2/module_3_WBP2_cheatsheet.md)  
+     - [Survey](https://forms.gle/UYutr1gwuTFb1cVn9v)
+
 
 **Module 4 - Project Introduction and Planning**  
      - [Introductory presentation](presentations/)  
      - [Online manual](manuals/module_4_project_intro/module_4_project_introduction.md)  
-     - [Manual PDF version](manuals/)  
+     - [Survey]()
+
 
 **Module 5 - Introduction to R and RStudio**  
-     - [Introductory presentation](presentations/)  
      - [Online manual](manuals/module_5_R/module_5_R_and_Rstudio.v2.html)  
-     - [Manual PDF version](manuals/)  
+     - [Survey](https://forms.gle/BC6GpGWBDLF7UA1EA)
+
 
 **Module 6 - Genome Variation**  
-     - [Introductory presentation](presentations/)  
+     - [Introductory presentation](presentations/HelminthBioinformatics2023_GeneticVariation.pptx)  
      - [Online manual](manuals/module_6_genome_variation/module_6_genome_variation.md)  
-     - [Manual PDF version](manuals/)   
+     - [Survey](https://forms.gle/LHEXCpvdbz7s7f5h8)
+
 
 **Module 7 - Transcriptomics**    
      - [Online manual](manuals/module_7_transcriptomics/module_7_transcriptomics.md)  
-     - [Manual PDF version](manuals/)  
+     - [Survey](https://forms.gle/Wh9PujRCcTSN6hLj9)
+
 
 **Module 8 - Project**  
      - [Online manual](manuals/module_8_project/module_8_project.md)  
-     - [Manual PDF version](manuals/)
+     - [Survey](https://forms.gle/EKE237naeUysSUQt7)
+
 
 **Appendix**  
+- [Genome Assembly Variation](presentations/genome_assembly_and_differences_between_genomes.pptx)  
 - [Creating a shared folder between your computer and VM](manuals/other_information/creating_a_shared_folder_in_VM.md)     
 - [Finding and download sequence data from public repository](manuals/other_information/Sequence_data_on_public_repo.md)     
 - [Downloading GO term annotation from WormBase ParaSite and formatting it for topGO](manuals/other_information/GO_ref_download_and_formatting.md)
