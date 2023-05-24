@@ -732,7 +732,7 @@ Running topGO take a couple of steps (see topGO documentation here https://bioco
 
 ```R
 # Load R script from 
-source("/<path to data>/Module_7_Transcriptomome/run_topGO.R")
+(https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/manuals/module_7_transcriptomics/run_topGO.R)
 
 
 # Load the R wrapper script for running topGO
