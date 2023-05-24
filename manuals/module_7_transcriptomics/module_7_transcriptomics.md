@@ -291,7 +291,7 @@ Let's get your R workspace set up
 # Set up work directory
 # setwd command set working directory for the current R session. After running this line, if we import or export files without defining a specific directory, R will assume the current working directory as your destination.
 # The **path to your data (location of your data on the machine)** is considered a "string" or "character" in R, so we need to put it inside a quotation mark
-setwd("/path/to/data/Module_7_Transcriptome/")
+setwd("/location/of/data/Module_7_Transcriptome/")
 
 # Load required packages into R environment 
 # R comes with standard packages (i.e. set of tools). We use library command to load additional tools that we need for RNA-seq data analysis.
@@ -305,8 +305,8 @@ library(ggplot2)  		# for (visually pleasing) plots
 library(RColorBrewer) 	# for a wider range of plot colours
 library(pheatmap) 		# for (visually pleasing) heatmaps
 
-# Try installing the missing package(s) by following R package depository guideline.
-# !!HINT!! Google the package name with the keyword "install". Follow the link that are either Bioconduction website or CRAN website. 
+# Try installing the missing package(s) by following R package depository guideline. You usually need to do this step only once for each package on a given computer, unless essential version update is required.
+# !!HINT!! Google the package name with the keyword "install". Follow the link that are either Bioconduction website or CRAN website.  
 ___your package installation command here___
 
 # Once you have installed the missing package(s), run the library() command on those newly-install package(s) again. Notice how the command respond this time. 
@@ -328,7 +328,7 @@ We will tell R where the read count data are kept, and then create a table with 
 ```R
 # Tell the location of the read count files
 # Create a datadir object to keep the path to the directory v10counts in your module 7 files
-datadir <- "/<path/to/data>/Module_7_Transcriptome/RNAseq_featureCounts/" 
+datadir <- "/location/of/data/Module_7_Transcriptome/RNAseq_featureCounts/" 
 
 # list files in this directory, output as an R vector
 list.files(datadir)   # this should list 22 files
@@ -393,11 +393,13 @@ You should get something similar to this.
 
 **Figure 7.** PCA plot
 
-Save the plot to PDF file using `dev.copy()` function. `dev` mean device, and this refers to the plotting space in your RStudio, as well as a new "device" that is opened as a new file on your computer. Once the plotting to a new "device" is done, we must do `dev.off()` to close the device so that the plot can be viewed. 
+Save the plot as shown on the RStudio window to PDF file using `dev.copy()` function. `dev` mean device, and this refers to the plotting space in your RStudio, as well as a new "device" that is opened as a new file on your computer. Once the plotting to a new "device" is done, we must do `dev.off()` to close the device so that the plot can be viewed. 
 
 ```R
-dev.copy(pdf, "PCA.pdf")
+dev.copy(pdf, "PCA.pdf") # If we don't specify the location of the output file, it will be created in the current work directory. 
 dev.off() 
+# Visit the PCA.pdf in Ubuntu file browser to view your PDF file. 
+# If you are not sure where you are right now (i.e. where the file was saved), try getwd() command in R. 
 ```
 
 ---
@@ -405,25 +407,25 @@ dev.off()
 **Save as PDF**
 ```R
 # Name the file as you like it, but try to keep it meaningful.
-# Other options we can define when exporting a plot
+# Other options we can define when exporting a plot, such as size
 # Remember that text in R need to be inside a quotation mark - single quote or double quote is fine
 dev.copy(pdf, "__________", width = 11, height = 7) 
 dev.off()
 ```
 **Save in other file format**
-The `...` in the commands below represents arguments that specify characteristics of output files. 
+The `...` in the commands in R represents arguments that specify characteristics of output files. 
 These arguments could be 
 `height =`
 `width =`
 `res = (resolution)`
-_For a jpg file_, dimensions are defined in pixels. If you want A4 at 300 dpi, the parameters would be height = 3510, width 2490, res = 300
+_For a jpg file_, dimensions are defined in pixels. If you want A4 at 300 dpi, the parameters would be height = 3508, width 2480, res = 300
 _For pdf and ps files_ dimensions are in inches. For A4, it is height = 8.3, width = 11.7
 
-To output R graphics into other file types, first we run one of the following commands to create a file of that type.
-Then run a command that create a plot, this will be plotted onto the file we just created
+To output R graphics into file directly, first we run one of the following commands to create a file of that type.
+Then run a command that create a plot, this will be plotted onto the file (device) we just created.
 Then we do dev.off() to close the file so that it can be viewed
 ```R
-pdf(file = "filename.pdf", ...)
+pdf(file = "filename.pdf", ...)  # see pdf() manual for more details of available settings. 
 jpeg(filename = "filename.jpg", ...)
 png(filename = "filename.png", ...)
 postscript(file = "filename.ps", ...)
@@ -465,9 +467,10 @@ theme(text = element_text(size = 15))
 **Figure 8.** PCA plot produced by ggplot2
 
 ---
+
 ### Mini exercise
 - Try saving this plot into a file format of your choice
-- How could you specify the colour or shape that go with each group? (e.g. how would you tell R so that D06 group is shown in red, D13 group is shown in orange). Try using Google to help you find the answer
+- How could you specify the colour or shape that go with each group? (e.g. how would you tell R so that D06 group is shown in red, D13 group is shown in orange). Try using Google to help you find the answer :) 
 
 ---
 
@@ -567,6 +570,7 @@ res_D13D06[which(res_D13D06$log2FoldChange > 1 & res_D13D06$padj < 0.01),]
 ```
 
 ---
+
 ### Exercise 7.2
 Look at the result of differential gene expression analysis between day-13 and day-6 worms. 
 
@@ -582,7 +586,7 @@ Look at the result of differential gene expression analysis between day-13 and d
 
 
 ## Exploring gene expression using gene plots and heatmaps <a name="plots"></a>
-We have looked at the results of pairwise comparison so far in form of large tables with multiple columns and thousands of rows, representing all genes in _S. mansoni_. This information can be visualised using **MA plots** (log2FC and mean expression level) and **volcano plots** (log2FC and adjusted p-value). We can also plot expression of a particular gene across all samples. 
+We have looked at the results of pairwise comparison so far in form of large tables with multiple columns and thousands of rows, representing all genes in _S. mansoni_. This information can be visualised using **MA plots** (log2FC and mean expression level shown on log scale) and **volcano plots** (log2FC and adjusted p-value). We can also plot expression of a particular gene across all samples. 
 
 **MA plot**
 
@@ -706,6 +710,7 @@ main = "Top 20 DE genes: day-13 / day-6")
 **Figure 15.** Heatmap - customised
 
 ---
+
 ### Exercise 7.3
 
 1) Compare volcano plot or MA plot of D13vsD06 and D17vsD13 worms. What do you notice about the range of log2FC and adjusted p-values? It might be more informative to show plots from both comparison on the same axis ranges. Try using `ylim()` and `xlim()` argument to set the range of x and y axes. 
@@ -720,7 +725,9 @@ main = "Top 20 DE genes: day-13 / day-6")
 Normally when we carry out experiments, we may have some hypotheses about what genes might be differentially expressed between conditions, or what genes might be affected by our treatment. Doing transcriptomics give a huge amount of information so other than going through the list of differentially-expressed gene to find genes that are expected to change, we could let the data guide the way. 
 
 ### What to do with your lists of differentially expressed genes?
-It can be daunting trying to determine what the results mean. On one hand you may find that there are no real differences in your experiment. Is this due to biological reality or noisy data? On the other hand you may find several thousands of genes are differentially expressed. What can you say about that? One way is to go through a long gene list and investigate each gene one by one, but of course this can be a pain and may be subjected to human bias or our prior knowledge. Instead, we could do functional analysis which is a knowledge-based method incorporating annotated information about potential, or tested, functions of each gene. We may have come across this as GO enrichment analysis, gene set enrichment analysis, pathway enrichment analysis. Today we will show GO enrichment analysis using topGO package in R (Alexa et al., 2005; PMID: 16606683) to determine whether any particular sorts of genes occur more than expected in your differentially expressed genes. Genome downloaded from a database may already come with GO term annotation. For helminth genomes, we can obtain GO term annotation through biomart on WormbaseParasite, or download GFF file direct from WormbaseParasite and extract GO annotation from the GFF file. Otherwise, you could annotate your genes with functional terms from GO using for instance Blast2GO (Conesa et al., 2005; PMID: 16081474). 
+It can be daunting trying to determine what the results mean. On one hand you may find that there are no real differences in your experiment. Is this biologically real or is it just noisy data (which will impact the p-value)? On the other hand you may find several thousands of genes are differentially expressed. What can you say about that? 
+
+One way is to go through a long gene list and investigate each gene one by one, but of course this can be a pain and may be subjected to human bias or our prior knowledge. Instead, we could do functional analysis which is a knowledge-based method incorporating annotated information about potential, or tested, functions of each gene. We may have come across this as GO enrichment analysis, gene set enrichment analysis, pathway enrichment analysis. Today we will show GO enrichment analysis using topGO package in R (Alexa et al., 2005; PMID: 16606683) to determine whether any particular sorts of genes occur more than expected in your differentially expressed genes. Genome downloaded from a database may already come with GO term annotation. For helminth genomes, we can obtain GO term annotation through biomart on WormbaseParasite, or download GFF file direct from WormbaseParasite and extract GO annotation from the GFF file. Otherwise, you could annotate your genes with functional terms from GO using for instance Blast2GO (Conesa et al., 2005; PMID: 16081474). 
 
 ### Quick revision on GO term: 
 Genes can have associated GO terms (Gene Ontology terms).
@@ -738,16 +745,18 @@ When doing GO term enrichment, essentially we are asking, “Are there any GO te
 GO enrichment analysis tools on online servers allow researchers to run their analysis with less reliant on command line or coding knowledge. However, available GO annotation reference on the online tools are often limited to model organisms such as human and mouse - except for g:Profiler which has incorporated annotation from multiple genome databases including WormBaseParasite. In other cases, you often need to download the software and run it locally on your computer if you work with non-model organisms. We will learn GO term enrichment on R command line today to familiarise ourselves with the process, but you could also try g:Profiler and other online tools. 
 
 ### GO terms enrichment using topGO
-Running topGO take a couple of steps (see topGO documentation here https://bioconductor.org/packages/release/bioc/html/topGO.html). We can simplify it using the script provided in run_topGO.R. With this wrapper script, covering all those steps, we can run topGO with one command line. It also adds to the standard topGO output an extra column which list IDs of genes that are responsible for each enriched GO term. 
+Running topGO take a few steps (see topGO documentation here https://bioconductor.org/packages/release/bioc/html/topGO.html). We can simplify it using the script provided in run_topGO.R. With this wrapper script, covering all those steps, we can run topGO with one command line. It also adds to the standard topGO output an extra column which list IDs of genes that are responsible for each enriched GO term. 
 
-```R
-# Open Terminal and Download run_topGO.R 
+Open Terminal and Download run_topGO.R from the course github.
+```bash
 cd /home/manager/Module_7_Transcriptome/
 wget https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/manuals/module_7_transcriptomics/run_topGO.R
+```
 
-# Move back into R
+Move back into RStudio
+```R
 # Load the R wrapper script for running topGO
-source("/<path to data>/Module_7_Transcriptome/run_topGO.R")
+source("/location/of/your/file/Module_7_Transcriptome/run_topGO.R")
 
 # Collect ID of genes that were up-regulated in D13 (pass cut-off of padj < 0.01 and log2FC > 1)
 D13D06_upinD13 <- rownames(res_D13D06)[which(res_D13D06$padj < 0.01 & res_D13D06$log2FoldChange > 1)]
@@ -771,13 +780,14 @@ topGO_D13D06_upinD13[,1:7]
 **Figure 16.** Example of topGO result
 
 ---
+
 ### Exercise 7.4
 
-1) Run topGO using genes that were up-regulated in day-6 worms, compared to day-13 worms ()
+1) Run topGO using genes that were **up-regulated in day-6 worms**, compared to day-13 worms ()
 
 2) What do we notice about differences in day-6 and day-13 worms according to the GO enrichment? 
 
-3) What genes are responsible for the enrichment of the top GO term? Try using WormbaseParasites and other databases to gain more information about those genes and GO term.
+3) What genes are responsible for the enrichment of the top GO term (see column 8 of the topGO result)? Try using WormbaseParasites and other databases to gain more information about those genes and GO term.
 
 ---
 
