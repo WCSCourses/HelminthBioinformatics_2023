@@ -731,11 +731,12 @@ GO enrichment analysis tools on online servers allow researchers to run their an
 Running topGO take a couple of steps (see topGO documentation here https://bioconductor.org/packages/release/bioc/html/topGO.html). We can simplify it using the script provided in run_topGO.R. With this wrapper script, covering all those steps, we can run topGO with one command line. It also adds to the standard topGO output an extra column which list IDs of genes that are responsible for each enriched GO term. 
 
 ```R
-# Load R script from (https://raw.githubusercontent.com/WCSCourses/HelminthBioinformatics_2023/main/manuals/module_7_transcriptomics/run_topGO.R)
+# Load R script from 
+https://raw.githubusercontent.com/WCSCourses/HelminthBioinformatics_2023/main/manuals/module_7_transcriptomics/run_topGO.R
 
 
 # Load the R wrapper script for running topGO
-source("/<path to data>/Module_7_Transcriptomics/run_topGO.R")
+source("/<path to data>/Module_7_Transcriptomome/run_topGO.R")
 
 # Collect ID of genes that were up-regulated in D13 (pass cut-off of padj < 0.01 and log2FC > 1)
 D13D06_upinD13 <- rownames(res_D13D06)[which(res_D13D06$padj < 0.01 & res_D13D06$log2FoldChange > 1)]
