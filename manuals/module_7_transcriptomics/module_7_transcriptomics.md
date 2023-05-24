@@ -138,7 +138,7 @@ Use the following command on your Terminal window.
 
 ```bash 
 # Go to the location of the reference genome
-cd /<path/to/data>/Module_7_Transcriptomics/References_v10/
+cd /<path/to/data>/Module_7_Transcriptome/References_v10/
 
 # Index reference genome so that it can be read by HISAT2
 # The template for indexing command is hisat2-build <reference genome in .fa> <prefix for the index file>
@@ -158,9 +158,6 @@ Now we will map RNA-seq data to the reference genome using HISAT2.
 As mentioned before, the RNA-seq data for our experiment have been mapped for you separately, this part is only for practicing purpose.
 Try `hisat2 --help` to find out what the additional arguments mean.
 ```bash
-# For RNA-seq that come from single-end sequencing
-hisat2 --max-intronlen 40000 -x ../References_v10/schistosoma_mansoni.PRJEA36577.WBPS18.genomic.hisat2idx -q ../RNAseq_rawdata/ERR3489994_1_sample.fastq -S ERR3489994.sam
-
 # For RNA-seq that come from paired-end sequencing
 # How does the command differ from the one above  for single-end data? 
 hisat2 --max-intronlen 40000 -x ../References_v10/schistosoma_mansoni.PRJEA36577.WBPS18.genomic.hisat2idx -1 ../RNAseq_rawdata/ERR3489994_1_sample.fastq -2 ../RNAseq_rawdata/ERR3489994_2_sample.fastq -S ERR3489994.sam
@@ -187,7 +184,8 @@ Now that SAM files have been converted to BAM, the SAM are no longer useful and 
 
 1) List all SAM files in the current directory
 
-2) Remove all SAM files *Make sure you do not accidentally delete BAM files; they are needed for the next step!*
+2) Remove all SAM files.
+   *Make sure you do not accidentally delete BAM files; BAM files are needed for the next step!*
 
 ---
 [↥ **Back to top**](#top)
@@ -211,8 +209,6 @@ See https://subread.sourceforge.net/featureCounts.html or do `featureCounts --he
 cd ../References_v10/
 
 ls  # you should see a file called schistosoma_mansoni.PRJEA36577.WBPS18.annotations_longestisoform.gff3
-gunzip Sm_v10_canonical_geneset.gtf.gz
-ls  # now the file Sm_v10_canonical_geneset.gtf.gz should become Sm_v10_canonical_geneset.gtf
 
 # Go back to Mapping directory
 cd ../Mapping/
@@ -222,9 +218,6 @@ cd ../Mapping/
 # For ERR3489994_sorted.bam file
 # The > means 'take the screen output to this file'
 featureCounts -p -B -t 'CDS' -g 'Parent' -T 1 -a ../References_v10/schistosoma_mansoni.PRJEA36577.WBPS18.annotations_longestisoform.gff3 -o ERR3489994_featureCounts.txt ERR3489994_sorted.bam
-
-# Now try it yourself for the ERR3489994_sorted.bam file
-?????
 
 # Explore one of the featureCounts output files
 # Use up-down arrows to move long the files, or press the spacebar or D to move down a page, press B to move up a page
@@ -250,8 +243,6 @@ grep "^Smp" ERR3489994_Counts.txt | head
 # What we want here is to grep lines that start with Smp from a file, then sort the grep output, write this sorted output to a new file
 grep "^Smp" ERR3489994_Counts.txt | sort > final_counts/ERR3489994_featureCounts.final
 
-# Now try it yourself for the ERR3489994_Counts.txt file
-?????
 ```
 
 We should now have files containing the number of reads mapped to each gene within each demo samples. Next step, we will import read count data into R and run differential expression analysis. 
@@ -289,7 +280,7 @@ Let's get your R workspace set up
 # Set up work directory
 # setwd command set working directory for the current R session. After running this line, if we import or export files without defining a specific directory, R will assume the current working directory as your destination.
 # the path to your data is considered a "string" or "character" in R, so we need to put it inside a quotation mark
-setwd("/<path/to/data>/Module_7_Transcriptomics/")
+setwd("/<path/to/data>/Module_7_Transcriptome/")
 
 # To keep our filing system tidy, let's create a new directory to keep outputs from R analysis
 dir.create("R_analysis")
@@ -304,8 +295,11 @@ setwd("./R_analysis")
 library(DESeq2)   		# for doing expression analysis
 library(topGO)    		# for running GO term enrichment
 library(ggplot2)  		# for (visually pleasing) plots
-library(pheatmap) 		# for (visually pleasing) heatmaps
 library(RColorBrewer) 	# for a wider range of plot colours
+
+# For pheatmap, need to install in R environment
+install.packages("pheatmap")
+library(pheatmap) 		# for (visually pleasing) heatmaps
 ```
 
 ### About DESeq2
@@ -314,13 +308,13 @@ This is an R package for performing differential expression analysis (PMID: 2551
 ### Alternative softwares
 In addition to `DESeq2`, there are a variety of programs for detecting differentially expressed genes from tables of RNA-seq read counts. Some of these tools work in R, while some require Unix interface. Examples of these tools include EdgeR (PMID: 19910308), BaySeq (PMID: 20698981), Cuffdiff (PMID: 23222703), Sleuth PMID: 28581496 (an accompanying tool for read count data from Kallisto).
 
-## Import read count data into R
+## Import read count data into R 
 We will tell R where the read count data are kept, and then create a table with metadata of our samples. The format of the metadata table will change with the tools that you use. What is demonstrated here is for DESeq2.
 
 ```R
 # Tell the location of the read count files
 # Create a datadir object to keep the path to the directory v10counts in your module 7 files
-datadir <- "/<path/to/data>/Module_7_Transcriptomics/RNAseq_featureCounts/" 
+datadir <- "/<path/to/data>/Module_7_Transcriptome/RNAseq_featureCounts/" 
 
 # list files in this directory, output as an R vector
 list.files(datadir)   # this should list 22 files
@@ -625,17 +619,17 @@ ggtitle("D13 VS D06")
 **Individual plot for a gene**
 
 ```R
-# Smp_022450.2 is a gene from the top-20 lowest adjusted p-val list 
+# Smp_022450.1 is a gene from the top-20 lowest adjusted p-val list 
 
 # Use plotCounts which come with DESeq2 package
-plotCounts(dds, "Smp_022450.2", intgroup = c("condition")) 
+plotCounts(dds, "Smp_022450.1", intgroup = c("condition")) 
 
 # Or use ggplot
-data <- plotCounts(dds, "Smp_022450.2", intgroup = c("condition"), returnData = TRUE)
+data <- plotCounts(dds, "Smp_022450.1", intgroup = c("condition"), returnData = TRUE)
 ggplot(data = data, aes(x = condition, y = count)) +
 geom_point(position = position_jitter(width = 0.2, h = 0)) +
 scale_y_continuous(trans = "log10") +
-ggtitle("Smp_022450.2") 
+ggtitle("Smp_022450.1") 
 ```
 
 ![](figures/fig-13_individualgeneplot.png)
