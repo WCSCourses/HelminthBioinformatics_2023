@@ -83,8 +83,41 @@ Paired-end data could enable more accurate read mapping (alignment) to the genom
 ---
 [↥ **Back to top**](#top)
 
+### Now for your hands-on data analysis
+We will use data of _S. mansoni_ from experimentally-infected mice that were collected at different time post-infection. These are worms from the lung stage (day 6 after the infection), the liver stage (day 13, 17, 21 after infection), and the adult stage (day 28 when they look like adults, and day 35 when the egg-laying has started and liver pathology can be noticable). Most groups have three biological replicates, except for the lung stage (day-6) where there are 7 biological replicates. Therefore we have 22 RNA samples, each has been sequenced on an Illumina HiSeq sequencing machine. All were sequenced as paired-end. 
 
 ## Mapping RNA-seq reads to a reference genome <a name="mapping"></a>
+Mapping step generally need a huge computing power and often done on computer cluster or on Cloud. It can take a couple of hours per sample; therefore, for this demonstration, we provide files with reduced number of reads to reduce the processing time but you will still see how the run look like. We then provide output from the mapping that use full dataset and we can use this for the differential expression analysis later this afternoon. 
+
+First, we will use HISAT2 (PMID: 25751142) to map RNA-seq data (in FASTQ format) to genome data (in FASTA format). HISAT2 is a mapper tool and is an upgraded software from the developer of TopHat. It is suitable for RNA-seq data as it also takes into account the splicing of exon-intron which is a characteristic of eukaryotic mRNA. 
+
+![](figures/fastq.png)  
+**Figure 3.** FASTQ file
+
+![](figures/fasta.png)  
+**Figure 4.** FASTA file
+
+**Note:** For RNA-seq we can often get away without trimming reads before the mapping step. This is because contaminated reads or reads with low-quality would also have low mapping score and will be excluded during the read counting step. However, if the number of mapped reads or mapping results seem off, you may want to look at QC of the raw read data to figure out where things might have gone wrong. 
+
+Use the following command on your Terminal window.
+
+⭐ **Some example command lines will need to be changed to fit your computer setting**
+
+🚩 **if you see `/some/text/like/this` just copy-paste will not work**
+
+🚩 **Remember to use TAB for auto-completion** 
+
+```bash 
+# Go to the location of the reference genome
+cd ~/Module_7_Transcriptome/References_v10/
+
+# Index reference genome so that it can be read by HISAT2
+# The template syntax for indexing command is hisat2-build <reference genome in .fa> <prefix for the index file>
+hisat2-build schistosoma_mansoni.PRJEA36577.WBPS18.genomic.fa schistosoma_mansoni.PRJEA36577.WBPS18.genomic.hisat2idx
+
+# ...Wait for the indexing step. This will take about 5-10 minutes... while this is happening, check out more details about mapping below. 
+```
+
 After the experiment has been conducted, RNA extracted, and proceeded to sequencing, each of the sequences obtained is called “read”. The sequences (or reads) often come back as a FASTQ file which could be many gigabytes in size, and this is essentially our raw data for the transcriptome analysis. The very first thing we could do with the data is to QC it, as we have done for the Genetic Diversity module. Then, we map it to the genome and, for gene expression analysis, count the number of reads that map to individual gene locations. 
 
 ### Key aspects of RNA-seq mapping and counting
@@ -113,41 +146,8 @@ However, it comes with some limitations, as it relies on gene model being accura
 
 New tools for mapping sequence reads are continually being developed. This reflects improvements in mapping technology and algorithm, but it is also due to changes in the sequence data to be mapped; for example, long-read data (from third generation sequencer) will often need different mapping tool. Although data from new sequencing technologies may require different set of tools but some key concepts for mapping and sequence analysis will remain relevant.
 
-### Hands on: RNA-seq read mapping
-#### Experiment description
-We will use data of S. mansoni from experimentally-infected mice that were collected at different time post-infection. These are worms from the lung stage (day 6 after the infection), the liver stage (day 13, 17, 21 after infection), and the adult stage (day 28 when they look like adults, and day 35 when the egg-laying has started and liver pathology can be noticable). Most groups have three biological replicates, except for the lung stage (day-6) where there are 7 biological replicates. Therefore we have 22 RNA samples, each has been sequenced on an Illumina HiSeq sequencing machine. All were sequenced as paired-end. 
-
-#### Mapping
-Mapping step generally need a huge computing power and often done on computer cluster or on Cloud. It can take a couple of hours per sample; therefore, for this demonstration, we provide files with reduced number of reads to reduce the processing time but you will still see how the run look like. We then provide output from the mapping that use full dataset and we can use this for the differential expression analysis later this afternoon. 
-
-First, we will use HISAT2 (PMID: 25751142) to map RNA-seq data (in FASTQ format) to genome data (in FASTA format). HISAT2 is a mapper tool and is an upgraded software from the developer of TopHat. It is suitable for RNA-seq data as it also takes into account the splicing of exon-intron which is a characteristic of eukaryotic mRNA. 
-
-![](figures/fastq.png)  
-**Figure 3.** FASTQ file
-
-![](figures/fasta.png)  
-**Figure 4.** FASTA file
-
-**Note:** For RNA-seq we can often get away without trimming reads before the mapping step. This is because contaminated reads or reads with low-quality would also have low mapping score and will be excluded during the read counting step. However, if the number of mapped reads or mapping results seem off, you may want to look at QC of the raw read data to figure out where things might have gone wrong. 
-
-Use the following command on your Terminal window.
-
-⭐ **Information inside pointy brackets `<>` need to be changed to fit your computer setting**
-
-🚩 **if you see `<some text>` just copy-paste will not work**
-
-🚩 **Remember to use TAB for auto-completion**
-
-```bash 
-# Go to the location of the reference genome
-cd /<path/to/data>/Module_7_Transcriptome/References_v10/
-
-# Index reference genome so that it can be read by HISAT2
-# The template for indexing command is hisat2-build <reference genome in .fa> <prefix for the index file>
-hisat2-build schistosoma_mansoni.PRJEA36577.WBPS18.genomic.fa schistosoma_mansoni.PRJEA36577.WBPS18.genomic.hisat2idx
-
-# ...Wait for the indexing step... This will take about 5-10 minutes...
-
+```bash
+# Once the mapping is done, follow the steps below to prepare your working directory. In a usual experiment, you will be generating multiple files at and after the mapping step. It is a good practice to keep a good structure for these files.
 # Exit the 'References' directory and create a new directory to keep the mapping output
 cd ../
 mkdir Mapping
@@ -157,23 +157,24 @@ cd Mapping
 ```
 
 Now we will map RNA-seq data to the reference genome using HISAT2. 
-As mentioned before, the RNA-seq data for our experiment have been mapped for you separately, this part is only for practicing purpose.
+As mentioned before, the RNA-seq data for our data analysis in R have been mapped for you separately, this part is only for practicing purpose.
 Try `hisat2 --help` to find out what the additional arguments mean.
 ```bash
 # For RNA-seq that come from paired-end sequencing
 hisat2 --max-intronlen 40000 -x ../References_v10/schistosoma_mansoni.PRJEA36577.WBPS18.genomic.hisat2idx -1 ../RNAseq_rawdata/ERR3489994_1_sample.fastq -2 ../RNAseq_rawdata/ERR3489994_2_sample.fastq -S ERR3489994.sam
 ```
 
-The **alignment rate** will be shown on the screen. What do you think about the alignment rate of this mapping? 
-In which scenerio might you get a low alignment rate? 
+The **alignment rate** will be shown on the screen. 
+❓What do you think about the alignment rate of this mapping? 
+❓In which scenerio might you get a low alignment rate in mapping of helminth sequences? 
 
-The mapping output a SAM file which contain information of the mapping location and scores. 
+The HISAT2 mapping output a SAM file which contain information of the mapping location and scores (remember from Genetic Variation module). 
 We will convert SAM file to BAM file, a binary sibling which take less space on a disk and allow faster processing time for the next step (sorting).
 ```bash
 # Convert SAM to BAM using samtools
 samtools view -bS -o ERR3489994.bam ERR3489994.sam
 
-# See the file size differences between the SAM and BAM files
+# Notice the file size differences between the SAM and BAM files
 ls -lth
 
 # Sort BAM file
@@ -183,7 +184,7 @@ samtools sort -n -O BAM -o ERR3489994_sorted.bam ERR3489994.bam
 ### Exercise 7.1
 Now that SAM files have been converted to BAM, the SAM are no longer useful and they take up a lot of space. Use Unix commands to:
 
-1) List all SAM files in the current directory
+1) List all SAM files, and only SAM files, in the current directory
 
 2) Remove all SAM files.
    *Make sure you do not accidentally delete BAM files; BAM files are needed for the next step!*
@@ -201,7 +202,7 @@ The file that contains annotated information of a genome is known as GFF (Genera
 ![](figures/gtf.png)
 **Figure 5.** Example of a GTF file
 
-Use featureCounts in Subread/Rsubreadpackages to calculate the number of reads mapped to each gene
+We will use featureCounts in Subread/Rsubreadpackages to calculate the number of reads mapped to each gene
 See https://subread.sourceforge.net/featureCounts.html or do `featureCounts --help` to see meaning of these options. The manual and `--help` option can also be useful if you encounter an error message.
 
 ```bash
@@ -217,14 +218,17 @@ cd ../Mapping/
 # Run featureCounts
 # featureCounts <various options> <sorted BAM file> <GTF or GFF file with gene annotation>
 # For ERR3489994_sorted.bam file
-# The > means 'take the screen output to this file'
+# The -o option is for the name of output file
 featureCounts -p -B -t 'CDS' -g 'Parent' -T 1 -a ../References_v10/schistosoma_mansoni.PRJEA36577.WBPS18.annotations_longestisoform.gff3 -o ERR3489994_featureCounts.txt ERR3489994_sorted.bam
 
 # Explore one of the featureCounts output files
-# Use up-down arrows to move long the files, or press the spacebar or D to move down a page, press B to move up a page
+# Use up-down arrows to move up and down the files, or press the spacebar or D to move down a page, press B to move up a page
 less ERR3489994_featureCounts.txt
 
 # Cut only column 'GeneID' and readcounts
+cut -f1,7 ERR3489994_featureCounts.txt | head # Notice the output of this first part of the command
+
+# Now pipe that output into another cut command
 cut -f1,7 ERR3489994_featureCounts.txt | cut -d':' -f2 > ERR3489994_Counts.txt
 
 less ERR3489994_Counts.txt
@@ -261,7 +265,7 @@ We mapped and performed read counting for two example samples so far, the real s
 ## Setting up RStudio <a name="Rprep"></a>
 We will move from Unix commands into R. We could run R on the Terminal, but more conveniently, we could run R on RStudio which provide graphical user interface and keep scripts and output neatly in one windows. 
 
-First, open RStudio and create a new R Script file (or RMarkdown file if you prefer). This will produce a blank file in the window on the top left. Save it to a meaningful name. While doing the analysis, we recommend typing, or copying, commands in this handbook into the R script area and then choose the line and run from there (using “Run” button next to the script area, or `Ctrl+Enter` shortcut key). This way we will have all the commands neatly stored in the script area which will make it easier to trace back, re-do, or edit if necessary. 
+First, open RStudio and create a new R Script file (or RMarkdown file if you prefer). This will produce a blank file in the window on the top left. Save it to a meaningful name. While doing the analysis, we recommend typing, or copying, commands in this handbook into the R script area and then choose the line and run from there (using “Run” button next to the script area, or `Ctrl+Enter` shortcut key). This way we will have all the commands neatly stored in the script area which will make it easier to trace back, re-do, re-use, or edit and debug if necessary.
 
 While using RStudio, you can get help by typing command 
 - `?functioname` (function manual will appear on the Help section), 
@@ -273,30 +277,43 @@ You can also find help online. If you Google your bioinformatics and R questions
 **Figure 6.** RStudio user interface
 
 ### Prepare your R workspace
-The packages that we will load have previously been installed on the computer, and now we need to pull them, using `library()` command, into our current R environment. 
+Most of the packages that we will load have previously been installed on the computer, and now we need to pull them, using `library()` command, into our current R environment. 
 
-**Note:** If you want to run this analysis on a different computer, you may need to first install the packages, but this task is often straightforward. R packages that we use are mainly from **Bioconductor** repository, or from **CRAN (The Comprehensive R Archive Network)**. 
+**Note:** If you want to run this analysis on a different computer, you may need to first install the packages, but this task is often straightforward. R packages that we use are mainly from **Bioconductor** repository, or from **CRAN (The Comprehensive R Archive Network)**.
 
 As an example, to install `topGO`, which is an R package on Bioconductor, we just need to follow few lines of commands from this page https://www.bioconductor.org/packages/release/bioc/html/topGO.html. To install a package from CRAN, such as `ggplot2`, we use command `install.packages("ggplot2")`.
 
+Today, we will also practice installing some of the required packages as well. 
+ 
 Let's get your R workspace set up
 
 ```R
 # Set up work directory
 # setwd command set working directory for the current R session. After running this line, if we import or export files without defining a specific directory, R will assume the current working directory as your destination.
-# the path to your data is considered a "string" or "character" in R, so we need to put it inside a quotation mark
-setwd("/<path/to/data>/Module_7_Transcriptome/")
+# The **path to your data (location of your data on the machine)** is considered a "string" or "character" in R, so we need to put it inside a quotation mark
+setwd("/path/to/data/Module_7_Transcriptome/")
 
 # Load required packages into R environment 
-# R comes with standard packages (i.e. set of tools). We use library command to load additional tools that we need for RNA-seq data analysis
+# R comes with standard packages (i.e. set of tools). We use library command to load additional tools that we need for RNA-seq data analysis.
+# Run the commands below, but some of the packages have not been pre-installed for you. 
+
+# Notice how the 'library()' command respond; can you tell which of the packages have not been installed? 
+
 library(DESeq2)   		# for doing expression analysis
 library(topGO)    		# for running GO term enrichment
 library(ggplot2)  		# for (visually pleasing) plots
 library(RColorBrewer) 	# for a wider range of plot colours
-
-# For pheatmap, need to install in R environment
-install.packages("pheatmap")
 library(pheatmap) 		# for (visually pleasing) heatmaps
+
+# Try installing the missing package(s) by following R package depository guideline.
+# !!HINT!! Google the package name with the keyword "install". Follow the link that are either Bioconduction website or CRAN website. 
+___your package installation command here___
+
+# Once you have installed the missing package(s), run the library() command on those newly-install package(s) again. Notice how the command respond this time. 
+___your library command here___
+
+# To check which packages have been loaded to your current R working environment, check with command below
+sessionInfo()
 ```
 
 ### About DESeq2
