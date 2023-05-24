@@ -286,14 +286,6 @@ Let's get your R workspace set up
 # the path to your data is considered a "string" or "character" in R, so we need to put it inside a quotation mark
 setwd("/<path/to/data>/Module_7_Transcriptome/")
 
-# To keep our filing system tidy, let's create a new directory to keep outputs from R analysis
-dir.create("R_analysis")
-
-# You can check on your Terminal or in File that a new directory called "R_analysis" has been created.
-
-# Enter the directory R_analysis that you just created
-setwd("./R_analysis")
-
 # Load required packages into R environment 
 # R comes with standard packages (i.e. set of tools). We use library command to load additional tools that we need for RNA-seq data analysis
 library(DESeq2)   		# for doing expression analysis
