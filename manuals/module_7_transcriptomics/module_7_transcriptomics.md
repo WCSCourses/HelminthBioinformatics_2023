@@ -14,7 +14,7 @@
 ---
 
 ## Overview and Aims <a name="intro"></a>
-In this module, we will cover key concepts in RNA-seq transcriptome experimental design and data analysis. We will start from raw data and work toward analysis of differentially expressed genes and functional analysis of gene lists. The example we will use come from Schistosoma mansoni which we have a good reference genome for (and downloadable from Wormbase Parasite). We will use data of S. mansoni from experimentally-infected mice that were collected at different time post-infection. We could ask if and how the worms at different stages are transcriptionally different and how those differences are related, or surprising, given the nature of the worms.
+In this module, we will cover key concepts in RNA-seq transcriptome experimental design and data analysis. We will start from raw data and work toward analysis of differentially expressed genes and functional analysis of gene lists. The example we will use come from _Schistosoma mansoni_ which we have a good reference genome for (and downloadable from Wormbase Parasite). We will use data of _S. mansoni_ from experimentally-infected mice that were collected at different time post-infection. We could ask if and how the worms at different stages are transcriptionally different and how those differences are related, or surprising, given the nature of the worms.
 
 At the end of this module, and the follow-up project module, you will have hands-on experience in
 - mapping RNA-seq data to reference genome
@@ -43,7 +43,7 @@ _Technical replicates: random noise from protocols or equipment_
 * The noise from technical variation is often quite low
 
 _Biological replicates: “true” biological variation_
-* From independent and distinct individual/cells/experiments e.g. growing up three batches of parasites, treating them all identically, extracting RNA from each and sequencing the three samples separately, cells that are grown separately, individual plant
+* From independent and distinct individual/cells/experiments e.g. growing up three batches of parasites, treating them all identically, extracting RNA from each and sequencing the three samples separately, cells that are grown separately (although, this is arguable for cell lines), individual plant
 
 _How many replicates to do?_
 * The number of replicate affect statistical power in identifying DE genes
@@ -88,7 +88,7 @@ Paired-end data could enable more accurate read mapping (alignment) to the genom
 After the experiment has been conducted, RNA extracted, and proceeded to sequencing, each of the sequences obtained is called “read”. The sequences (or reads) often come back as a FASTQ file which could be many gigabytes in size, and this is essentially our raw data for the transcriptome analysis. The very first thing we could do with the data is to QC it, as we have done for the Genetic Diversity module. Then, we map it to the genome and, for gene expression analysis, count the number of reads that map to individual gene locations. 
 
 ### Key aspects of RNA-seq mapping and counting
-Mapping is a relatively simple step, and below are information that may become helpful when choosing tools and parameters during your read mapping.
+Mapping is a relatively straightforward step, and below are information that may become helpful when choosing tools and parameters during your read mapping.
 
 #### Spliced mapping
 Eukaryotic mRNAs are processed after transcription; introns are spliced out. Therefore some reads (those crossing exon boundaries) should be split when mapped to the reference genome sequence in which intron sequences are still present. TopHat and HISAT2 are one of few mappers which can split reads while mapping them, making it very suitable for mapping RNA-seq of a eukaryote. Splice-aware mapper first identify reads that map within a single exon and then identify splice junction on unmapped reads and map them across exon boundaries.
@@ -105,11 +105,13 @@ When mapping paired reads, the mapper takes the expected insert size into accoun
 #### Choosing mapper tools.
 Mapping to a genome is more appropriate where you are less confident about the genome annotation and/or you don’t have variant transcripts because your organism rarely makes them or they are simply not annotated. Tophat2 (PMID: 23618408), HISAT2 (PMID: 25751142), STAR (PMID: 23104886) and GSNAP (PMID: 20147302) are all splice-aware RNA-seq read mappers appropriate for eukaryote RNA-seq data. 
 
-Alternative short read mappers which do not split reads include SOAP (PMID: 23587118), SSAHA (PMID: 11591649), BWA (PMID: 19451168) and Bowtie2 (PMID: 22388286), SMALT (Ponstingl, unpublished/https://www.sanger.ac.uk/science/tools/smalt-0). All of these may be appropriate for prokaryote (e.g. bacterial) RNA-seq data. 
+Alternative short read mappers which do not split reads include SOAP (PMID: 23587118), SSAHA (PMID: 11591649), BWA (PMID: 19451168) and Bowtie2 (PMID: 22388286). All of these may be appropriate for prokaryote (e.g. bacterial) RNA-seq data. 
 
-If you have a good quality genome and genome annotation such as for human, model organisms (e.g. mouse, zebra fish, _C. elegans_), and well-curated pathogen genomes e.g. _Plasmodium_, _S. mansoni_, we can map RNA-seq reads against transcriptome instead of to the genome. This method of mapping can save lots of time and computing power. Examples of tools for mapping to transcriptome are Kallisto (PMID: 27043002) and eXpress (PMID: 23160280). However, it comes with some limitations, as it relies on gene model being accurate which can only come about from a good quality reference genome. In addition, when mapping to the genome, we can cross check the quality of mapping and the gene model using genome viewer (such as Artemis, Apollo, IGV) and this is not applicable for transcriptome mapping.
+If you have a good quality genome and genome annotation such as for human, model organisms (e.g. mouse, zebra fish, _C. elegans_), and well-curated pathogen genomes e.g. _Plasmodium_, _S. mansoni_, _Haemonchus contortus_, we can map RNA-seq reads against transcriptome instead of to the genome. This method of mapping can save lots of time and computing power. Examples of tools for mapping to transcriptome are Kallisto (PMID: 27043002) and eXpress (PMID: 23160280). 
 
-New tools for mapping sequence reads are continually being developed. This reflects improvements in mapping technology, but it is also due to changes in the sequence data to be mapped. The sequencing machines we are using now will perhaps not be the ones we are using in a few years time, and the data the new machines produce may require different set of tools but some key concepts will remain relevant.
+However, it comes with some limitations, as it relies on gene model being accurate which can only come about from a good quality reference genome. In addition, when mapping to a reference genome, we can cross check the quality of mapping and how well it match the gene model using genome viewer (such as Artemis, Apollo, IGV), but this is not applicable for mapping to a reference transcriptome.
+
+New tools for mapping sequence reads are continually being developed. This reflects improvements in mapping technology and algorithm, but it is also due to changes in the sequence data to be mapped; for example, long-read data (from third generation sequencer) will often need different mapping tool. Although data from new sequencing technologies may require different set of tools but some key concepts for mapping and sequence analysis will remain relevant.
 
 ### Hands on: RNA-seq read mapping
 #### Experiment description
