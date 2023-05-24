@@ -73,7 +73,7 @@ Samples are often processed in batch, or if you have many samples or require lar
 **Figure 1.** Avoiding batch effect
 
 #### Strand-specificity
-Some of the current protocols for preparing RNA-sequencing libraries can retain information on the strand which the RNA have come from. The strand information, in addition to sequences, could be particularly useful if researchers are interested in non-coding RNA, or if the organisms under study is known to have genes overlapping on the opposite strand. 
+Some of the current protocols for preparing RNA-sequencing libraries can retain information on the strand which the RNA have come from. The strand information, in addition to sequences, could be particularly useful if researchers are interested in non-coding RNA, or if the organisms under study is known to have genes overlapping on the opposite strand. See more explanation with diagrams [here](https://www.azenta.com/blog/stranded-versus-non-stranded-rna-seq)
 
 #### Single-end or paired-end sequencing
 In single-end sequencing, each fragment is sequenced from only one end. In paired-end sequencing, the sequencing is done on both ends of the fragment, providing information on relative positions of each pair of sequencing reads. Single-end sequencing is faster to obtain as well as more economical, and it can be a good choice for sequencing of small RNA, or chromatin immunoprecipitation sequencing (ChIP-Seq).
