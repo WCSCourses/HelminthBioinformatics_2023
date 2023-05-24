@@ -226,6 +226,8 @@ less ERR3489994_featureCounts.txt
 # Cut only column 'GeneID' and readcounts
 cut -f1,7 ERR3489994_featureCounts.txt | cut -d':' -f2 > ERR3489994_Counts.txt
 
+less ERR3489994_Counts.txt
+
 ```
 
 Output from featureCounts contain `STDOUT` (standard out; telling progress and key steps while the tool is running) and `STDERR` (standard error; error or warning messages) followed by the number of reads that mapped to each gene. We only need the read count information for downstream analyses. 
@@ -242,6 +244,8 @@ grep "^Smp" ERR3489994_Counts.txt | head
 
 # What we want here is to grep lines that start with Smp from a file, then sort the grep output, write this sorted output to a new file
 grep "^Smp" ERR3489994_Counts.txt | sort > final_counts/ERR3489994_featureCounts.final
+
+less final_counts/ERR3489994_featureCounts.final
 
 ```
 
@@ -321,8 +325,8 @@ list.files(datadir)   # this should list 22 files
 sampleFiles <- list.files(datadir)    # this save that 22 file names into a new R object		
 
 # Create sample names
-# split the name at “_v10.counts” and keep the resulting output in a new vector
-name <- unlist(strsplit(sampleFiles, split = "_v10.counts", perl = TRUE))
+# split the name at “_v10.count” and keep the resulting output in a new vector
+name <- unlist(strsplit(sampleFiles, split = "_v10.count", perl = TRUE))
 name
 
 # Create metadata information - match with sample names
