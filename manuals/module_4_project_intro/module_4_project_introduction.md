@@ -1,4 +1,5 @@
-# Project Introduction and Planning **This section is happening at the end of Thursday**
+# Project Introduction and Planning 
+**This section is happening at the end of Thursday**
 
 Now you have reached the final module of the course, where you will apply what you learn in this course on a new problem. 
 
@@ -23,7 +24,7 @@ Here we have RNA-seq of _B. malayi_ from larval stages to various ages of male a
 
 <img src="https://www.cdc.gov/parasites/images/lymphaticfilariasis/B_malayi_LifeCycle.gif" width="700">
 
-**Figure 4.1:** Brugia malayi life cycle
+**Figure 4.1:** _Brugia malayi_ life cycle
 
 ---
 
