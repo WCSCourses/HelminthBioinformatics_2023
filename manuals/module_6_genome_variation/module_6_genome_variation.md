@@ -287,6 +287,9 @@ To start with, we are going to work on a single sample to familiarise you with t
 
 
 ```bash
+# First, go back to the module home directory:
+cd ~/Module_6_Genetic_Variation
+
 # make a new directory (mkdir) and move into it (cd):
 mkdir single_sample_analysis
 
