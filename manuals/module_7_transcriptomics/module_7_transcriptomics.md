@@ -159,7 +159,6 @@ As mentioned before, the RNA-seq data for our experiment have been mapped for yo
 Try `hisat2 --help` to find out what the additional arguments mean.
 ```bash
 # For RNA-seq that come from paired-end sequencing
-# How does the command differ from the one above  for single-end data? 
 hisat2 --max-intronlen 40000 -x ../References_v10/schistosoma_mansoni.PRJEA36577.WBPS18.genomic.hisat2idx -1 ../RNAseq_rawdata/ERR3489994_1_sample.fastq -2 ../RNAseq_rawdata/ERR3489994_2_sample.fastq -S ERR3489994.sam
 ```
 
