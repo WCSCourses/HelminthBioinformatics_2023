@@ -732,6 +732,7 @@ Running topGO take a couple of steps (see topGO documentation here https://bioco
 
 ```R
 # Open Terminal and Download run_topGO.R 
+cd /home/manager/Module_7_Transcriptome/
 wget https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/manuals/module_7_transcriptomics/run_topGO.R
 
 # Move back into R
