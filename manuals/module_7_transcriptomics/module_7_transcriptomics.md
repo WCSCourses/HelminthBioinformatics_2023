@@ -768,7 +768,7 @@ length(D13D06_upinD13)
 ```R
 # Before Run topGo
 # Make topGO reference file
-GOref <- read.delim("/location/of/your/file/Module_7_Transcriptome/Sm_v10_GOref.txt")
+GOref <- read.delim("/location/of/your/file/Module_7_Transcriptome/References_v10/Sm_v10_GOref.txt")
 head(GOref) 
 GOref <- GOref[,-1] # Remove unwanted column
 
@@ -796,7 +796,7 @@ write.table(GOref2, file = "GO_annotation_Smv10.tsv", quote = FALSE, sep = "\t",
 # - reference GO annotation (GO terms associated with each gene)
 # - list of genes to test for GO enrichment
 # - threshold for calling “significant” enrichment
-topGO_D13D06_upinD13  <- run_topGO_R(ref = "/<path to data>/Module_7_Transcriptomics/References_v10/GO_annotation_Smv10.tsv", genelist = D13D06_upinD13, thres = 0.05)
+topGO_D13D06_upinD13  <- run_topGO_R(ref = "/location/of/your/file/Module_7_Transcriptome/GO_annotation_Smv10.tsv", genelist = D13D06_upinD13, thres = 0.05)
 
 # Check topGO result. Column 1 to 7 are standard topGO output; column 8 give a list of input genes with that GO term. We won’t look at that at the moment. 
 topGO_D13D06_upinD13[,1:7]
