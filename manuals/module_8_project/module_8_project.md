@@ -79,7 +79,11 @@ You will need to download a new GO annotation by yourself using WormBaseParaSite
 
 
 
+---
 
+[↥ **Back to top**](#top)
+<br>
+<br>
 
 ## Project 2: Analysis of cryptic genetic variation in a family of *Haemonchus contortus*
 ### Background
@@ -118,3 +122,11 @@ wget ftp://ngs.sanger.ac.uk//production/pathogens/sd21/helminth_bioinformatics_2
 ### Working in a group
 - see if you can split the tasks to save time
 - for example, you could have a "mapping team" and a "metadata" team
+
+
+
+---
+
+[↥ **Back to top**](#top)
+<br>
+<br>
