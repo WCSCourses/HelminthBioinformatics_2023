@@ -18,15 +18,19 @@ There are three directories with files that are relevant to this project. **Don'
 
 **_Brugia_**
 - The only directory you really need to get started is the **Brugia**. This directory contains everything you need to look at gene expression in the _B. malayi_ worms. 
-![](./figures/proj4files.png)
+```
+./RNAseqData_Brugia/Bm_counts:
+F120a.counts  F30a.counts  F42a.counts  L4a.counts  M120a.counts  M30a.counts  M42a.counts
+F120b.counts  F30b.counts  F42b.counts  L4b.counts  M120b.counts  M30b.counts  M42b.counts
+```
 
 **_Wol_**
 - The **Wol** directory is only needed if you want to do dual-RNA seq and to look at bacteria gene expression as well. 
-![](./figures/proj4files2.png)
-
-**Bm_RNAseq_F120_**
-- The **Bm_RNAseq_F120** contains down-sized FASTQ files for those who want to try the genome mapping step, but this file is too "trimmed down", it won't be enough for gene expression analysis. 
-![](./figures/proj4files3.png)
+```
+./RNAseqData_Wol:
+Wol_F120a_htseqcount.txt  Wol_F30a_htseqcount.txt Wol_M120a_htseqcount.txt  Wol_M30a_htseqcount.txt
+Wol_F120b_htseqcount.txt  Wol_F30b_htseqcount.txt Wol_M120b_htseqcount.txt  Wol_M30b_htseqcount.txt
+```
 
 **Note: There is no need to download the FASTQ files for this project session because**
 - 1)	These FASTQ files are HUGE!! To process these files, we normally work on a computer cluster or a high-performance computing server, not on individual laptop
