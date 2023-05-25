@@ -790,11 +790,7 @@ GOref2[grep("GO", GOref2$GO, fixed = TRUE, invert = TRUE),2] <- "."
 
 # Output the re-formatted GO reference to a file
 write.table(GOref2, file = "GO_annotation_Smv10.tsv", quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
-```
 
-```
-
-```R
 # Run topGO
 # The input required for running topGO are: 
 # - reference GO annotation (GO terms associated with each gene)
