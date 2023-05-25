@@ -763,13 +763,44 @@ D13D06_upinD13 <- rownames(res_D13D06)[which(res_D13D06$padj < 0.01 & res_D13D06
 
 # Check how many genes there are
 length(D13D06_upinD13) 
+```
 
+```R
+# Before Run topGo
+# Open file GO_formatting.R to make topGO reference file
+GOref <- read.delim("/location/of/your/file/Module_7_Transcriptome/Sm_v10_GOref.txt")
+head(GOref) 
+GOref <- GOref[,-1] # Remove unwanted column
+
+# Prepare a new dataframe 
+GOref2 <- data.frame(matrix(ncol = 2))
+colnames(GOref2) <- c("GeneID","GO")
+
+# Aggregate GO terms from the same gene ID into one row
+for (i in unique(GOref$Gene.stable.ID)) {
+GOref2 <- rbind(GOref2,
+c(i,paste(GOref$GO.term.accession[which(GOref$Gene.stable.ID == i)], collapse = ",")))
+}
+
+# Remove the first row which contain NA
+GOref2 <- GOref2[-1,]
+
+# For genes with no GO term, assign a dot (.) in the GO column
+GOref2[grep("GO", GOref2$GO, fixed = TRUE, invert = TRUE),2] <- "."
+
+# Output the re-formatted GO reference to a file
+write.table(GOref2, file = "GO_annotation_Smv10.tsv", quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
+```
+
+```
+
+```R
 # Run topGO
 # The input required for running topGO are: 
 # - reference GO annotation (GO terms associated with each gene)
 # - list of genes to test for GO enrichment
 # - threshold for calling “significant” enrichment
-topGO_D13D06_upinD13  <- run_topGO_R(ref = "/<path to data>/Module_7_Transcriptomics/References_v10/Sm_v10_GOref_topGO.txt", genelist = D13D06_upinD13, thres = 0.05)
+topGO_D13D06_upinD13  <- run_topGO_R(ref = "/<path to data>/Module_7_Transcriptomics/References_v10/GO_annotation_Smv10.tsv", genelist = D13D06_upinD13, thres = 0.05)
 
 # Check topGO result. Column 1 to 7 are standard topGO output; column 8 give a list of input genes with that GO term. We won’t look at that at the moment. 
 topGO_D13D06_upinD13[,1:7]
