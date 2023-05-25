@@ -768,7 +768,7 @@ length(D13D06_upinD13)
 ```R
 # Before Run topGo
 # Make topGO reference file
-GOref <- read.delim("/location/of/your/file/Module_7_Transcriptome/References_v10/Sm_v10_GOref.txt")
+GOref <- read.delim("/location/of/your/file/Module_7_Transcriptome/References_v10/Sm_v10_GOref.txt", header = FALSE)
 head(GOref) 
 colnames(GOref) <- c("Gene.stable.ID", "GO.term.accession")
 
