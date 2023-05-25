@@ -750,7 +750,7 @@ Running topGO take a few steps (see topGO documentation here https://bioconducto
 Open Terminal and Download run_topGO.R from the course github.
 ```bash
 cd /home/manager/Module_7_Transcriptome/
-wget https://github.com/WCSCourses/HelminthBioinformatics_2023/blob/main/manuals/module_7_transcriptomics/run_topGO.R
+wget https://raw.githubusercontent.com/WCSCourses/HelminthBioinformatics_2023/main/manuals/module_7_transcriptomics/run_topGO.R
 ```
 
 Move back into RStudio
