@@ -12,23 +12,23 @@ output:
 
 Before we can perform GO term enrichment analysis, we need a reference file that provide a list of GO terms associated for each gene. We have learnt during the WormBase Parasite module that we can download genome-related data from BioMart. Here, we cover more details on how to download GO term annotation from BioMart and how to format the BioMart download to use as an input for topGO. 
 
-![](HelminthBioinformatics_2023/manuals/figures/wbpsGO1.png)
+![](wbpsGO1.png)
 
 ---
 
-![](manuals/figures/wbpsGO2.png)
+![](wbpsGO2.png)
 
 ---
 
-![](manuals/figures/wbpsGO3.png)
+![](wbpsGO3.png)
 
 ---
 
-![](manuals/figures/wbpsGO4.png)
+![](wbpsGO4.png)
 
 ---
 
-![](manuals/figures/wbpsGO5.png)
+![](wbpsGO5.png)
 
 ```R
 # Load GO table that we just downloaded from biomart into R
