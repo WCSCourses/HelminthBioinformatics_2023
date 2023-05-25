@@ -114,6 +114,7 @@ wget ftp://ngs.sanger.ac.uk//production/pathogens/sd21/helminth_bioinformatics_2
 
 ```
 
+3. map the reads to the mitochondrial genome. Hint: modify the ```for loop``` in the genetic variaiton module. 
 3. Call variants
 4. perform a PCA analysis of SNP variants
 5. Colour the PCA by different grouping factors - you will need to make a metadata table. Hint: look closely at the sample names
