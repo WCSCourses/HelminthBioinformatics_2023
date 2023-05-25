@@ -2,36 +2,41 @@
 
 Congratulation!! You have reached the final day of the course. This is where you will gather the skills you have learnt and practice them on a new problem. Exchange the knowledge, tips and solutions with your coursemates, and ask your instructors if you get stuck.  
 
----
 
-The project files that you have downloaded should look like this:
+There are two projects to choose from:
+1. Transcriptomics of the filarial nematode *Brugia malayi* and its wolbachia endosymbiont
+2. Analysis of cryptic genetic variation in a family of *Haemonchus contortus*
+
+
+--
+
+
+
+## Project 1: Transcriptomics of the filarial nematode *Brugia malayi* and its wolbachia endosymbiont
+
+There are three directories with files that are relevant to this project. **Don't get scared with the amount of files**
 
 **_Brugia_**
+- The only directory you really need to get started is the **Brugia**. This directory contains everything you need to look at gene expression in the _B. malayi_ worms. 
 ![](./figures/proj4files.png)
 
-
 **_Wol_**
+- The **Wol** directory is only needed if you want to do dual-RNA seq and to look at bacteria gene expression as well. 
 ![](./figures/proj4files2.png)
 
-
 **Bm_RNAseq_F120_**
+- The **Bm_RNAseq_F120** contains down-sized FASTQ files for those who want to try the genome mapping step, but this file is too "trimmed down", it won't be enough for gene expression analysis. 
 ![](./figures/proj4files3.png)
 
+**Note: There is no need to download the FASTQ files for this project session because**
+- 1)	These FASTQ files are HUGE!! To process these files, we normally work on a computer cluster or a high-performance computing server, not on individual laptop
+- 2)	We have already downloaded and processed the FASTQ files for you, up to the point that the data can be analysed on a laptop. These are the read count files you see in your downloaded files. 
 
-**Don't get scared with the amount of files.** 
-- The only directory you really need to get started is the **Brugia**. This directory contains everything you need to look at gene expression in the _B. malayi_ worms. 
-- The **Wol** directory is only needed if you want to do dual-RNA seq and to look at bacteria gene expression as well. 
-- The **Bm_RNAseq_F120** contains down-sized FASTQ files for those who want to try the genome mapping step, but this file is too "trimmed down", it won't be enough for gene expression analysis. 
-
-There are also read count files and a text file containing the accession IDs of the original data.
-The accession IDs are for the original FASTQ files, and the IDs are there for your reference and for completeness only. **There is no need to download the FASTQ files for this project session because**
-
-1)	These FASTQ files are HUGE!! To process these files, we normally work on a computer cluster or a high-performance computing server, not on individual laptop
-
-2)	We have already downloaded and processed the FASTQ files for you, up to the point that the data can be analysed on a laptop. These are the read count files you see in your downloaded files. 
+- There are also read count files and a text file containing the accession IDs of the original data.
+- The accession IDs are for the original FASTQ files, and the IDs are there for your reference and for completeness only. 
 
 
-## The steps that were done for you are
+### The steps that were done for you are
 1)	Download the FASTQ files from a public repository (see appendix [Finding and download sequence data from public repository](https://wcscourses.github.io/HelminthBioinformatics_2023/manuals/other_information/Sequence_data_on_public_repo.html) if you want to learn how to do this)
 
 2)	Download the reference genome and annotation file (GTF) of the worms from WormBaseParaSite. Additionally, download the reference genome of Wolbachia of _B. malayi_ from [Ensembl Bacteria](http://bacteria.ensembl.org/index.html). The usage is very similar to WormBaseParaSite but it contains bacterial reference genomes. 
@@ -46,7 +51,8 @@ The accession IDs are for the original FASTQ files, and the IDs are there for yo
 
 7)	Count reads per features (in this case, reads per gene) using `htseq-count` (an alternative to featureCounts tool)
 
-## The steps that you will perform by yourself in this project are (most of them refer to the transcriptomics module):
+
+### The steps that you will perform by yourself in this project are (most of them refer to the transcriptomics module):
 1)	Starting in RStudio
 
 2)	Import the read counts data into RStudio
@@ -70,4 +76,45 @@ You will need to download a new GO annotation by yourself using WormBaseParaSite
 - You are also provided with the R script `GO_formatting.R` to reformat the downloaded GO reference into the format the `topGO` require. **However, this is not a complete-and-ready-to-use script**, and it will need some editing _(a real life scenario when you borrow script from someone else)_ 
 - Have a look through the script `GO_formatting.R` and try to figure out which parts need to be edited. A simple way to do this would be to copy the whole code from `GO_formatting.R` and place it into your current R script and test your editing there. 
 
-**That is all! Now it's your time!**
+
+
+
+
+
+## Project 2: Analysis of cryptic genetic variation in a family of *Haemonchus contortus*
+### Background
+Using unpublished data from Steve's lab, we would like you describe genetic variation among a closely related group of *H. contortus* parasites. Whole genome sequencing data was generated from hundreds of individual worms from the 5th generation of a genetic cross between susceptible female worms and resistant male worms. These crosses were described in two papers [here](https://doi.org/10.1093/gbe/evx269) and [here](https://doi.org/10.1016/j.celrep.2022.111522) (which might be useful for background and for your presentation).
+
+We have extracted the reads from the mitochondrial genome for you for mapping. 
+
+In theory, mitochondrial DNA is inherited from the mother (however, this is not exactly known in nematodes) - even though this is the 5th generation of the genetic cross, we might expect that mitochondrial variation in the progeny should look very similar the the original susceptible female parent. Is this true? We want you to find out.
+
+
+
+We have provided sequencing data for the following sample sets. You will see the following codes in the sample names, which will help you in your analysis:
+- ```MHCO18``` is the resistant parent (n=1)
+- ```MHCO3``` is the susceptible parent (n=1)
+- ```XQTL``` is the progeny. Within the progeny, we have two main groups:
+    - ```SUS``` - which are highly susceptible to ivermectin (n=180)
+    - ```RES``` - which are highly resistant to ivermectin (n=28)
+
+
+
+
+### The steps that you will perform by yourself in this project are
+1. download the refererence from WormBase ParaSite, and extract the mitochondrial genome
+2. download the raw sequencing data from Steve's FTP site. To help you, you can use the following command:
+
+```bash
+wget ftp://ngs.sanger.ac.uk//production/pathogens/sd21/helminth_bioinformatics_2023_variation_project/*gz
+
+```
+
+3. Call variants
+4. perform a PCA analysis of SNP variants
+5. Colour the PCA by different grouping factors - you will need to make a metadata table. Hint: look closely at the sample names
+6. find specific variants that discriminate different groups
+
+### Working in a group
+- see if you can split the tasks to save time
+- for example, you could have a "mapping team" and a "metadata" team
