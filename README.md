@@ -104,7 +104,8 @@ We are fortunate to be supported by [DataCamp](https://datacamp.com), who are pr
      - [Survey](https://forms.gle/LHEXCpvdbz7s7f5h8)
 
 
-**Module 7 - Transcriptomics**    
+**Module 7 - Transcriptomics**   
+     - [Introductory presentation](presentations/Module_7_Transcriptomics3.pdf)
      - [Online manual](manuals/module_7_transcriptomics/module_7_transcriptomics.md)  
      - [Survey](https://forms.gle/Wh9PujRCcTSN6hLj9)
 
