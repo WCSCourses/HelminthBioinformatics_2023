@@ -770,7 +770,7 @@ length(D13D06_upinD13)
 # Make topGO reference file
 GOref <- read.delim("/location/of/your/file/Module_7_Transcriptome/References_v10/Sm_v10_GOref.txt")
 head(GOref) 
-GOref <- GOref[,-1] # Remove unwanted column
+colnames(GOref) <- c("Gene.stable.ID", "GO.term.accession")
 
 # Prepare a new dataframe 
 GOref2 <- data.frame(matrix(ncol = 2))
@@ -781,6 +781,8 @@ for (i in unique(GOref$Gene.stable.ID)) {
 GOref2 <- rbind(GOref2,
 c(i,paste(GOref$GO.term.accession[which(GOref$Gene.stable.ID == i)], collapse = ",")))
 }
+
+head(GOref2)
 
 # Remove the first row which contain NA
 GOref2 <- GOref2[-1,]
