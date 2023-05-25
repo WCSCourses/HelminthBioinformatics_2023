@@ -767,7 +767,7 @@ length(D13D06_upinD13)
 
 ```R
 # Before Run topGo
-# Open file GO_formatting.R to make topGO reference file
+# Make topGO reference file
 GOref <- read.delim("/location/of/your/file/Module_7_Transcriptome/Sm_v10_GOref.txt")
 head(GOref) 
 GOref <- GOref[,-1] # Remove unwanted column
