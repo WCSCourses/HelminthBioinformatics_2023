@@ -102,12 +102,12 @@ and provide examples of how they can be used in bioinformatics analyses.
 - Light blue boxes contain instructions for running commands
      - lines that start with a hash, ie *"#"* are a comment line - do not type these out.
      - lines that start with the following symbols should be typed out. Different programming languages have different symbols,
-          - '\$' : this is a shell prompt
+          - ```$``` : this is a shell prompt
                - everything performed in this module is using the shell prompt
-          - '\>' : this is a R prompt
+          - ```>``` : this is a R prompt
                - this may appear in other modules
                - note that you also see this on the shell prompt if you have not completed a command correctly   
-          - '\>\>\>' : this is the python prompt  
+          - ```>>>``` : this is the python prompt  
                - you are not going to be using python here, but may choose to learn it in your own time as it is a very versatile programming language commonly used in bioinformatics
      - note that you don't actually type out the command prompt symbol, i.e. ignore the "$" at the start of the line, just type out the command after it.
 
@@ -129,7 +129,7 @@ and provide examples of how they can be used in bioinformatics analyses.
 ![](figures/01_open_terminal.png)
 
 - You should see a window labelled "Terminal" which will be empty except for a ’$' character at the top left.      
-     - The '$' character is the Linux prompt, similar to "C:\" in DOS. 
+     - The ```$``` character is the Linux prompt, similar to "C:\" in DOS. 
      - Note: the prompt will often be different on different Linux computers, for example it may be displayed as a ‘%’ character.
 
 - All Linux programs may be run by typing commands at the Linux prompt $. The command line tells the computer what to do.
@@ -145,25 +145,25 @@ cd /home/manager/Module_2_Linux_scripting
 
 - A list of useful commands can be found on a previous page.   
      - Many of them are two- or three-letter abbreviations. 
-     - The earliest Linux systems (circa 1970) only had slow Teletype terminals, so it was faster to type 'rm' to remove a file than 'delete' or 'erase'. This terseness is a feature of Linux which still survives.   
+     - The earliest Linux systems (circa 1970) only had slow Teletype terminals, so it was faster to type ```rm``` to remove a file than 'delete' or 'erase'. This terseness is a feature of Linux which still survives.   
 
 ---
 <br>
 
 ### Command line arguments
-- Typing any Linux command for example *ls*, *mv* or *cd* at the Linux prompt with the appropriate variables, such as files names or directories, followed by *pressing the enter key* will result in the tasks being performed.
+- Typing any Linux command for example ```ls```, ```mv``` or ```cd``` at the Linux prompt with the appropriate variables, such as files names or directories, followed by *pressing the enter key* will result in the tasks being performed.
 - You can alter the behaviour of these commands by specifying certain options (often called "parameters" or "flags") when typing in the command line.
 - The ‘command’ is separated from the options and arguments by a space.  
 - Additional options and/or arguments can be added to the commands to affect the way the command works.
 - Options usually have one dash and a letter (e.g. -h) or two dashes and a word (--help) with no space between the dash and the letter/word.
 - Arguments are usually filenames or directories.
-- For example, to get a list of files in the terminal you can use the "ls" command with no other options. 
+- For example, to get a list of files in the terminal you can use the ```ls``` command with no other options. 
      - This tells the computer you want a list of all the files in the current directory.  
      - The same information is also displayed in the file browser but with nice looking pictures of folders and files.
 
 ![](figures/03_list_files.png)
 
-- Lets try out some different examples of the "ls" command:   
+- Lets try out some different examples of the ```ls``` command:   
 
 ```bash
 # List the contents of a directory
@@ -191,7 +191,7 @@ $ ls –ltr
 
 ```
 
-- By using the *–l* (lowercase L for "long") option we can change the behaviour of the *ls* command. Instead of printing out a simple list, it will print out additional information about each file. There is a space between the command *ls* and the *–l* option. There is no space between the dash and the letter l.
+- By using the ```–l``` (lowercase L for "long") option we can change the behaviour of the ```ls``` command. Instead of printing out a simple list, it will print out additional information about each file. There is a space between the command ```ls``` and the ```–l``` option. There is no space between the dash and the letter l.
 
 ![](figures/04_ls_long.png)
 
@@ -235,14 +235,14 @@ $ ls –ltr
 
 ![](figures/05_directories.png)
 
-- Therefore, if there is a file called *genome.fasta* in the dna directory its location or full pathname can be expressed as */nfs/dna/genome.fasta*.
+- Therefore, if there is a file called ```genome.fasta``` in the dna directory its location or full pathname can be expressed as ```/nfs/dna/genome.fasta```.
 
 ---
 <br>
 
 
 ### pwd - find where you are
-- The command *pwd* stands for "print working directory".
+- The command ```pwd``` stands for "print working directory".
 - A command (also known as a program) is something which tells the computer to do something. Commands are therefore often the first thing that you type into the terminal (although we'll show you some advanced exceptions to this rule later).
 - As described above, directories are arranged in a hierarchical structure. To determine where you are in the hierarchy you can use the *pwd* command to display the name of the current working directory. The current working directory may be thought of as the directory you are in, i.e. your current position in the file-system tree.
 
@@ -255,7 +255,7 @@ $ cd basic
 $ pwd
 
 ```
-- Remember: Unix is case sensitive, *PWD* is not the same as *pwd*.
+- Remember: Unix is case sensitive, `PWD` is not the same as ```pwd```.
 - *pwd* will list each of the folders you would need to navigate through to get from the root of the file system to your current directory.
      - This is sometimes referred to as your 'absolute path' to distinguish that it gives a complete route rather than a 'relative path' which tells you how to get from one folder to another.
      - More on that shortly ...
