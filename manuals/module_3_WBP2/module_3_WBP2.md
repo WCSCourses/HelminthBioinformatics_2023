@@ -217,10 +217,11 @@ As a BAM file, this file is binary, so trying to read it as it is won’t be ver
 - [Samtools](http://www.htslib.org/doc/samtools.html) is a useful software package for manipulating SAM and BAM files.
 - We will use a samtools command to convert the BAM file to a SAM file so we can have a look at how it’s structured. Move to the module 3 data directory and type the following into your terminal:
 
-```bash
-samtools view -h SRR3223448.bam | less
-```
-
+    ```bash
+    samtools view -h SRR3223448.bam | less
+    ```
+<br>
+<br>
 <details closed>
 <summary> <- Click here to read more about the BAM and SAM file formats at your own time.</summary>
 The SAM file starts with a header section. All header lines begin with a ‘@’ character.
@@ -237,8 +238,7 @@ Before we can visualise the file in JBrowse, we need to create an index. An inde
 
 BAM index files should have exactly the same name as their corresponding BAM file, with the addition of a .bai suffix. We can index our BAM file using samtools. Type:
 
-```bash
-samtools index SRR3223448.bam
+    ```bashsamtools index SRR3223448.bam
 ```
 
 You should now see a file called SRR3223448.bam.bai in your working directory. We can now load the file into WormBase ParaSite JBrowse.
